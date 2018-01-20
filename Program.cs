@@ -1157,6 +1157,43 @@ namespace TEST
 
             return dt;
         }
-		#endregion
+        #endregion
+
+        #region - 取得異動欄位 -
+        /// <summary>
+        /// 取得異動欄位
+        /// </summary>
+        //public bool GetModifyField()
+        //{
+        //    try
+        //    {
+        //        ModifyField = new List<string>();
+        //        EntityOrderContactInfo.OrderContactInfoPara para = new EntityOrderContactInfo.OrderContactInfoPara
+        //        {
+        //            OrderSN = new DBInt(string.IsNullOrWhiteSpace(OrderSN) ? null : OrderSN),
+        //            OrderYear = new DBChar(string.IsNullOrWhiteSpace(OrderYear) ? null : OrderYear)
+        //        };
+        //        var oldOrderContactInfo = _entity.SelectOrderContactInfo(para);
+
+        //        var oldOrderContactFieldInfo = ((TypeInfo)(oldOrderContactInfo.GetType())).DeclaredFields.ToList();
+        //        var fieldNM = oldOrderContactFieldInfo.Select(s => s.Name);
+        //        var propertyInfoDic = GetType().GetProperties().Where(m => fieldNM.Contains(m.Name))
+        //                                       .ToDictionary(k => k.Name, v => v.GetValue(this, null)?.ToString());
+
+        //        ModifyField.AddRange(oldOrderContactFieldInfo
+        //            .Where(contactInfoField => propertyInfoDic[contactInfoField.Name]
+        //                                       != ((DBStringType)(oldOrderContactInfo.GetType().GetField(contactInfoField.Name).GetValue(oldOrderContactInfo))).GetValue())
+        //            .Select(m => m.Name));
+
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        OnException(ex);
+        //    }
+
+        //    return false;
+        //}
+        #endregion
     }
 }
