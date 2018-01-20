@@ -39,7 +39,6 @@ namespace TEST
         private static void Main(string[] args)
         {
             string a = string.Empty;
-            string ab = string.Empty;
 
             #region - 動態塞值到宣告的物件中 -
             //var result = new EntityOrderContactInfo.OrderContactInfo();
