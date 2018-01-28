@@ -29,16 +29,17 @@ using SampleCode.Security;
 
 namespace TEST
 {
-    public class jiji
-    {
-        public int? ji { get; set; }
-    }
-
     class Program
     {
         private static void Main(string[] args)
         {
-            string a = string.Empty;
+            #region - 各種日期時間 -
+            var tt = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(-10), Common.EnumDateTimeFormatted.ShortDateNumber);
+            var t = Common.GetDateString();
+            TimeSpan a = TimeSpan.Parse("16:20");
+            TimeSpan b = TimeSpan.Parse("10:30");
+            bool aa = a > b;
+            #endregion
 
             #region - 動態塞值到宣告的物件中 -
             //var result = new EntityOrderContactInfo.OrderContactInfo();
