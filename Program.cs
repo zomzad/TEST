@@ -1196,5 +1196,36 @@ namespace TEST
         //    return false;
         //}
         #endregion
+
+        #region - LIST轉DATATABLE -
+        public void ListTranDataTable()
+        {
+            #region - List轉DataTable -
+            //var props = typeof(EntityBatch.AddRemarkPara).GetProperties();
+            //var remarkDT = new DataTable();
+            //remarkDT.Columns.AddRange(props.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray());
+
+            //AddRemarkParaList.ForEach(
+            //    remark => remarkDT.LoadDataRow
+            //        (
+            //            props.Select(pi => pi.GetValue(remark, null)).ToArray(),
+            //            true
+            //        ));
+            #endregion
+
+            //方法2
+            //var props = typeof(EntityBatch.AddRemarkPara).GetProperties();
+            //var remarkDT = new DataTable();
+            //remarkDT.Columns.AddRange(props.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray());
+
+            //foreach (EntityBatch.AddRemarkPara remark in AddRemarkParaList)
+            //{
+            //    var array = props.Select(pi => pi.GetValue(remark, null)).ToArray();
+            //    remarkDT.LoadDataRow(array, true);
+            //}
+
+            //AddRemarkParaList.ForEach(remark => remarkDT.LoadDataRow(props.Select(pi => pi.GetValue(remark, null)).ToArray(),true));
+        }
+        #endregion
     }
 }
