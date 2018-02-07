@@ -34,6 +34,9 @@ namespace TEST
         private static void Main(string[] args)
         {
             #region - 各種日期時間 -
+            int s = int.Parse(DBNull.Value.ToString());
+            string dt = DateTime.Now.ToLongTimeString();
+
             var tt = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(-10), Common.EnumDateTimeFormatted.ShortDateNumber);
             var t = Common.GetDateString();
             TimeSpan a = TimeSpan.Parse("16:20");
@@ -59,6 +62,12 @@ namespace TEST
             //    (Regex.IsMatch(sig, @"[0-9]$"))
             //        ? sig.PadLeft(3, '0')
             //        : new List<string> { "2", "4" }[new List<string> { "B", "F" }.IndexOf(sig)].PadLeft(3, '0');
+            #endregion
+
+            #region - GroupBy 分組後轉dictionary字典 -
+            //var addRemarkParaDic
+            //    = AddRemarkParaList.GroupBy(o => o.WFNo)
+            //                       .ToDictionary(o => o.Key, o => o.ToList());
             #endregion
 
             #region - 檔案讀寫 -
