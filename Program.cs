@@ -34,6 +34,15 @@ namespace TEST
         private static void Main(string[] args)
         {
             #region - 各種日期時間 -
+            int[] num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+            int sum = num.Aggregate((start, next) => {
+                Console.WriteLine("start:" + start);
+                Console.WriteLine("nxt:" + next);
+                return start + next;
+            });
+
+
             int s = int.Parse(DBNull.Value.ToString());
             string dt = DateTime.Now.ToLongTimeString();
 
@@ -448,12 +457,6 @@ namespace TEST
             //string htmlFileDir = @"E:\TFS\LionTravel\LionLightSpeed\SourceCode\LightSpeed.B2C.Travel.Web\1234567\1234567.html";
             //string htmlStrA = Encoding.UTF8.GetString((new WebClient()).DownloadData(htmlFileDir));
             //string htmlStrB = File.ReadAllText(htmlFileDir, Encoding.UTF8);
-            #endregion
-
-            #region - 不固定類別Json字串轉字典 -
-            //string json = "{\"Result\":\"Y\",\"Message\":null,\"Data\":{\"WFNo\":\"20170000000150\",\"NodeNo\":\"001\",\"SysID\":\"PUBAP\",\"FlowID\":\"SignForm\",\"FlowVer\":\"001\",\"NodeID\":\"ApplySignForm\",\"NodeType\":\"P\",\"FunSysID\":\"PUBAP\",\"SubSysID\":\"PUBAP\",\"FunControllerID\":\"WorkFlow\",\"FunActionName\":\"SignFormDetail\",\"NodeUrl\":\"http://127.0.0.1:8906/WorkFlow/SignFormDetail\"}}";
-            //var apiResult = new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(json);
-            //var wfno = (apiResult["Data"] as Dictionary<string, object>)?["WFNo"].ToString();
             #endregion
 
             #region - DateTime測試 -
@@ -909,6 +912,25 @@ namespace TEST
             #endregion
 
             #endregion
+
+            #region - 不固定類別Json字串轉字典 -
+            //string json = "{\"Result\":\"Y\",\"Message\":null,\"Data\":{\"WFNo\":\"20170000000150\",\"NodeNo\":\"001\",\"SysID\":\"PUBAP\",\"FlowID\":\"SignForm\",\"FlowVer\":\"001\",\"NodeID\":\"ApplySignForm\",\"NodeType\":\"P\",\"FunSysID\":\"PUBAP\",\"SubSysID\":\"PUBAP\",\"FunControllerID\":\"WorkFlow\",\"FunActionName\":\"SignFormDetail\",\"NodeUrl\":\"http://127.0.0.1:8906/WorkFlow/SignFormDetail\"}}";
+            //var apiResult = new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(json);
+            //var wfno = (apiResult["Data"] as Dictionary<string, object>)?["WFNo"].ToString();
+            #endregion
+
+            #region - Json轉不固定類別List -
+            //LogPushMessageList = (from s in result
+            //                      let data = jsonConvert.Deserialize<Dictionary<string, string>>(s.Data.GetValue())
+            //                      where data.ContainsKey("SourceType") == false
+            //                      select new APIDataResult
+            //                      {
+            //                          MessageID = s.MessageID.GetValue(),
+            //                          Title = s.Title.GetValue(),
+            //                          Body = s.Body.GetValue(),
+            //                          UpdDT = Common.GetDateTimeString(s.UpdDT.GetValue().ToLocalTime())
+            //                      }).ToList();
+            #endregion
         }
 
         #region - 自行擴充ENUM屬性 -
@@ -1235,6 +1257,24 @@ namespace TEST
 
             //AddRemarkParaList.ForEach(remark => remarkDT.LoadDataRow(props.Select(pi => pi.GetValue(remark, null)).ToArray(),true));
         }
+        #endregion
+
+        #region - List轉DataTable 通用版本 -
+        //private DataTable ListToDatatable<T>(IEnumerable<T> dataList)
+        //{
+        //    var dt = new DataTable();
+
+        //    var props = typeof(T).GetProperties();
+        //    dt.Columns.AddRange(props.Select(p =>
+        //        new DataColumn(p.Name,
+        //            (p.PropertyType.IsGenericType && p.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+        //                ? p.PropertyType.GetGenericArguments()[0]
+        //                : p.PropertyType)).ToArray());
+
+        //    dataList.ToList().ForEach(remark => dt.LoadDataRow(props.Select(pi => pi.GetValue(remark, null)).ToArray(), true));
+
+        //    return dt;
+        //}
         #endregion
     }
 }
