@@ -33,6 +33,9 @@ namespace TEST
     {
         private static void Main(string[] args)
         {
+            string testStr = "aaaa|bbbb|ccc";
+            var result = testStr.Remove(0, testStr.IndexOf('|'));
+
             #region - 各種日期時間 -
             int[] num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
