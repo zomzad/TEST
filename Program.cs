@@ -31,8 +31,18 @@ namespace TEST
 {
     class Program
     {
+        public enum EnumUserJob
+        {
+            SGM = 10,
+            PERSINNEL = 11,
+            COMPUTER = 14
+        }
+
         private static void Main(string[] args)
         {
+            var jj = (EnumUserJob)14;
+            var ll = Enum.GetValues(typeof(EnumUserJob));
+
             #region - 各種日期時間 -
             var tt = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(-10), Common.EnumDateTimeFormatted.ShortDateNumber);
             var t = Common.GetDateString();
