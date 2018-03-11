@@ -40,30 +40,51 @@ namespace TEST
 
         private static void Main(string[] args)
         {
-            var jj = (EnumUserJob)14;
-            var ll = Enum.GetValues(typeof(EnumUserJob));
-
+            //字串移除指定位置某段文字
             string testStr = "aaaa|bbbb|ccc";
             var result = testStr.Remove(0, testStr.IndexOf('|'));
 
             #region - 各種日期時間 -
-            int[] num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            var formateDateTime = Common.FormatDateString("20171109"); // 格式 : 2017/11/09
+            DateTime dateTime = Convert.ToDateTime(formateDateTime); //{2017/11/9 上午 12:00:00}
+            DateTime y = Common.GetFormatDate("20171109");//{2017/11/9 上午 12:00:00}
+            DateTime dt = Common.GetFormatDate("20180311").Add(TimeSpan.Parse("15:30")); //{2018/3/11 下午 03:30:00}
+            string h = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(1 - DateTime.Now.Day), Common.EnumDateTimeFormatted.ShortDateNumber);//20180301
+            string d = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(1).AddDays(-1), Common.EnumDateTimeFormatted.ShortDateNumber);//20180331
+            string dtStr1 = DateTime.Now.ToLongTimeString(); //下午 09:44:04
+            string dtStr2 = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(-10), Common.EnumDateTimeFormatted.ShortDateNumber); //20180301
+            string dtStr3 = Common.GetDateString(); //20180311
+            string dtStr4 = "20180305".Substring(4, "20180305".Length - 4);//0305
 
-            int sum = num.Aggregate((start, next) => {
-                Console.WriteLine("start:" + start);
-                Console.WriteLine("nxt:" + next);
-                return start + next;
-            });
+            #region - mm:dd時間比大小 -
+            //TimeSpan timeA = TimeSpan.Parse("16:20");
+            //TimeSpan timeB = TimeSpan.Parse("10:30");
+            //bool timeResult = timeA > timeB;
+            #endregion
 
+            #endregion
 
-            int s = int.Parse(DBNull.Value.ToString());
-            string dt = DateTime.Now.ToLongTimeString();
+            #region - 字串 or 數字 轉boolean -
+            bool boolResultA = Convert.ToBoolean(1); //true 0以外所有數字都是true
+            bool boolResultB = Convert.ToBoolean(bool.TrueString); //true
+            bool boolResultC = Convert.ToBoolean(bool.FalseString); //false
+            //bool a = Convert.ToBoolean("1"); //會error
+            #endregion
 
-            var tt = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(-10), Common.EnumDateTimeFormatted.ShortDateNumber);
-            var t = Common.GetDateString();
-            TimeSpan a = TimeSpan.Parse("16:20");
-            TimeSpan b = TimeSpan.Parse("10:30");
-            bool aa = a > b;
+            #region - Aggregate用法 -
+            //int[] num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+            //每次可暫存結果(return),和下次迴圈做運算
+            //int sum = num.Aggregate((start, next) => {
+            //    Console.WriteLine("start:" + start);
+            //    Console.WriteLine("nxt:" + next);
+            //    return start + next;
+            //});
+            #endregion
+
+            #region - 列舉操作 -
+            //var enumItem = (EnumUserJob)14; //數字代碼取得enum成員
+            //var itemList = Enum.GetValues(typeof(EnumUserJob)); //取得enum所有項目
             #endregion
 
             #region - 動態塞值到宣告的物件中 -
@@ -470,15 +491,6 @@ namespace TEST
             //string htmlFileDir = @"E:\TFS\LionTravel\LionLightSpeed\SourceCode\LightSpeed.B2C.Travel.Web\1234567\1234567.html";
             //string htmlStrA = Encoding.UTF8.GetString((new WebClient()).DownloadData(htmlFileDir));
             //string htmlStrB = File.ReadAllText(htmlFileDir, Encoding.UTF8);
-            #endregion
-
-            #region - DateTime測試 -
-            //DateTime time = new DateTime();
-            //var formateDateTime = Common.FormatDateString("20171109"); // 格式 : 2017/11/09
-            //var dateTime = Convert.ToDateTime(formateDateTime);
-            //var h = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(1 - DateTime.Now.Day), Common.EnumDateTimeFormatted.ShortDateNumber);
-            //var d = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(1).AddDays(-1), Common.EnumDateTimeFormatted.ShortDateNumber);
-            //var y = Common.GetFormatDate("20171109");
             #endregion
 
             #region - [action]允許跨網域 -
