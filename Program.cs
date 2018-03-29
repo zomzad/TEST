@@ -40,21 +40,32 @@ namespace TEST
 
         private static void Main(string[] args)
         {
+            var tt = new DateTime?();
+            var testStr = "預設008056".Substring(0,2);
+            string A = "1";
+            string B = "3";
+
+            bool aaaaa = string.CompareOrdinal(A, B) >= 0;
+
+            var hg = Enum.GetValues(typeof(EnumUserJob));
+            var aaList = new List<string> { "228", "235", "218", "219", "220", "227", "229", "230", "232", "171", "233", "234", "237" };
+
             //字串移除指定位置某段文字
-            string testStr = "aaaa|bbbb|ccc";
-            var result = testStr.Remove(0, testStr.IndexOf('|'));
+            //string testStr = "aaaa|bbbb|ccc";
+            //var result = testStr.Remove(0, testStr.IndexOf('|'));
 
             #region - 各種日期時間 -
-            var formateDateTime = Common.FormatDateString("20171109"); // 格式 : 2017/11/09
-            DateTime dateTime = Convert.ToDateTime(formateDateTime); //{2017/11/9 上午 12:00:00}
-            DateTime y = Common.GetFormatDate("20171109");//{2017/11/9 上午 12:00:00}
-            DateTime dt = Common.GetFormatDate("20180311").Add(TimeSpan.Parse("15:30")); //{2018/3/11 下午 03:30:00}
-            string h = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(1 - DateTime.Now.Day), Common.EnumDateTimeFormatted.ShortDateNumber);//20180301
-            string d = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(1).AddDays(-1), Common.EnumDateTimeFormatted.ShortDateNumber);//20180331
-            string dtStr1 = DateTime.Now.ToLongTimeString(); //下午 09:44:04
-            string dtStr2 = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(-10), Common.EnumDateTimeFormatted.ShortDateNumber); //20180301
-            string dtStr3 = Common.GetDateString(); //20180311
-            string dtStr4 = "20180305".Substring(4, "20180305".Length - 4);//0305
+            //var abc = Common.GetDateTimeFormattedText(DateTime.Now, Common.EnumDateTimeFormatted.ShortDateNumber);
+            //var formateDateTime = Common.FormatDateString("20171109"); // 格式 : 2017/11/09
+            //DateTime dateTime = Convert.ToDateTime(formateDateTime); //{2017/11/9 上午 12:00:00}
+            //DateTime y = Common.GetFormatDate("20171109");//{2017/11/9 上午 12:00:00}
+            //DateTime dt = Common.GetFormatDate("20180311").Add(TimeSpan.Parse("15:30")); //{2018/3/11 下午 03:30:00}
+            //string h = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(1 - DateTime.Now.Day), Common.EnumDateTimeFormatted.ShortDateNumber);//20180301
+            //string d = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(1 - DateTime.Now.Day).AddMonths(1).AddDays(-1), Common.EnumDateTimeFormatted.ShortDateNumber);//20180331
+            //string dtStr1 = DateTime.Now.ToLongTimeString(); //下午 09:44:04
+            //string dtStr2 = Common.GetDateTimeFormattedText(DateTime.Now.AddDays(-10), Common.EnumDateTimeFormatted.ShortDateNumber); //20180301
+            //string dtStr3 = Common.GetDateString(); //20180311
+            //string dtStr4 = "20180305".Substring(4, "20180305".Length - 4);//0305
 
             #region - mm:dd時間比大小 -
             //TimeSpan timeA = TimeSpan.Parse("16:20");
@@ -64,11 +75,20 @@ namespace TEST
 
             #endregion
 
+            #region - 底層JS驗證加入訊息 -
+            //if ($("#" + _JsErrMessageBox).find("label[" + _display + " ='']").length > 0) {
+            //    $('div#JsOtherErrMessageBoxLabel label:eq(0)', "#" + _JsErrMessageBox)
+            //        .prepend($(document.createElement("label"))
+            //        .attr('jsothererrmessageboxlabel', 'JsOtherErrMessageBoxLabel')
+            //        .html(JsMsg_CheckRuleSetNO + (idx + 1) + JsMsg_CheckRuleItem));
+            //}
+            #endregion
+
             #region - 字串 or 數字 轉boolean -
             bool boolResultA = Convert.ToBoolean(1); //true 0以外所有數字都是true
             bool boolResultB = Convert.ToBoolean(bool.TrueString); //true
             bool boolResultC = Convert.ToBoolean(bool.FalseString); //false
-            //bool a = Convert.ToBoolean("1"); //會error
+                                                                    //bool a = Convert.ToBoolean("1"); //會error
             #endregion
 
             #region - Aggregate用法 -
@@ -85,6 +105,23 @@ namespace TEST
             #region - 列舉操作 -
             //var enumItem = (EnumUserJob)14; //數字代碼取得enum成員
             //var itemList = Enum.GetValues(typeof(EnumUserJob)); //取得enum所有項目
+
+            //string item = "11";
+            //var itemToEnum = (EnumUserJob)Enum.Parse(typeof(EnumUserJob), item);
+            //bool result = Enum.IsDefined(typeof(EnumUserJob), itemToEnum);
+
+            //switch ((EnumUserJob)Enum.Parse(typeof(EnumUserJob), item))
+            //{
+            //    case EnumUserJob.SGM:
+            //        break;
+            //    case EnumUserJob.PERSINNEL:
+            //        break;
+            //    case EnumUserJob.COMPUTER:
+            //        break;
+            //    default:
+            //        item = item + 'A';
+            //        break;
+            //}
             #endregion
 
             #region - 動態塞值到宣告的物件中 -
@@ -399,7 +436,6 @@ namespace TEST
             //mySqlCmd.Cancel();
             //dataConnection.Close();
             //dataConnection.Dispose();
-
             #endregion
 
             #region - 發送Email測試 -
@@ -762,7 +798,6 @@ namespace TEST
             //messagesms.ProjectName = "說明";//專案名稱註記
             //var actual = clientsms.Send(messagesms);
 
-
             ////國碼改香港852，手機號碼打9碼
             //SMSClient clientsms = SMSClient.Create(url);
             //clientsms.ClientSysID = "ERPAP";//簡訊發送平台
@@ -774,7 +809,6 @@ namespace TEST
             //messagesms.Message = "請領取包裹";//簡訊內容
             //messagesms.ProjectName = "說明";//專案名稱註記
             //var actual = clientsms.Send(messagesms);
-
 
             //預約時間發送
             //SMSClient clientsms = SMSClient.Create(url);
@@ -789,7 +823,6 @@ namespace TEST
             //messagesms.BookingDateTime = DateTime.Now.AddDays(1);
             //var actual = clientsms.Send(messagesms);
 
-
             //預約時間小於30分鐘,秀錯誤訊息
             //SMSClient clientsms = SMSClient.Create(url);
             //clientsms.ClientSysID = "ERPAP";//簡訊發送平台
@@ -803,7 +836,6 @@ namespace TEST
             //messagesms.BookingDateTime = DateTime.Now.AddMinutes(15);
             //var actual = clientsms.Send(messagesms);
 
-
             ////發送對象員編隨便打
             //SMSClient clientsms = SMSClient.Create(url);
             //clientsms.ClientSysID = "ERPAP";//簡訊發送平台
@@ -816,7 +848,6 @@ namespace TEST
             //messagesms.ProjectName = "說明";//專案名稱註記
             //messagesms.BookingDateTime = DateTime.Now.AddMinutes(45);
             //var actual = clientsms.Send(messagesms);
-
 
             //輸入訂單年分編號
             //SMSClient clientsms = SMSClient.Create(url);
@@ -832,7 +863,6 @@ namespace TEST
             //messagesms.ProjectName = "說明";//專案名稱註記
             //messagesms.BookingDateTime = DateTime.Now.AddMinutes(45);
             //var actual = clientsms.Send(messagesms);
-
 
             //傳State和StateDesc
             //SMSClient clientsms = SMSClient.Create(url);
@@ -965,7 +995,7 @@ namespace TEST
         /// 可像這樣掛在列舉成員上
         /// [ReportDescription("全部發送清單")]
         ///  All = 310,
-        class ReportDescriptionAttribute : Attribute
+        private class ReportDescriptionAttribute : Attribute
         {
             public string Description { get; set; }
 
@@ -1007,7 +1037,7 @@ namespace TEST
         /// </summary>
         /// <param name="m"></param>
         /// <returns></returns>
-        static string ChangeText(Match m)
+        private static string ChangeText(Match m)
         {
             string x = m.ToString();
             return string.IsNullOrWhiteSpace(x) ? x : (x[0] == 'Z' ? "ZZ" + x : "00" + x);
@@ -1020,11 +1050,16 @@ namespace TEST
         /// </summary>
         public enum EnumSystemID
         {
-            [Category("Developing"), Description("127.0.0.1")]
+            [Category("Developing")]
+            [Description("127.0.0.1")]
             Domain,
-            [Category("ERPAP"), Description("http://127.0.0.1:8888")]
+
+            [Category("ERPAP")]
+            [Description("http://127.0.0.1:8888")]
             ERPAP,
-            [Category("PUBAP"), Description("http://127.0.0.1:9999")]
+
+            [Category("PUBAP")]
+            [Description("http://127.0.0.1:9999")]
             PUBAP
         }
         #endregion
@@ -1054,20 +1089,26 @@ namespace TEST
         public static T GetValueFromDescription<T>(string description)
         {
             var type = typeof(T);
-            if (!type.IsEnum) throw new InvalidOperationException();
+            if (!type.IsEnum)
+            {
+                throw new InvalidOperationException();
+            }
             foreach (var field in type.GetFields())
             {
-                var attribute = Attribute.GetCustomAttribute(field,
-                    typeof(DescriptionAttribute)) as DescriptionAttribute;
+                var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
                 if (attribute != null)
                 {
                     if (attribute.Description == description)
+                    {
                         return (T)field.GetValue(null);
+                    }
                 }
                 else
                 {
                     if (field.Name == description)
+                    {
                         return (T)field.GetValue(null);
+                    }
                 }
             }
             throw new ArgumentException(@"無相對應的列舉值", nameof(description));
@@ -1093,15 +1134,13 @@ namespace TEST
                 {
                     FilePath = Directory.GetCurrentDirectory();
                 }
-                string filename = FilePath +
-                                  string.Format("\\{0:yyyy}\\{0:MM}\\{0:yyyy-MM-dd}.txt", DateTime.Now);
+                string filename = FilePath + string.Format("\\{0:yyyy}\\{0:MM}\\{0:yyyy-MM-dd}.txt", DateTime.Now);
                 FileInfo finfo = new FileInfo(filename);
                 if (finfo.Directory.Exists == false)
                 {
                     finfo.Directory.Create();
                 }
-                string writeString = string.Format("{0:yyyy/MM/dd HH:mm:ss} {1}",
-                    DateTime.Now, message) + Environment.NewLine;
+                string writeString = string.Format("{0:yyyy/MM/dd HH:mm:ss} {1}", DateTime.Now, message) + Environment.NewLine;
                 File.AppendAllText(filename, writeString, Encoding.Unicode);
             }
         }
@@ -1144,8 +1183,7 @@ namespace TEST
                     data = JsonConvert.DeserializeObject<List<BusStation>>(apiResult);
                     var ooo = data.Where(b => b.Direction == "0").ToList();
 
-                    busMinResult = ooo.Select((val, idx) => new { Index = idx, Value = val })
-                                .Aggregate(busMinResult, (current, row) => current + string.Join(Environment.NewLine, $"第{row.Index + 1}班公車{busInfo[1]}到內湖行政大樓還有{row.Value.EstimateTime / 60}分鐘"));
+                    busMinResult = ooo.Select((val, idx) => new { Index = idx, Value = val }).Aggregate(busMinResult, (current, row) => current + string.Join(Environment.NewLine, $"第{row.Index + 1}班公車{busInfo[1]}到內湖行政大樓還有{row.Value.EstimateTime / 60}分鐘"));
                 }
 
                 return busMinResult;
@@ -1203,7 +1241,7 @@ namespace TEST
         #endregion
 
         #region - CLASS轉DATATABLE -
-        private static DataTable CreateEmptyDataTable(Type myType,string tableNM)
+        private static DataTable CreateEmptyDataTable(Type myType, string tableNM)
         {
             DataTable dt = new DataTable(tableNM);
 
