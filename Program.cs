@@ -40,15 +40,16 @@ namespace TEST
 
         private static void Main(string[] args)
         {
+            #region - 臨時測試 -
             var tt = new DateTime?();
-            var testStr = "預設008056".Substring(0,2);
+            var testStr = "預設008056".Substring(0, 2);
             string A = "1";
             string B = "3";
 
             bool aaaaa = string.CompareOrdinal(A, B) >= 0;
 
-            var hg = Enum.GetValues(typeof(EnumUserJob));
             var aaList = new List<string> { "228", "235", "218", "219", "220", "227", "229", "230", "232", "171", "233", "234", "237" };
+            #endregion
 
             //字串移除指定位置某段文字
             //string testStr = "aaaa|bbbb|ccc";
