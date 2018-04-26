@@ -29,7 +29,7 @@ using SampleCode.Security;
 
 namespace TEST
 {
-    class Program
+    internal class Program
     {
         public enum EnumUserJob
         {
@@ -38,17 +38,89 @@ namespace TEST
             COMPUTER = 14
         }
 
+        public class UserInfo
+        {
+            public string UserID { get; set; }
+            public string UserNM { get; set; }
+        }
+
         private static void Main(string[] args)
         {
-            #region - 臨時測試 -
-            var tt = new DateTime?();
-            var testStr = "預設008056".Substring(0, 2);
-            string A = "1";
-            string B = "3";
 
-            bool aaaaa = string.CompareOrdinal(A, B) >= 0;
 
-            var aaList = new List<string> { "228", "235", "218", "219", "220", "227", "229", "230", "232", "171", "233", "234", "237" };
+
+            #region - 匿名型別取值 -
+            List<UserInfo> userInfoList = new List<UserInfo>
+            {
+                new UserInfo
+                {
+                    UserID = "00D223",
+                    UserNM = "LIAU"
+                },
+                new UserInfo
+                {
+                    UserID = "00D123",
+                    UserNM = "REX"
+                }
+            };
+
+            var setting = new
+            {
+                people = 1,
+                date = DateTime.Now
+            };
+
+            var pp = setting.GetType().GetProperty("people");
+            var val = (int)pp.GetValue(setting, null);
+
+            var anonymousList = userInfoList.Select(n => new
+            {
+                n.UserID,
+                n.UserNM
+            });
+
+
+            var aList = (from s in anonymousList
+                         let property = TypeDescriptor.GetProperties(s)
+                         let value = property.Find("UserID", true).GetValue(s)
+                         where value != null
+                         select value.ToString()).ToList();
+
+
+
+            foreach (var one in anonymousList)
+            {
+                PropertyDescriptorCollection property = TypeDescriptor.GetProperties(one);
+                PropertyDescriptor pdID = property.Find("UserID", true);
+                string lhcodeid = pdID.GetValue(one).ToString();
+                PropertyDescriptor pdName = property.Find("UserNM", true);
+                string paramname = pdName.GetValue(one).ToString();
+            }
+
+            var prop = anonymousList.GetType().GetProperty("UserID");
+            var kkk = anonymousList.GetType().GetProperties();
+            #endregion
+
+            //分頁
+            //string input = "123ABCDE456FGHIJKL789MNOPQ012";
+            //var arrSize = Convert.ToInt32(Math.Ceiling(input.Length / (double)5));
+
+            //for (int i = 0; i < input.Length; i = i + 5)
+            //{
+            //    var result = input.Substring(i, 5);
+            //}
+
+
+            #region - 正規表達式 -
+            //bool ji = Regex.IsMatch("F", @"^[1-5]{1}$");
+            //string input = "002013起只13筆, 已1年沒有資料, 故而作廢 預設008048";
+            ////"blue 8120 FG52王淑芬,A911 楊琇茲ZA28 0123 red"
+            //Regex rx = new Regex(@"[A-Za-z0-9]{4}");
+            //string result = rx.Replace(input, ChangeText);
+
+            //string pattern = @"(\d{4})";
+            //Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            //MatchCollection matches = regex.Matches(input);
             #endregion
 
             //字串移除指定位置某段文字
@@ -89,7 +161,7 @@ namespace TEST
             bool boolResultA = Convert.ToBoolean(1); //true 0以外所有數字都是true
             bool boolResultB = Convert.ToBoolean(bool.TrueString); //true
             bool boolResultC = Convert.ToBoolean(bool.FalseString); //false
-                                                                    //bool a = Convert.ToBoolean("1"); //會error
+            //bool a = Convert.ToBoolean("1"); //會error
             #endregion
 
             #region - Aggregate用法 -
@@ -462,17 +534,6 @@ namespace TEST
             //    FilePaths = new List<string> { $"{"~/_Shared/LightSpeed/SubSiteBundles/Common/StaticViews/PDF/"}aa.pdf" }//附件檔案
             //};
             //new SendMail().Mail_Send(mailInfo);
-            #endregion
-
-            #region - 正規表達示替換字串 & 取符合字串集合 -
-            //string input = "002013起只13筆, 已1年沒有資料, 故而作廢 預設008048";
-            ////"blue 8120 FG52王淑芬,A911 楊琇茲ZA28 0123 red"
-            //Regex rx = new Regex(@"[A-Za-z0-9]{4}");
-            //string result = rx.Replace(input, ChangeText);
-
-            //string pattern = @"(\d{4})";
-            //Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
-            //MatchCollection matches = regex.Matches(input);
             #endregion
 
             #region - 呼叫API GET (網頁的話可抓取網頁原始碼) -
