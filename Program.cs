@@ -44,10 +44,60 @@ namespace TEST
             public string UserNM { get; set; }
         }
 
+        private static string name = string.Empty;
+        public static string testStr {
+            get
+            {
+                if (name == "姓名:方道筌")
+                {
+                    return name;
+                }
+
+                return "AAA";
+            }
+            set
+            {
+                name = $"姓名:{value}";
+            }
+        }
+        public static List<string> CountryList { get; set; }
+
         private static void Main(string[] args)
         {
+            var jjj = "資訊陳姿穎".Replace("資訊", string.Empty);
+            var hh = testStr;
+            testStr = "方道筌";
+            var hh2 = testStr;
+            var jij455i = CountryList ?? new List<string>();
+            var ffr = Convert.ToString((CountryList ?? new List<string> { "0" }).Select(n => int.Parse(n)).Aggregate((start, next) => start + next), 2).PadLeft(5, '0');
 
+            var uhuhfiroejiofre = Convert.ToInt32(true);
+            var uhuhfiroerw4r3wejiofre = Convert.ToInt32(false);
+            var ttt = BitConverter.GetBytes(true);
+            var fff = BitConverter.GetBytes(false);
+            string aaStr = "aa";
+            string eee = (-(11 - aaStr.Length)).ToString();
+            string endResult = string.Format("{0}{1," + (-(11 - aaStr.Length)) + "}{2}", aaStr, string.Empty, "bbb");
+            string emptyStr = "{0}{1," + eee + "}{2}";
+            string str = string.Format(emptyStr, aaStr, string.Empty, "bbb");
 
+            var hu = HttpUtility.UrlEncode("http://upub.liontravel.com.tw/Pub/SignForm");
+            string jj = "123456";
+            var huhuhgut = jj.Where(c => c == '6').ToList();
+
+            bool a = false;
+            var aaa = a.ToString();
+
+            #region - 各種換行 -
+            //Model
+            //errMsgList.AddRange(ModifyProgramInfoList
+            //    .Where(n => string.IsNullOrWhiteSpace(n.Lmm00Aspid) == false &&
+            //                string.IsNullOrWhiteSpace(n.Lmm00Add) &&
+            //                (string.IsNullOrWhiteSpace(n.Lmm00Title) || string.IsNullOrWhiteSpace(n.Lmm00Desc)))
+            //    .Select(n => string.Format(PubSysRequiredFormModifyProgram.SystemMsg_TheItem, int.Parse(n.Order) + 1, $"{PubSysRequiredFormModifyProgram.SystemMsg_Hint_Required}<br/>{PubSysRequiredFormModifyProgram.SystemMsg_Desc_Required}")));
+
+            //return string.Join("<br/>", errMsgList);
+            #endregion
 
             #region - 匿名型別取值 -
             List<UserInfo> userInfoList = new List<UserInfo>
@@ -64,44 +114,79 @@ namespace TEST
                 }
             };
 
+            //取得class成員
+            Type myTypeA = typeof(UserInfo);
+
+            //取得class內欄位 成員是{get set} 才抓的到
+            //不是屬性的話 用DeclaredFields 檔案下方有寫
+            var userInfoProperty = myTypeA.GetProperties(); 
+
+            //正常class取值
+            foreach (var item in userInfoList)
+            {
+                Type type = item.GetType();
+                PropertyInfo[] propertyInfos = type.GetProperties();
+                foreach (var p in propertyInfos)
+                {
+                    var val = p.GetValue(item, null);
+                }
+            }
+
+            //匿名List
+            var anonymousListA = userInfoList.Select(n => new
+            {
+                n.UserID,
+                n.UserNM
+            });
+
+            List<object> anonymousListB = new List<object>
+            {
+                new
+                {
+                    people = "ABC",
+                    NM = "A"
+                },
+                new
+                {
+                    people = "DDD",
+                    NM = "X"
+                }
+            };
+
+            //匿名List取值
+            var aList = (from s in anonymousListA
+                         let property = TypeDescriptor.GetProperties(s)
+                         let value = property.Find("UserID", true).GetValue(s)
+                         where value != null
+                         select value.ToString()).ToList();
+
+            //匿名List取值
+            foreach (var one in anonymousListA)
+            {
+                PropertyDescriptorCollection property = TypeDescriptor.GetProperties(one);
+                PropertyDescriptor pdID = property.Find("UserID", true);
+                PropertyDescriptor pdNM = property.Find("UserNM", true);
+                string userIDVal = pdID.GetValue(one).ToString();
+                string userNMVal = pdNM.GetValue(one).ToString();
+            }
+
+            List<string> resutList = GetValue(anonymousListB);//匿名List取值
+
+            //class取值
             var setting = new
             {
                 people = 1,
                 date = DateTime.Now
             };
 
-            var pp = setting.GetType().GetProperty("people");
-            var val = (int)pp.GetValue(setting, null);
-
-            var anonymousList = userInfoList.Select(n => new
+            var propertyInfo = setting.GetType().GetProperty("people");
+            if (propertyInfo != null)
             {
-                n.UserID,
-                n.UserNM
-            });
-
-
-            var aList = (from s in anonymousList
-                         let property = TypeDescriptor.GetProperties(s)
-                         let value = property.Find("UserID", true).GetValue(s)
-                         where value != null
-                         select value.ToString()).ToList();
-
-
-
-            foreach (var one in anonymousList)
-            {
-                PropertyDescriptorCollection property = TypeDescriptor.GetProperties(one);
-                PropertyDescriptor pdID = property.Find("UserID", true);
-                string lhcodeid = pdID.GetValue(one).ToString();
-                PropertyDescriptor pdName = property.Find("UserNM", true);
-                string paramname = pdName.GetValue(one).ToString();
+                var peopleVal = (int)(propertyInfo.GetValue(setting, null));
             }
-
-            var prop = anonymousList.GetType().GetProperty("UserID");
-            var kkk = anonymousList.GetType().GetProperties();
             #endregion
 
-            //分頁
+            #region - 分頁 -
             //string input = "123ABCDE456FGHIJKL789MNOPQ012";
             //var arrSize = Convert.ToInt32(Math.Ceiling(input.Length / (double)5));
 
@@ -109,7 +194,7 @@ namespace TEST
             //{
             //    var result = input.Substring(i, 5);
             //}
-
+            #endregion
 
             #region - 正規表達式 -
             //bool ji = Regex.IsMatch("F", @"^[1-5]{1}$");
@@ -165,14 +250,15 @@ namespace TEST
             #endregion
 
             #region - Aggregate用法 -
-            //int[] num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            int[] num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
             //每次可暫存結果(return),和下次迴圈做運算
-            //int sum = num.Aggregate((start, next) => {
-            //    Console.WriteLine("start:" + start);
-            //    Console.WriteLine("nxt:" + next);
-            //    return start + next;
-            //});
+            int sum = num.Aggregate((start, next) =>
+            {
+                Console.WriteLine("start:" + start);
+                Console.WriteLine("nxt:" + next);
+                return start + next;
+            });
             #endregion
 
             #region - 列舉操作 -
@@ -1401,5 +1487,14 @@ namespace TEST
         //    return dt;
         //}
         #endregion
+
+        public static List<string> GetValue(List<object> oList)
+        {
+            return (from s in oList
+                    let property = TypeDescriptor.GetProperties(s)
+                    let value = property.Find("people", true).GetValue(s)
+                    where value != null
+                    select value.ToString()).ToList();
+        }
     }
 }
