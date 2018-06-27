@@ -64,29 +64,29 @@ namespace TEST
 
         private static void Main(string[] args)
         {
-            var jjj = "資訊陳姿穎".Replace("資訊", string.Empty);
-            var hh = testStr;
-            testStr = "方道筌";
-            var hh2 = testStr;
-            var jij455i = CountryList ?? new List<string>();
-            var ffr = Convert.ToString((CountryList ?? new List<string> { "0" }).Select(n => int.Parse(n)).Aggregate((start, next) => start + next), 2).PadLeft(5, '0');
+            //var jjj = "資訊陳姿穎".Replace("資訊", string.Empty);
+            //var hh = testStr;
+            //testStr = "方道筌";
+            //var hh2 = testStr;
+            //var jij455i = CountryList ?? new List<string>();
+            //var ffr = Convert.ToString((CountryList ?? new List<string> { "0" }).Select(n => int.Parse(n)).Aggregate((start, next) => start + next), 2).PadLeft(5, '0');
 
-            var uhuhfiroejiofre = Convert.ToInt32(true);
-            var uhuhfiroerw4r3wejiofre = Convert.ToInt32(false);
-            var ttt = BitConverter.GetBytes(true);
-            var fff = BitConverter.GetBytes(false);
-            string aaStr = "aa";
-            string eee = (-(11 - aaStr.Length)).ToString();
-            string endResult = string.Format("{0}{1," + (-(11 - aaStr.Length)) + "}{2}", aaStr, string.Empty, "bbb");
-            string emptyStr = "{0}{1," + eee + "}{2}";
-            string str = string.Format(emptyStr, aaStr, string.Empty, "bbb");
+            //var uhuhfiroejiofre = Convert.ToInt32(true);
+            //var uhuhfiroerw4r3wejiofre = Convert.ToInt32(false);
+            //var ttt = BitConverter.GetBytes(true);
+            //var fff = BitConverter.GetBytes(false);
+            //string aaStr = "aa";
+            //string eee = (-(11 - aaStr.Length)).ToString();
+            //string endResult = string.Format("{0}{1," + (-(11 - aaStr.Length)) + "}{2}", aaStr, string.Empty, "bbb");
+            //string emptyStr = "{0}{1," + eee + "}{2}";
+            //string str = string.Format(emptyStr, aaStr, string.Empty, "bbb");
 
-            var hu = HttpUtility.UrlEncode("http://upub.liontravel.com.tw/Pub/SignForm");
-            string jj = "123456";
-            var huhuhgut = jj.Where(c => c == '6').ToList();
+            //var hu = HttpUtility.UrlEncode("http://upub.liontravel.com.tw/Pub/SignForm");
+            //string jj = "123456";
+            //var huhuhgut = jj.Where(c => c == '6').ToList();
 
-            bool a = false;
-            var aaa = a.ToString();
+            //bool a = false;
+            //var aaa = a.ToString();
 
             #region - 各種換行 -
             //Model
@@ -100,90 +100,90 @@ namespace TEST
             #endregion
 
             #region - 匿名型別取值 -
-            List<UserInfo> userInfoList = new List<UserInfo>
-            {
-                new UserInfo
-                {
-                    UserID = "00D223",
-                    UserNM = "LIAU"
-                },
-                new UserInfo
-                {
-                    UserID = "00D123",
-                    UserNM = "REX"
-                }
-            };
+            //List<UserInfo> userInfoList = new List<UserInfo>
+            //{
+            //    new UserInfo
+            //    {
+            //        UserID = "00D223",
+            //        UserNM = "LIAU"
+            //    },
+            //    new UserInfo
+            //    {
+            //        UserID = "00D123",
+            //        UserNM = "REX"
+            //    }
+            //};
 
-            //取得class成員
-            Type myTypeA = typeof(UserInfo);
+            ////取得class成員
+            //Type myTypeA = typeof(UserInfo);
 
-            //取得class內欄位 成員是{get set} 才抓的到
-            //不是屬性的話 用DeclaredFields 檔案下方有寫
-            var userInfoProperty = myTypeA.GetProperties(); 
+            ////取得class內欄位 成員是{get set} 才抓的到
+            ////不是屬性的話 用DeclaredFields 檔案下方有寫
+            //var userInfoProperty = myTypeA.GetProperties(); 
 
-            //正常class取值
-            foreach (var item in userInfoList)
-            {
-                Type type = item.GetType();
-                PropertyInfo[] propertyInfos = type.GetProperties();
-                foreach (var p in propertyInfos)
-                {
-                    var val = p.GetValue(item, null);
-                }
-            }
+            ////正常class取值
+            //foreach (var item in userInfoList)
+            //{
+            //    Type type = item.GetType();
+            //    PropertyInfo[] propertyInfos = type.GetProperties();
+            //    foreach (var p in propertyInfos)
+            //    {
+            //        var val = p.GetValue(item, null);
+            //    }
+            //}
 
-            //匿名List
-            var anonymousListA = userInfoList.Select(n => new
-            {
-                n.UserID,
-                n.UserNM
-            });
+            ////匿名List
+            //var anonymousListA = userInfoList.Select(n => new
+            //{
+            //    n.UserID,
+            //    n.UserNM
+            //});
 
-            List<object> anonymousListB = new List<object>
-            {
-                new
-                {
-                    people = "ABC",
-                    NM = "A"
-                },
-                new
-                {
-                    people = "DDD",
-                    NM = "X"
-                }
-            };
+            //List<object> anonymousListB = new List<object>
+            //{
+            //    new
+            //    {
+            //        people = "ABC",
+            //        NM = "A"
+            //    },
+            //    new
+            //    {
+            //        people = "DDD",
+            //        NM = "X"
+            //    }
+            //};
 
-            //匿名List取值
-            var aList = (from s in anonymousListA
-                         let property = TypeDescriptor.GetProperties(s)
-                         let value = property.Find("UserID", true).GetValue(s)
-                         where value != null
-                         select value.ToString()).ToList();
+            ////匿名List取值
+            //var aList = (from s in anonymousListA
+            //             let property = TypeDescriptor.GetProperties(s)
+            //             let value = property.Find("UserID", true).GetValue(s)
+            //             where value != null
+            //             select value.ToString()).ToList();
 
-            //匿名List取值
-            foreach (var one in anonymousListA)
-            {
-                PropertyDescriptorCollection property = TypeDescriptor.GetProperties(one);
-                PropertyDescriptor pdID = property.Find("UserID", true);
-                PropertyDescriptor pdNM = property.Find("UserNM", true);
-                string userIDVal = pdID.GetValue(one).ToString();
-                string userNMVal = pdNM.GetValue(one).ToString();
-            }
+            ////匿名List取值
+            //foreach (var one in anonymousListA)
+            //{
+            //    PropertyDescriptorCollection property = TypeDescriptor.GetProperties(one);
+            //    PropertyDescriptor pdID = property.Find("UserID", true);
+            //    PropertyDescriptor pdNM = property.Find("UserNM", true);
+            //    string userIDVal = pdID.GetValue(one).ToString();
+            //    string userNMVal = pdNM.GetValue(one).ToString();
+            //}
 
-            List<string> resutList = GetValue(anonymousListB);//匿名List取值
+            //List<string> resutList = GetValue(anonymousListB);//匿名List取值
 
-            //class取值
-            var setting = new
-            {
-                people = 1,
-                date = DateTime.Now
-            };
+            ////class取值
+            //var setting = new
+            //{
+            //    people = 1,
+            //    date = DateTime.Now
+            //};
 
-            var propertyInfo = setting.GetType().GetProperty("people");
-            if (propertyInfo != null)
-            {
-                var peopleVal = (int)(propertyInfo.GetValue(setting, null));
-            }
+            //var propertyInfo = setting.GetType().GetProperty("people");
+            //if (propertyInfo != null)
+            //{
+            //    var peopleVal = (int)(propertyInfo.GetValue(setting, null));
+            //}
             #endregion
 
             #region - 分頁 -
@@ -197,15 +197,33 @@ namespace TEST
             #endregion
 
             #region - 正規表達式 -
-            //bool ji = Regex.IsMatch("F", @"^[1-5]{1}$");
-            //string input = "002013起只13筆, 已1年沒有資料, 故而作廢 預設008048";
-            ////"blue 8120 FG52王淑芬,A911 楊琇茲ZA28 0123 red"
-            //Regex rx = new Regex(@"[A-Za-z0-9]{4}");
-            //string result = rx.Replace(input, ChangeText);
+            //正規表達式直接寫(24小時制時間)
+            bool matchResult = Regex.IsMatch("1935", @"^(([0-1][0-9])|([2][0-3]))([0-5][0-9])$"); //回傳boolean
+            var matchResult2 = Regex.Match("起床時間0630，晚上2200入睡", @"(([0-1][0-9])|([2][0-3]))([0-5][0-9])"); //回傳第一個符合的項目
+            var matchResult3 = Regex.Matches("起床時間0630，晚上2225入睡", @"(([0-1][0-9])|([2][0-3]))([0-5][0-9])"); //回傳所有符合的項目
+            var item = matchResult2.ToString(); //item = 0630
+            List<string> matchList = matchResult3.Cast<Match>()
+                .Select(m => m.Value).ToList(); //matchList = {"0630","2225":}
 
-            //string pattern = @"(\d{4})";
-            //Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
-            //MatchCollection matches = regex.Matches(input);
+            //正規表達式也可宣告在變數中(24小時制時間)
+            var reegx = @"^(([0-1]?[0-9])|([2][0-3]))([0-5]?[0-9])?$";
+            bool matchResult4 = Regex.IsMatch("1935", reegx);
+
+            //將字串中符合規則的部分，透過ChangeText方法做處理並替換(英數4碼)
+            Regex reg = new Regex(@"[A-Za-z0-9]{4}");
+            string result = reg.Replace("編號2013至編號8048貨品請回收", ChangeText);
+
+            string pattern = @"(\s[c][\w]*)"; //前面空白字元 + c 後面接0到多個字母
+            string input = "The men's soft tennis team captured the first gold medal for Taiwan "
+             + "yesterday in the 2010 Asian Games in Guangzhou, China, while their "
+             + "female counterparts garnered a silver for Taiwan, which is competing "
+             + "as Chinese Taipei at the regional sport games.";
+
+            Regex regIgnoreCase = new Regex(pattern, RegexOptions.IgnoreCase); //不區分大小寫的比對
+            Regex regNotIgnoreCase = new Regex(pattern);
+
+            MatchCollection matches = regIgnoreCase.Matches(input); //matches = {"captured","China","counterparts","competing","Chinese"}
+            MatchCollection matches2 = regNotIgnoreCase.Matches(input);//matches2 = {"captured","counterparts","competing"}
             #endregion
 
             //字串移除指定位置某段文字
