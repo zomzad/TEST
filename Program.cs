@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.DirectoryServices;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -31,6 +32,14 @@ namespace TEST
 {
     internal class Program
     {
+        public enum EnumDomainType
+        {
+            [Description("LDAP://lionmail.com")]
+            LionMail,
+            [Description("LDAP://liontech.com.tw")]
+            LionTech
+        }
+
         public enum EnumUserJob
         {
             SGM = 10,
@@ -64,29 +73,71 @@ namespace TEST
 
         private static void Main(string[] args)
         {
-            //var jjj = "資訊陳姿穎".Replace("資訊", string.Empty);
-            //var hh = testStr;
-            //testStr = "方道筌";
-            //var hh2 = testStr;
-            //var jij455i = CountryList ?? new List<string>();
-            //var ffr = Convert.ToString((CountryList ?? new List<string> { "0" }).Select(n => int.Parse(n)).Aggregate((start, next) => start + next), 2).PadLeft(5, '0');
+            var jjj = "資訊陳姿穎".Replace("資訊", string.Empty);
+            var hh = testStr;
+            testStr = "方道筌";
+            var hh2 = testStr;
+            var jij455i = CountryList ?? new List<string>();
+            var ffr = Convert.ToString((CountryList ?? new List<string> { "0" }).Select(n => int.Parse(n)).Aggregate((start, next) => start + next), 2).PadLeft(5, '0');
 
-            //var uhuhfiroejiofre = Convert.ToInt32(true);
-            //var uhuhfiroerw4r3wejiofre = Convert.ToInt32(false);
-            //var ttt = BitConverter.GetBytes(true);
-            //var fff = BitConverter.GetBytes(false);
-            //string aaStr = "aa";
-            //string eee = (-(11 - aaStr.Length)).ToString();
-            //string endResult = string.Format("{0}{1," + (-(11 - aaStr.Length)) + "}{2}", aaStr, string.Empty, "bbb");
-            //string emptyStr = "{0}{1," + eee + "}{2}";
-            //string str = string.Format(emptyStr, aaStr, string.Empty, "bbb");
+            var uhuhfiroejiofre = Convert.ToInt32(true);
+            var uhuhfiroerw4r3wejiofre = Convert.ToInt32(false);
+            var ttt = BitConverter.GetBytes(true);
+            var fff = BitConverter.GetBytes(false);
+            string aaStr = "aa";
+            string eee = (-(11 - aaStr.Length)).ToString();
+            string endResult = string.Format("{0}{1," + (-(11 - aaStr.Length)) + "}{2}", aaStr, string.Empty, "bbb");
+            string emptyStr = "{0}{1," + eee + "}{2}";
+            string str = string.Format(emptyStr, aaStr, string.Empty, "bbb");
 
-            //var hu = HttpUtility.UrlEncode("http://upub.liontravel.com.tw/Pub/SignForm");
-            //string jj = "123456";
-            //var huhuhgut = jj.Where(c => c == '6').ToList();
+            var hu = HttpUtility.UrlEncode("http://upub.liontravel.com.tw/Pub/SignForm");
+            string jj = "123456";
+            var huhuhgut = jj.Where(c => c == '6').ToList();
 
-            //bool a = false;
-            //var aaa = a.ToString();
+            bool a = false;
+            var aaa = a.ToString();
+
+            #region - LDAP -
+            //string domainNM = string.Empty;
+            //string ldapPath = "LionMail";
+            //string propFieldName = "mail";
+            //string DomainAccount = @"lionmail\hjiunliau";
+            //string DomainPWD = "D223d223";
+            //string DomainGroupNM = "HCM_HCMAP組";
+
+            //EnumDomainType domainType = (from s in Enum.GetNames(typeof(EnumDomainType))
+            //        let type = (EnumDomainType)Enum.Parse(typeof(EnumDomainType), s)
+            //        let path = Common.GetEnumDesc(type)
+            //        where ldapPath.ToLower().IndexOf(path.ToLower(), StringComparison.Ordinal) > -1
+            //        select type).SingleOrDefault();
+            //domainNM = domainType.ToString();
+
+            //DirectoryEntry directoryEntry = new DirectoryEntry(ldapPath);
+
+            //DirectorySearcher searcher = new DirectorySearcher(directoryEntry);
+            //searcher.SearchScope = SearchScope.Subtree;
+
+            //if (domainType == EnumDomainType.LionTech &&
+            //    string.IsNullOrWhiteSpace(DomainPWD) == false)
+            //{
+            //    propFieldName = "samaccountname";
+            //    directoryEntry.Username = DomainAccount.Split('@')[0];
+            //    directoryEntry.Password = Security.Decrypt(DomainPWD);
+            //}
+
+            //searcher.Filter = $"(&(objectCategory=group)(CN={DomainGroupNM}))";
+            //searcher.PropertiesToLoad.Add("samaccountname");
+            //searcher.PropertiesToLoad.Add("name");
+            //searcher.PropertiesToLoad.Add("mail");
+            //SearchResult searchResult = searcher.FindOne();
+
+            //if (searchResult != null)
+            //{
+            //    searcher.Filter = $"(&(objectCategory=person)(memberOf={searchResult.Path.Substring(searchResult.Path.LastIndexOf("/", StringComparison.Ordinal) + 1)}))";
+
+            //    var searchResultCollection = searcher.FindAll();
+            //}
+            #endregion
 
             #region - 各種換行 -
             //Model
@@ -197,33 +248,33 @@ namespace TEST
             #endregion
 
             #region - 正規表達式 -
-            //正規表達式直接寫(24小時制時間)
-            bool matchResult = Regex.IsMatch("1935", @"^(([0-1][0-9])|([2][0-3]))([0-5][0-9])$"); //回傳boolean
-            var matchResult2 = Regex.Match("起床時間0630，晚上2200入睡", @"(([0-1][0-9])|([2][0-3]))([0-5][0-9])"); //回傳第一個符合的項目
-            var matchResult3 = Regex.Matches("起床時間0630，晚上2225入睡", @"(([0-1][0-9])|([2][0-3]))([0-5][0-9])"); //回傳所有符合的項目
-            var item = matchResult2.ToString(); //item = 0630
-            List<string> matchList = matchResult3.Cast<Match>()
-                .Select(m => m.Value).ToList(); //matchList = {"0630","2225":}
+            ////正規表達式直接寫(24小時制時間)
+            //bool matchResult = Regex.IsMatch("1935", @"^(([0-1][0-9])|([2][0-3]))([0-5][0-9])$"); //回傳boolean
+            //var matchResult2 = Regex.Match("起床時間0630，晚上2200入睡", @"(([0-1][0-9])|([2][0-3]))([0-5][0-9])"); //回傳第一個符合的項目
+            //var matchResult3 = Regex.Matches("起床時間0630，晚上2225入睡", @"(([0-1][0-9])|([2][0-3]))([0-5][0-9])"); //回傳所有符合的項目
+            //var item = matchResult2.ToString(); //item = 0630
+            //List<string> matchList = matchResult3.Cast<Match>()
+            //    .Select(m => m.Value).ToList(); //matchList = {"0630","2225":}
 
-            //正規表達式也可宣告在變數中(24小時制時間)
-            var reegx = @"^(([0-1]?[0-9])|([2][0-3]))([0-5]?[0-9])?$";
-            bool matchResult4 = Regex.IsMatch("1935", reegx);
+            ////正規表達式也可宣告在變數中(24小時制時間)
+            //var reegx = @"^(([0-1]?[0-9])|([2][0-3]))([0-5]?[0-9])?$";
+            //bool matchResult4 = Regex.IsMatch("1935", reegx);
 
-            //將字串中符合規則的部分，透過ChangeText方法做處理並替換(英數4碼)
-            Regex reg = new Regex(@"[A-Za-z0-9]{4}");
-            string result = reg.Replace("編號2013至編號8048貨品請回收", ChangeText);
+            ////將字串中符合規則的部分，透過ChangeText方法做處理並替換(英數4碼)
+            //Regex reg = new Regex(@"[A-Za-z0-9]{4}");
+            //string result = reg.Replace("編號2013至編號8048貨品請回收", ChangeText);
 
-            string pattern = @"(\s[c][\w]*)"; //前面空白字元 + c 後面接0到多個字母
-            string input = "The men's soft tennis team captured the first gold medal for Taiwan "
-             + "yesterday in the 2010 Asian Games in Guangzhou, China, while their "
-             + "female counterparts garnered a silver for Taiwan, which is competing "
-             + "as Chinese Taipei at the regional sport games.";
+            //string pattern = @"(\s[c][\w]*)"; //前面空白字元 + c 後面接0到多個字母
+            //string input = "The men's soft tennis team captured the first gold medal for Taiwan "
+            // + "yesterday in the 2010 Asian Games in Guangzhou, China, while their "
+            // + "female counterparts garnered a silver for Taiwan, which is competing "
+            // + "as Chinese Taipei at the regional sport games.";
 
-            Regex regIgnoreCase = new Regex(pattern, RegexOptions.IgnoreCase); //不區分大小寫的比對
-            Regex regNotIgnoreCase = new Regex(pattern);
+            //Regex regIgnoreCase = new Regex(pattern, RegexOptions.IgnoreCase); //不區分大小寫的比對
+            //Regex regNotIgnoreCase = new Regex(pattern);
 
-            MatchCollection matches = regIgnoreCase.Matches(input); //matches = {"captured","China","counterparts","competing","Chinese"}
-            MatchCollection matches2 = regNotIgnoreCase.Matches(input);//matches2 = {"captured","counterparts","competing"}
+            //MatchCollection matches = regIgnoreCase.Matches(input); //matches = {"captured","China","counterparts","competing","Chinese"}
+            //MatchCollection matches2 = regNotIgnoreCase.Matches(input);//matches2 = {"captured","counterparts","competing"}
             #endregion
 
             //字串移除指定位置某段文字
