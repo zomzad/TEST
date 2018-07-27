@@ -361,6 +361,33 @@ namespace TEST
             //{
             //    result.GetType().GetField(item.Name).SetValue(result, new DBVarChar(item.GetValue(this, null).ToString()));
             //}
+
+
+            //model.WorkFlowAction = new WorkFlowAction();
+            //NameValueCollection para = Request.QueryString;
+            //var wfParaDic = para.AllKeys.Where(k => k != null).ToDictionary(k => k, v => para[v]);
+
+            //foreach (var item in wfParaDic)
+            //{
+            //    var propertyInfo = model.WorkFlowAction.GetType().GetProperty(item.Key);
+            //    if (propertyInfo != null)
+            //    {
+            //        var type = propertyInfo.PropertyType;
+            //        if (type == typeof(bool))
+            //        {
+            //            propertyInfo.SetValue(model.WorkFlowAction, Convert.ToBoolean(item.Value));
+            //            ;
+            //        }
+            //        else if (type == typeof(WorkFlowAction.EnumExecActionType))
+            //        {
+            //            propertyInfo.SetValue(model.WorkFlowAction, (WorkFlowAction.EnumExecActionType)Enum.Parse(typeof(WorkFlowAction.EnumExecActionType), item.Value));
+            //        }
+            //        else
+            //        {
+            //            propertyInfo.SetValue(model.WorkFlowAction, item.Value);
+            //        }
+            //    }
+            //}
             #endregion
 
             #region - 遇A就換B 字串替代 -
