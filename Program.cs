@@ -32,6 +32,7 @@ namespace TEST
 {
     internal class Program
     {
+        #region - Definition -
         public enum EnumDomainType
         {
             [Description("LDAP://lionmail.com")]
@@ -47,79 +48,144 @@ namespace TEST
             COMPUTER = 14
         }
 
+        #region - 繼承測試 -
+        private class ObjectA
+        {
+            protected ObjectA(string str)
+            {
+                Console.WriteLine("A 建構子" + str);
+            }
+        }
+
+        private class ObjectB : ObjectA
+        {
+            public ObjectB() : this("One")
+            {
+                Console.WriteLine("B無參數建構子");
+            }
+
+            private ObjectB(string aa) : base("gg")
+            {
+                Console.WriteLine("B 建構子" + aa);
+            }
+        }
+        #endregion
+
         public class UserInfo
         {
             public string UserID { get; set; }
             public string UserNM { get; set; }
         }
+        #endregion
 
-        private static string name = string.Empty;
-        public static string testStr {
+        #region - Property -
+        //存取子測試
+        public static string testStr
+        {
             get
             {
-                if (name == "姓名:方道筌")
-                {
-                    return name;
-                }
-
-                return "AAA";
+                return name == "姓名:方道筌" ? name : "AAA";
             }
             set
             {
                 name = $"姓名:{value}";
             }
         }
+
         public static List<string> CountryList { get; set; }
+        #endregion
+
+        #region - Private -
+        //存取子測試用
+        private static string name = string.Empty;
+        #endregion
 
         private static void Main(string[] args)
         {
+            var jjj = "資訊陳姿穎".Replace("資訊", string.Empty);
+            var hh = testStr;
+            testStr = "方道筌";
+            var hh2 = testStr;
+            var jij455i = CountryList ?? new List<string>();
+            var ffr = Convert.ToString((CountryList ?? new List<string> { "0" }).Select(n => int.Parse(n)).Aggregate((start, next) => start + next), 2).PadLeft(5, '0');
+
+            var uhuhfiroejiofre = Convert.ToInt32(true);
+            var uhuhfiroerw4r3wejiofre = Convert.ToInt32(false);
+            var ttt = BitConverter.GetBytes(true);
+            var fff = BitConverter.GetBytes(false);
+            string aaStr = "aa";
+            string eee = (-(11 - aaStr.Length)).ToString();
+            string endResult = string.Format("{0}{1," + (-(11 - aaStr.Length)) + "}{2}", aaStr, string.Empty, "bbb");
+            string emptyStr = "{0}{1," + eee + "}{2}";
+            string str = string.Format(emptyStr, aaStr, string.Empty, "bbb");
+
+            var hu = HttpUtility.UrlEncode("http://upub.liontravel.com.tw/Pub/SignForm");
+            string jj = "123456";
+            var huhuhgut = jj.Where(c => c == '6').ToList();
+
+            bool a = false;
+            var aaa = a.ToString();
+
             #region - 呼叫API -
+            //var tourUrl = "http://127.0.0.1:6700/Cust/InsertSsorm80?ClientSysID=CRMAP";
+            //var busUrl = "http://127.0.0.1:6790/Seats/Token?ClientSysID=CRMAP";
+
             //POST 
             #region - 使用WebClient -
-            var jsonText = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                    { "ClientSysId", "123456" }
-                });
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "MemberHagent", "P" },
+            //        { "MemberIdno", "A100109858" },
+            //        { "MemberUid", "06B27CB5-625D-4F6C-957B-45E3EE71E7FF" },
+            //        { "ChgDate", "20180822" },
+            //        { "Mstfn", "B2C" }
+            //    });
 
-            WebClient client = new WebClient { Encoding = Encoding.UTF8 };
-            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            //var jsonText = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "APIPara", apiParaJsonStr }
+            //    });
 
-            //呼叫API,回傳結果為byte[]
-            var responseWebClient = client.UploadData("http://127.0.0.1:6697/CSV/InsertCustApiLog", "POST", Encoding.UTF8.GetBytes(jsonText));
-            var apiResult = Encoding.UTF8.GetString(responseWebClient);//API回傳資料轉成字串
+            //WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+            //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+
+
+            //var responseWebClient = client.UploadData("http://127.0.0.1:6700/Cust/UpdateCustm80?ClientSysID=CRMAP", "POST", Encoding.UTF8.GetBytes(jsonText));
+            //var apiResult = Encoding.UTF8.GetString(responseWebClient);//API回傳資料轉成字串
             #endregion
 
             #region - 使用HttpWebRequest -
-            HttpWebRequest requestt = WebRequest.Create("http://127.0.0.1:6697/CSV/InsertCustApiLog") as HttpWebRequest;
-            if (requestt != null)
-            {
-                //傳入參數
-                var jsonParaa = new JavaScriptSerializer().Serialize(
-                    new Dictionary<string, object>()
-                    {
-                        { "ClientSysId", "123456" }
-                    });
-                byte[] bs = Encoding.UTF8.GetBytes(jsonParaa);
+            //HttpWebRequest requestt = WebRequest.Create("http://127.0.0.1:6697/CSV/InsertCustApiLog") as HttpWebRequest;
+            //if (requestt != null)
+            //{
+            //    //傳入參數
+            //    var jsonParaa = new JavaScriptSerializer().Serialize(
+            //        new Dictionary<string, object>()
+            //        {
+            //            { "ClientSysId", "123456" }
+            //        });
+            //    byte[] bs = Encoding.UTF8.GetBytes(jsonParaa);
 
-                requestt.Method = "POST";
-                requestt.KeepAlive = true;
-                requestt.ContentType = "application/json";
-                requestt.ContentLength = bs.Length;
+            //    requestt.Method = "POST";
+            //    requestt.KeepAlive = true;
+            //    requestt.ContentType = "application/json";
+            //    requestt.ContentLength = bs.Length;
 
-                //寫入POST Body 資料
-                using (Stream reqStream = requestt.GetRequestStream())
-                {
-                    reqStream.Write(bs, 0, bs.Length); //寫入資料的時候就是呼叫API
-                    //reqStream.Flush();
-                }
-                using (WebResponse response = requestt.GetResponse())
-                {
-                    StreamReader sr = new StreamReader(response.GetResponseStream());
-                    string resultt = sr.ReadToEnd(); //API回傳資料
-                    sr.Close();
-                }
-            }
+            //    //寫入POST Body 資料
+            //    using (Stream reqStream = requestt.GetRequestStream())
+            //    {
+            //        reqStream.Write(bs, 0, bs.Length); //寫入資料的時候就是呼叫API
+            //        //reqStream.Flush();
+            //    }
+            //    using (WebResponse response = requestt.GetResponse())
+            //    {
+            //        StreamReader sr = new StreamReader(response.GetResponseStream());
+            //        string resultt = sr.ReadToEnd(); //API回傳資料
+            //        sr.Close();
+            //    }
+            //}
             #endregion
             #endregion
 
