@@ -14,6 +14,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -33,6 +34,11 @@ namespace TEST
     internal class Program
     {
         #region - Definition -
+        public class UserData
+        {
+            public string UserID { get; set; }
+        }
+
         public enum EnumDomainType
         {
             [Description("LDAP://lionmail.com")]
@@ -102,91 +108,92 @@ namespace TEST
 
         private static void Main(string[] args)
         {
-            var jjj = "資訊陳姿穎".Replace("資訊", string.Empty);
-            var hh = testStr;
-            testStr = "方道筌";
-            var hh2 = testStr;
-            var jij455i = CountryList ?? new List<string>();
-            var ffr = Convert.ToString((CountryList ?? new List<string> { "0" }).Select(n => int.Parse(n)).Aggregate((start, next) => start + next), 2).PadLeft(5, '0');
-
-            var uhuhfiroejiofre = Convert.ToInt32(true);
-            var uhuhfiroerw4r3wejiofre = Convert.ToInt32(false);
-            var ttt = BitConverter.GetBytes(true);
-            var fff = BitConverter.GetBytes(false);
-            string aaStr = "aa";
-            string eee = (-(11 - aaStr.Length)).ToString();
-            string endResult = string.Format("{0}{1," + (-(11 - aaStr.Length)) + "}{2}", aaStr, string.Empty, "bbb");
-            string emptyStr = "{0}{1," + eee + "}{2}";
-            string str = string.Format(emptyStr, aaStr, string.Empty, "bbb");
-
-            var hu = HttpUtility.UrlEncode("http://upub.liontravel.com.tw/Pub/SignForm");
-            string jj = "123456";
-            var huhuhgut = jj.Where(c => c == '6').ToList();
-
-            bool a = false;
-            var aaa = a.ToString();
-
-            #region - 呼叫API -
-            //var tourUrl = "http://127.0.0.1:6700/Cust/InsertSsorm80?ClientSysID=CRMAP";
-            //var busUrl = "http://127.0.0.1:6790/Seats/Token?ClientSysID=CRMAP";
-
-            //POST 
-            #region - 使用WebClient -
+            #region - B2C推播API測試 -
+            #region - 註冊測試 -
+            //var url = "http://127.0.0.1:6734/AppService/LionTravelB2CAppRegister?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "MemberHagent", "P" },
-            //        { "MemberIdno", "A100109858" },
-            //        { "MemberUid", "06B27CB5-625D-4F6C-957B-45E3EE71E7FF" },
-            //        { "ChgDate", "20180822" },
-            //        { "Mstfn", "B2C" }
+            //        { "UUID", "11495241-7342-4A33-905B-1A65E6498CD6" },
+            //        //C2ECB70B-F50B-4D5D-A81A-0012B610D6DC
+            //        //A4EBC9F4 -28BD-4AFF-A8DC-F01F53A440A3
+            //        //7CE1BF60-808F-4EE3-AFF7-14E1F7FD3E5F
+            //        //C2ECB70B-F50B-4D5D-A81A-0012B610D6DC
+            //        //9B494ADB-7342-4A33-905B-1A65E6498CD6
+            //        { "AppID", "B2CApp" },
+            //        { "UserID", "00D290" },
+            //        { "DeviceToken", "flzRBR7WmOM:APA91bHRK5MKpFt5BoxUpQ0RXtGSE8ipZVkHrT3NnvdeFtD77psNQ-C-sDKMqpCoCyXLQShX6k7YR2IPCm8-5VsijTZdq5gNQL7h30Agh5BT7viMIy9qru9J4U8dGe8uOSpCfFBZ05jm0-wCD1Fb8XB3J_Xt2JnlHg" },
+            //        { "DeviceTokenType", "Firebase" },
+            //        { "OS", "Android" },
+            //        { "MobileType", "x86_64" },
+            //        { "IsOpenPush", "Y" }
             //    });
+            #endregion
 
-            //var jsonText = new JavaScriptSerializer().Serialize(
+            #region - 開啟推播測試 -
+            //開啟推播測試
+            //var url = "http://127.0.0.1:6734/AppService/LionTravelB2COpenPush?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "APIPara", apiParaJsonStr }
+            //        { "UserID", "00D223" },
+            //        { "AppID", "B2CAPP" },
+            //        { "UUID", "11495241-7342-4A33-905B-1A65E6498CD6" },
+            //        { "IsOpen", "true" },
+            //        { "DeviceToken", "flzRBR7WmOM:APA91bHRK5MKpFt5BoxUpQ0RXtGSE8ipZVkHrT3NnvdeFtD77psNQ-C-sDKMqpCoCyXLQShX6k7YR2IPCm8-5VsijTZdq5gNQL7h30Agh5BT7viMIy9qru9J4U8dGe8uOSpCfFBZ05jm0-wCD1Fb8XB3J_Xt2JnlHg" },
+            //        //eePmFsFHTcs:APA91bHVyn6lL4uWK6hGKowZz55kc7UA-HhU_XuC2Ik3_3dMpORxMsJH0g3idWACBj2BAc-MLpzbFshcnS7jG4Z2167xM5wB9jLFPs3CXA8YibFRjuWLIuEJYknUzQPtLZG0gkH2KawH
+            //        //dD5rSf4sjk4:APA91bEeOyyCx7bzkD_NzgOFi3cZJmU5-iVbLZnb4uVMPOl0hqvGs4LXLlz5vp2SRffAPm1Q1fnY0h6BXZilF4u2g8iA0fSc2yh2g5GVs8IenqXPm_knozaFj_aI1Rd__pBs9LW3oj7n
+            //    });
+            #endregion
+
+            #region - 推播排程訊息測試 -
+            var url = "http://127.0.0.1:6734/AppService/LionTravelB2CPushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+
+            var data = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                    {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
+                    { "SourceType","Metting"}
+                });
+
+            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                    { "Body", "今天準時出席會議" },
+                    { "Title", "[會議]" },
+                    { "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
+                    {
+                        "UserList", new List<string>()
+                        {
+                            "00D223", "00D290"
+                        }
+                    },
+                    { "Data", data }
+                });
+            #endregion
+
+            #region - 取消推播測試 -
+            //model.UserIDList = new List<string> { "00D223", "00D470" };
+
+            //var url = "http://127.0.0.1:6734/AppService/CancelPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&MessageID=A9CC5F4F-EE00-48B1-ACBF-B706C53E6F20";
+
+            //var userIDList = new JavaScriptSerializer().Serialize(
+            //    new List<string>
+            //    {
+            //        "00D223", "00D470"
             //    });
 
-            //WebClient client = new WebClient { Encoding = Encoding.UTF8 };
-            //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-
-
-            //var responseWebClient = client.UploadData("http://127.0.0.1:6700/Cust/UpdateCustm80?ClientSysID=CRMAP", "POST", Encoding.UTF8.GetBytes(jsonText));
-            //var apiResult = Encoding.UTF8.GetString(responseWebClient);//API回傳資料轉成字串
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "UserIDList", userIDList }
+            //    });
             #endregion
 
-            #region - 使用HttpWebRequest -
-            //HttpWebRequest requestt = WebRequest.Create("http://127.0.0.1:6697/CSV/InsertCustApiLog") as HttpWebRequest;
-            //if (requestt != null)
-            //{
-            //    //傳入參數
-            //    var jsonParaa = new JavaScriptSerializer().Serialize(
-            //        new Dictionary<string, object>()
-            //        {
-            //            { "ClientSysId", "123456" }
-            //        });
-            //    byte[] bs = Encoding.UTF8.GetBytes(jsonParaa);
-
-            //    requestt.Method = "POST";
-            //    requestt.KeepAlive = true;
-            //    requestt.ContentType = "application/json";
-            //    requestt.ContentLength = bs.Length;
-
-            //    //寫入POST Body 資料
-            //    using (Stream reqStream = requestt.GetRequestStream())
-            //    {
-            //        reqStream.Write(bs, 0, bs.Length); //寫入資料的時候就是呼叫API
-            //        //reqStream.Flush();
-            //    }
-            //    using (WebResponse response = requestt.GetResponse())
-            //    {
-            //        StreamReader sr = new StreamReader(response.GetResponseStream());
-            //        string resultt = sr.ReadToEnd(); //API回傳資料
-            //        sr.Close();
-            //    }
-            //}
-            #endregion
+            WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
+            var apiResult = Encoding.UTF8.GetString(responseWebClient);
             #endregion
 
             #region - LDAP -
