@@ -109,23 +109,35 @@ namespace TEST
         private static void Main(string[] args)
         {
             #region - B2C推播API測試 -
+            #region - 取得推播紀錄測試 -
+            var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&LogPushMessagePara=";
+            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                    { "AppID", "B2CAPP" },
+                    { "UUID", "11495241-7342-4A33-905B-1A65E6498CD6" },
+                    { "StartDateTime","20181001102022555"},
+                    { "EndDateTime","20181003180522555"}
+                });
+            #endregion
+
             #region - 註冊測試 -
-            //var url = "http://127.0.0.1:6734/AppService/LionTravelB2CAppRegister?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/Register?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "UUID", "11495241-7342-4A33-905B-1A65E6498CD6" },
+            //        { "UUID", "177BE74E-CB76-41EB-8685-3CF5B97A7AA3" },
             //        //C2ECB70B-F50B-4D5D-A81A-0012B610D6DC
             //        //A4EBC9F4 -28BD-4AFF-A8DC-F01F53A440A3
             //        //7CE1BF60-808F-4EE3-AFF7-14E1F7FD3E5F
             //        //C2ECB70B-F50B-4D5D-A81A-0012B610D6DC
             //        //9B494ADB-7342-4A33-905B-1A65E6498CD6
             //        { "AppID", "B2CApp" },
-            //        { "UserID", "00D290" },
-            //        { "DeviceToken", "flzRBR7WmOM:APA91bHRK5MKpFt5BoxUpQ0RXtGSE8ipZVkHrT3NnvdeFtD77psNQ-C-sDKMqpCoCyXLQShX6k7YR2IPCm8-5VsijTZdq5gNQL7h30Agh5BT7viMIy9qru9J4U8dGe8uOSpCfFBZ05jm0-wCD1Fb8XB3J_Xt2JnlHg" },
+            //        { "UserID", "180240" },
+            //        { "DeviceToken", "dLwdmxesttU:APA91bFJVQ_dWGFijTzI2EkZx2nix0b7j6uBt6WQcYPHOIgBJTFAx4Qu8yTypUDC2eckNXUZGff9l3QRy4CfKXFnRoqlNxY8MyW8PFcFJ71E3rh1opMiLxNCKHfUdsqgKk5h5bF3KGYe" },
             //        { "DeviceTokenType", "Firebase" },
             //        { "OS", "Android" },
-            //        { "MobileType", "x86_64" },
+            //        { "MobileType", "Xiaomi MI 3W" },
             //        { "IsOpenPush", "Y" }
             //    });
             #endregion
@@ -147,29 +159,30 @@ namespace TEST
             #endregion
 
             #region - 推播排程訊息測試 -
-            var url = "http://127.0.0.1:6734/AppService/LionTravelB2CPushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
-            var data = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                    {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
-                    { "SourceType","Metting"}
-                });
+            //var data = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
+            //        { "SourceType","Metting"}
+            //    });
 
-            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                    { "Body", "今天準時出席會議" },
-                    { "Title", "[會議]" },
-                    { "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
-                    {
-                        "UserList", new List<string>()
-                        {
-                            "00D223", "00D290"
-                        }
-                    },
-                    { "Data", data }
-                });
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "Body", "TEST" },
+            //        { "Title", "[TEST!]" },
+            //        //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
+            //        { "PushDateTime", string.Empty },
+            //        {
+            //            "UserList", new List<string>()
+            //            {
+            //                "00D223", "001234"
+            //            }
+            //        },
+            //        { "Data", data }
+            //    });
             #endregion
 
             #region - 取消推播測試 -
@@ -190,10 +203,26 @@ namespace TEST
             //    });
             #endregion
 
-            WebClient client = new WebClient { Encoding = Encoding.UTF8 };
-            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-            var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
-            var apiResult = Encoding.UTF8.GetString(responseWebClient);
+            #region - POST -
+            //WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+            //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            //var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
+            //var apiResult = Encoding.UTF8.GetString(responseWebClient);
+            #endregion
+
+            #region - GET -
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url + apiParaJsonStr);
+            request.Method = WebRequestMethods.Http.Get;
+            request.KeepAlive = false;
+            request.ContentType = "application/json";
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            if (response != null)
+            {
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
+            }
+            #endregion
             #endregion
 
             #region - LDAP -
@@ -205,10 +234,10 @@ namespace TEST
             //string DomainGroupNM = "HCM_HCMAP組";
 
             //EnumDomainType domainType = (from s in Enum.GetNames(typeof(EnumDomainType))
-            //        let type = (EnumDomainType)Enum.Parse(typeof(EnumDomainType), s)
-            //        let path = Common.GetEnumDesc(type)
-            //        where ldapPath.ToLower().IndexOf(path.ToLower(), StringComparison.Ordinal) > -1
-            //        select type).SingleOrDefault();
+            //                             let type = (EnumDomainType)Enum.Parse(typeof(EnumDomainType), s)
+            //                             let path = Common.GetEnumDesc(type)
+            //                             where ldapPath.ToLower().IndexOf(path.ToLower(), StringComparison.Ordinal) > -1
+            //                             select type).SingleOrDefault();
             //domainNM = domainType.ToString();
 
             //DirectoryEntry directoryEntry = new DirectoryEntry(ldapPath);
@@ -411,22 +440,22 @@ namespace TEST
             #endregion
 
             #region - 字串 or 數字 轉boolean -
-            bool boolResultA = Convert.ToBoolean(1); //true 0以外所有數字都是true
-            bool boolResultB = Convert.ToBoolean(bool.TrueString); //true
-            bool boolResultC = Convert.ToBoolean(bool.FalseString); //false
+            //bool boolResultA = Convert.ToBoolean(1); //true 0以外所有數字都是true
+            //bool boolResultB = Convert.ToBoolean(bool.TrueString); //true
+            //bool boolResultC = Convert.ToBoolean(bool.FalseString); //false
             //bool a = Convert.ToBoolean("1"); //會error
             #endregion
 
             #region - Aggregate用法 -
-            int[] num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            //int[] num = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
-            //每次可暫存結果(return),和下次迴圈做運算
-            int sum = num.Aggregate((start, next) =>
-            {
-                Console.WriteLine("start:" + start);
-                Console.WriteLine("nxt:" + next);
-                return start + next;
-            });
+            ////每次可暫存結果(return),和下次迴圈做運算
+            //int sum = num.Aggregate((start, next) =>
+            //{
+            //    Console.WriteLine("start:" + start);
+            //    Console.WriteLine("nxt:" + next);
+            //    return start + next;
+            //});
             #endregion
 
             #region - 列舉操作 -
