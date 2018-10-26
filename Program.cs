@@ -25,6 +25,7 @@ using LionTech.APIService.Message;
 using LionTech.APIService.SMS;
 using LionTech.Utility;
 using LionTech.Utility.Sockets;
+using System.Web.Mvc;
 using Newtonsoft.Json;
 using SampleCode.Models;
 using SampleCode.Security;
@@ -108,51 +109,72 @@ namespace TEST
 
         private static void Main(string[] args)
         {
-            #region - B2C推播API測試 -
-            #region - 取得推播紀錄測試 -
-            var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&LogPushMessagePara=";
-            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                    { "AppID", "B2CAPP" },
-                    { "UUID", "11495241-7342-4A33-905B-1A65E6498CD6" },
-                    { "StartDateTime","20181001102022555"},
-                    { "EndDateTime","20181003180522555"}
-                });
-            #endregion
+            //Exec run = new Exec();
+            //run.ExecTestFun();
 
-            #region - 註冊測試 -
-            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/Register?ClientUserID=00D223&ClientSysID=ERPAP";
+            #region - B2C推播API測試 -
+
+            #region - 推播訊息已讀測試 -
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/ReadMessage?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "UUID", "177BE74E-CB76-41EB-8685-3CF5B97A7AA3" },
+            //        { "MessageID", "0BC77DC0-A891-4109-8610-693419EFA583" },
+            //        { "UserID", "00D223"}
+            //    });
+            #endregion
+
+            #region - 登出測試 -
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/Logout?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "UUID", "11495241-7342-4A33-905B-1A65E6498CD6" }
+            //    });
+            #endregion
+
+            #region - 取得推播紀錄測試 -
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&LogPushMessagePara=";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "AppID", "B2CAPP" },
+            //        { "UserID", "00D223" },
+            //        { "StartDateTime","20181003135200000"},
+            //        { "EndDateTime","20181003135522555"}
+            //    });
+            #endregion
+
+            #region - 登入測試 -
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/Login?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "UUID", "22495241-7342-4A33-905B-1A65E6498CD6" },
             //        //C2ECB70B-F50B-4D5D-A81A-0012B610D6DC
             //        //A4EBC9F4 -28BD-4AFF-A8DC-F01F53A440A3
             //        //7CE1BF60-808F-4EE3-AFF7-14E1F7FD3E5F
             //        //C2ECB70B-F50B-4D5D-A81A-0012B610D6DC
             //        //9B494ADB-7342-4A33-905B-1A65E6498CD6
-            //        { "AppID", "B2CApp" },
-            //        { "UserID", "180240" },
-            //        { "DeviceToken", "dLwdmxesttU:APA91bFJVQ_dWGFijTzI2EkZx2nix0b7j6uBt6WQcYPHOIgBJTFAx4Qu8yTypUDC2eckNXUZGff9l3QRy4CfKXFnRoqlNxY8MyW8PFcFJ71E3rh1opMiLxNCKHfUdsqgKk5h5bF3KGYe" },
+            //        { "AppID", "B2CAPP" },
+            //        { "UserID", "00D223" },
+            //        { "DeviceToken", "wok8of3rgu8:APA91bEUeenoEk4-Bb_i4TyygX--S3vKv4iUxKL0P8jVGnBJIasT8Jc_Ezzey8VynH2IJu9UZAUBRVJnmKfin3x_Wk2itstZQpofD6KRD3mao9zue1FTvkOfvBNGyB3dUN03gIbS5dfn" },
             //        { "DeviceTokenType", "Firebase" },
             //        { "OS", "Android" },
-            //        { "MobileType", "Xiaomi MI 3W" },
+            //        { "MobileType", "U Ultra" },
             //        { "IsOpenPush", "Y" }
             //    });
             #endregion
 
             #region - 開啟推播測試 -
             //開啟推播測試
-            //var url = "http://127.0.0.1:6734/AppService/LionTravelB2COpenPush?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/OpenPush?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "UserID", "00D223" },
-            //        { "AppID", "B2CAPP" },
             //        { "UUID", "11495241-7342-4A33-905B-1A65E6498CD6" },
-            //        { "IsOpen", "true" },
-            //        { "DeviceToken", "flzRBR7WmOM:APA91bHRK5MKpFt5BoxUpQ0RXtGSE8ipZVkHrT3NnvdeFtD77psNQ-C-sDKMqpCoCyXLQShX6k7YR2IPCm8-5VsijTZdq5gNQL7h30Agh5BT7viMIy9qru9J4U8dGe8uOSpCfFBZ05jm0-wCD1Fb8XB3J_Xt2JnlHg" },
+            //        { "IsOpenPush", "Y" },
+            //        { "DeviceToken", "eli8of3rgu8:APA91bEUeenoEk4-Bb_i4TyygX--S3vKv4iUxKL0P8jVGnBJIasT8Jc_Ezzey8VynH2IJu9UZAUBRVJnmKfin3x_Wk2itstZQpofD6KRD3mao9zue1FTvkOfvBNGyB3dUN03gIbSiIGn" },
             //        //eePmFsFHTcs:APA91bHVyn6lL4uWK6hGKowZz55kc7UA-HhU_XuC2Ik3_3dMpORxMsJH0g3idWACBj2BAc-MLpzbFshcnS7jG4Z2167xM5wB9jLFPs3CXA8YibFRjuWLIuEJYknUzQPtLZG0gkH2KawH
             //        //dD5rSf4sjk4:APA91bEeOyyCx7bzkD_NzgOFi3cZJmU5-iVbLZnb4uVMPOl0hqvGs4LXLlz5vp2SRffAPm1Q1fnY0h6BXZilF4u2g8iA0fSc2yh2g5GVs8IenqXPm_knozaFj_aI1Rd__pBs9LW3oj7n
             //    });
@@ -171,14 +193,14 @@ namespace TEST
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "Body", "TEST" },
-            //        { "Title", "[TEST!]" },
-            //        //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
-            //        { "PushDateTime", string.Empty },
+            //        { "Body", "測試推播" },
+            //        { "Title", "測試推播TEST" },
+            //        { "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
+            //        //{ "PushDateTime", "" },
             //        {
             //            "UserList", new List<string>()
             //            {
-            //                "00D223", "001234"
+            //                "00D223","000101","00zzzz"
             //            }
             //        },
             //        { "Data", data }
@@ -188,18 +210,16 @@ namespace TEST
             #region - 取消推播測試 -
             //model.UserIDList = new List<string> { "00D223", "00D470" };
 
-            //var url = "http://127.0.0.1:6734/AppService/CancelPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&MessageID=A9CC5F4F-EE00-48B1-ACBF-B706C53E6F20";
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/CancelPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&MessageID=C59F7E6D-6200-4C57-8580-954BCAA270A9";
 
-            //var userIDList = new JavaScriptSerializer().Serialize(
-            //    new List<string>
-            //    {
-            //        "00D223", "00D470"
-            //    });
+            //var userIDList = new List<string> {"00D223"};
 
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "UserIDList", userIDList }
+            //        { "UserIDList", userIDList },
+            //        { "MessageID" , "C59F7E6D-6200-4C57-8580-954BCAA270A9"},
+            //        { "ClientUserID","00D223"}
             //    });
             #endregion
 
@@ -211,17 +231,23 @@ namespace TEST
             #endregion
 
             #region - GET -
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url + apiParaJsonStr);
-            request.Method = WebRequestMethods.Http.Get;
-            request.KeepAlive = false;
-            request.ContentType = "application/json";
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
-            if (response != null)
-            {
-                Stream responseStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
-            }
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?" +
+            //                                                           "ClientUserID=00D223&" +
+            //                                                           "ClientSysID=ERPAP&" +
+            //                                                           "AppID=B2CAPP&" +
+            //                                                           "UserID=00D223&" +
+            //                                                           "StartDateTime=20181003135200000&" +
+            //                                                           "EndDateTime=");
+            //request.Method = WebRequestMethods.Http.Get;
+            //request.KeepAlive = false;
+            //request.ContentType = "application/json";
+            //HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            //if (response != null)
+            //{
+            //    Stream responseStream = response.GetResponseStream();
+            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+            //    string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
+            //}
             #endregion
             #endregion
 
@@ -535,7 +561,7 @@ namespace TEST
 
             #region - 檔案讀寫 -
 
-            #region URI抓取檔案並上傳
+            #region - URI抓取檔案並上傳 -
             //string fileNM = "/17/17120018_1.04-wallpaper-contest3.jpg".Split(new[] { "/17/" }, StringSplitOptions.RemoveEmptyEntries).Last();
             //string filePath = $"{@"http://uerp.liontravel.com.tw/html2/form"}{@"/17/17120018_1.04-wallpaper-contest3.jpg"}";
             //string docEncodeNM = filePath.Split(new[] { "\\" }, StringSplitOptions.RemoveEmptyEntries).Last();
