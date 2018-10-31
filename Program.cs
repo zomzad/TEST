@@ -107,14 +107,20 @@ namespace TEST
         private static string name = string.Empty;
         #endregion
 
+        private class Country
+        {
+            public string CountryName { get; set; }
+            public string CountryId { get; set; }
+        }
+
         private static void Main(string[] args)
         {
             //Exec run = new Exec();
             //run.ExecTestFun();
 
-            #region - B2C推播API測試 -
+            #region - API測試 -
 
-            #region - 推播訊息已讀測試 -
+            #region - B2C推播訊息已讀測試 -
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/ReadMessage?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
@@ -124,7 +130,7 @@ namespace TEST
             //    });
             #endregion
 
-            #region - 登出測試 -
+            #region - B2C登出測試 -
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/Logout?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
@@ -133,7 +139,7 @@ namespace TEST
             //    });
             #endregion
 
-            #region - 取得推播紀錄測試 -
+            #region - B2C取得推播紀錄測試 -
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&LogPushMessagePara=";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
@@ -145,7 +151,7 @@ namespace TEST
             //    });
             #endregion
 
-            #region - 登入測試 -
+            #region - B2C登入測試 -
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/Login?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
@@ -166,7 +172,7 @@ namespace TEST
             //    });
             #endregion
 
-            #region - 開啟推播測試 -
+            #region - B2C開啟推播測試 -
             //開啟推播測試
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/OpenPush?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
@@ -180,7 +186,7 @@ namespace TEST
             //    });
             #endregion
 
-            #region - 推播排程訊息測試 -
+            #region - B2C推播排程訊息測試 -
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
             //var data = new JavaScriptSerializer().Serialize(
@@ -207,7 +213,7 @@ namespace TEST
             //    });
             #endregion
 
-            #region - 取消推播測試 -
+            #region - B2C取消推播測試 -
             //model.UserIDList = new List<string> { "00D223", "00D470" };
 
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/CancelPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&MessageID=C59F7E6D-6200-4C57-8580-954BCAA270A9";
@@ -223,6 +229,65 @@ namespace TEST
             //    });
             #endregion
 
+            #region - 事件訂閱API -
+
+            #region - ERPAPIscpm00 -
+            //SELECT TOP 5 * FROM RAW_CM_ORG_COM
+            //WHERE COM_ID = '!!'
+
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "comp_comp", "!!" },
+            //        { "comp_sts", "Y"},
+            //        { "comp_bu","J"},
+            //        { "comp_dname","測試公司"},
+            //        { "comp_order","999"},
+            //        { "comp_country","YY"},
+            //        { "comp_ps","N"}
+            //    });
+
+            //var url = "http://127.0.0.1:6666/Subscriber/ERPAPIscpm00EditEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            //var url = "http://127.0.0.1:6666/Subscriber/ERPAPIscpm00DeleteEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            #endregion
+
+            #region - ERPAPOptbm00 -
+            //SELECT TOP 5 * FROM RAW_CM_COUNTRY
+            //WHERE COUNTRY_ID = 'XX'
+
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "cnty_country", "XX" },
+            //        { "cnty_sts", "N" },
+            //        { "cnty_dname", "測試國家" },
+            //        { "cnty_cname", "測試國家中文" },
+            //        { "cnty_ename", "TESTEN" }
+            //    });
+
+            //var url = "http://127.0.0.1:6666/Subscriber/ERPAPOptbm00EditEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            //var url = "http://127.0.0.1:6666/Subscriber/ERPAPOptbm00DeleteEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            #endregion
+
+            #region - ERPAPPsppm00 -
+            //SELECT TOP 5 * FROM RAW_CM_USER_DETAIL
+            //WHERE USER_ID = '00AAAA'
+
+            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                    { "pp00_stfn", "00AAAA" },
+                    { "pp00_idno", "A123456898" },
+                    { "pp00_bdate", "19870101" },
+                    { "pp00_scmp", "T" }
+                });
+
+            //var url = "http://127.0.0.1:6666/Subscriber/ERPAPPsppm00EditEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            var url = "http://127.0.0.1:6666/Subscriber/ERPAPPsppm00DeleteEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            #endregion
+
+            #endregion
+
             #region - POST -
             //WebClient client = new WebClient { Encoding = Encoding.UTF8 };
             //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
@@ -231,24 +296,20 @@ namespace TEST
             #endregion
 
             #region - GET -
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?" +
-            //                                                           "ClientUserID=00D223&" +
-            //                                                           "ClientSysID=ERPAP&" +
-            //                                                           "AppID=B2CAPP&" +
-            //                                                           "UserID=00D223&" +
-            //                                                           "StartDateTime=20181003135200000&" +
-            //                                                           "EndDateTime=");
-            //request.Method = WebRequestMethods.Http.Get;
-            //request.KeepAlive = false;
-            //request.ContentType = "application/json";
-            //HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
-            //if (response != null)
-            //{
-            //    Stream responseStream = response.GetResponseStream();
-            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-            //    string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
-            //}
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+
+            request.Method = WebRequestMethods.Http.Get;
+            request.KeepAlive = false;
+            request.ContentType = "application/json";
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            if (response != null)
+            {
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
+            }
             #endregion
+
             #endregion
 
             #region - LDAP -
@@ -431,10 +492,6 @@ namespace TEST
             //MatchCollection matches2 = regNotIgnoreCase.Matches(input);//matches2 = {"captured","counterparts","competing"}
             #endregion
 
-            //字串移除指定位置某段文字
-            //string testStr = "aaaa|bbbb|ccc";
-            //var result = testStr.Remove(0, testStr.IndexOf('|'));
-
             #region - 各種日期時間 -
             //var abc = Common.GetDateTimeFormattedText(DateTime.Now, Common.EnumDateTimeFormatted.ShortDateNumber);
             //var formateDateTime = Common.FormatDateString("20171109"); // 格式 : 2017/11/09
@@ -465,11 +522,20 @@ namespace TEST
             //}
             #endregion
 
+            #region - 字串 或 int相關 -
+
+            #region - 字串移除指定位置某段文字 -
+            //string testStr = "aaaa|bbbb|ccc";
+            //var result = testStr.Remove(0, testStr.IndexOf('|'));
+            #endregion
+
             #region - 字串 or 數字 轉boolean -
             //bool boolResultA = Convert.ToBoolean(1); //true 0以外所有數字都是true
             //bool boolResultB = Convert.ToBoolean(bool.TrueString); //true
             //bool boolResultC = Convert.ToBoolean(bool.FalseString); //false
             //bool a = Convert.ToBoolean("1"); //會error
+            #endregion
+
             #endregion
 
             #region - Aggregate用法 -
