@@ -273,17 +273,70 @@ namespace TEST
             //SELECT TOP 5 * FROM RAW_CM_USER_DETAIL
             //WHERE USER_ID = '00AAAA'
 
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "pp00_stfn", "00AAAA" },
+            //        { "pp00_idno", "A123456898" },
+            //        { "pp00_bdate", "19870101" },
+            //        { "pp00_scmp", "T" }
+            //    });
+
+            ////var url = "http://127.0.0.1:6666/Subscriber/ERPAPPsppm00EditEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            //var url = "http://127.0.0.1:6666/Subscriber/ERPAPPsppm00DeleteEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            #endregion
+
+            #region - ERPAPOpagm20 -
             var apiParaJsonStr = new JavaScriptSerializer().Serialize(
                 new Dictionary<string, object>()
                 {
-                    { "pp00_stfn", "00AAAA" },
-                    { "pp00_idno", "A123456898" },
-                    { "pp00_bdate", "19870101" },
-                    { "pp00_scmp", "T" }
+                    { "stfn_stfn", "00ZZZZ" },
+                    { "stfn_cname", "TESTMAN" },
+                    { "stfn_prof", "87" },
+                    { "stfn_sts", "N" },
+                    { "stfn_comp", "T" },
+                    { "stfn_team", "S990" },
+                    { "stfn_job1", "14" },
+                    { "stfn_job2", "27" },
+                    { "stfn_email", "zomzad@gmail.com" },
                 });
 
-            //var url = "http://127.0.0.1:6666/Subscriber/ERPAPPsppm00EditEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
-            var url = "http://127.0.0.1:6666/Subscriber/ERPAPPsppm00DeleteEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            var url = "http://127.0.0.1:6666/Subscriber/ERPAPOpagm20EditEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            //var url = "http://127.0.0.1:6666/Subscriber/ERPAPPsppm00DeleteEvent?ClientUserID=00D223&ClientSysID=ERPAP&EventPara=" + apiParaJsonStr;
+            #endregion
+
+            #endregion
+
+            #region - Authorization -
+
+            #region - ERPUserAccount & ERPUserRoleReset -
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "UserID", "00ZZZZ" },
+            //        { "UserNM", "TESTMAN" },
+            //        { "IsLeft", "N" },
+            //        { "JoinDate", "20181010" },
+            //        { "UserOrgArea", "A001" },
+            //        { "UserOrgBIZTitle", "O030" },
+            //        { "UserOrgDept", "D582" },
+            //        { "UserOrgGroup", "A" },
+            //        { "UserOrgJobTitle", "T075" },
+            //        { "UserOrgLevel", "020" },
+            //        { "UserOrgPlace", "B029" },
+            //        { "UserOrgTeam", "S999" },
+            //        { "UserOrgTitle", "G010" },
+            //        { "UserOrgWorkCom", "T" },
+            //        { "UserComID", "T" },
+            //        { "UserSalaryComID", "T" },
+            //        { "UserTeamID", "S999" },
+            //        { "UserTitleID", "27" },
+            //        { "UserUnitID", "87" },
+            //        { "UserWorkID", "14" }
+            //    });
+
+            //var url = "http://127.0.0.1:6666/Authorization/ERPUserAccountCreateEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
+            //var url = "http://127.0.0.1:6666/Authorization/ERPUserRoleResetEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
             #endregion
 
             #endregion
