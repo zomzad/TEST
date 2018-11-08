@@ -112,6 +112,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Script\test.js" />
+    <Content Include="SQLComm\istbm00查詢異動.sql" />
+    <Content Include="SQLComm\WF流程.sql" />
+    <Content Include="SQLComm\[SYS]撈平台功能選單.sql" />
+    <Content Include="SQLComm\[SYS]撈平台和功能.sql" />
+    <Content Include="SQLComm\[TQM]內部改善單EDI跑留言.sql" />
+    <Content Include="SQLComm\[TQM]團號&amp;團號公司找資訊.sql" />
+    <Content Include="SQLComm\[TQM]找RC加業務主管.sql" />
+    <Content Include="SQLComm\[TQM]顧客反應單新增存檔時候自動補足的資料.sql" />
+    <Content Include="SQLComm\[共用]產生EntityTable_王汶智.sql" />
+    <Content Include="SQLComm\[共用]產生ModelToEntityParam_王汶智.sql" />
+    <Content Include="SQLComm\動態欄位 異常資料捕捉.sql" />
+    <Content Include="SQLComm\套用權限.sql" />
+    <Content Include="SQLComm\常用SQL語法.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
