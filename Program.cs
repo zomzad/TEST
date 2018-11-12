@@ -214,26 +214,26 @@ namespace TEST
             #endregion
 
             #region - B2C推播主題訊息測試 -
-            var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushTopicMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushTopicMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
-            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                    { "Topic", "B2CAPP_ALL" },
-                    { "Title", "測試主題推播" },
-                    { "Body", "主題的推播" },
-                    { "PushDateTime", "" }, //Common.GetDateTimeString(DateTime.Now)
-                    {
-                        "UserList", new List<string> { "00D223", "000101", "00zzzz" }
-                    },
-                    {
-                        "Data",
-                        new JavaScriptSerializer().Serialize(new Dictionary<string, object>
-                        {
-                            { "data", "testdata" }
-                        })
-                    }
-                });
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "Topic", "B2CAPP_ALL" },
+            //        { "Title", "測試主題推播" },
+            //        { "Body", "主題的推播" },
+            //        { "PushDateTime", "" }, //Common.GetDateTimeString(DateTime.Now)
+            //        {
+            //            "UserList", new List<string> { "00D223", "000101", "00zzzz" }
+            //        },
+            //        {
+            //            "Data",
+            //            new JavaScriptSerializer().Serialize(new Dictionary<string, object>
+            //            {
+            //                { "data", "testdata" }
+            //            })
+            //        }
+            //    });
             #endregion
 
             #region - B2C取消推播測試 -
@@ -333,57 +333,57 @@ namespace TEST
             #region - Authorization -
 
             #region - ERPUserAccount & ERPUserRoleReset -
-            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-            //    new Dictionary<string, object>()
-            //    {
-            //        { "UserID", "00ZZZZ" },
-            //        { "UserNM", "TESTMAN" },
-            //        { "IsLeft", "N" },
-            //        { "JoinDate", "20181010" },
-            //        { "UserOrgArea", "A001" },//區域
-            //        { "UserOrgBIZTitle", "O030" },//業務職稱
-            //        { "UserOrgDept", "D582" },//部門
-            //        { "UserOrgGroup", "A" },//事業群
-            //        { "UserOrgJobTitle", "T075" },//職稱
-            //        { "UserOrgLevel", "020" },//職等
-            //        { "UserOrgPlace", "B029" },//事業處
-            //        { "UserOrgTeam", "S999" },//組別
-            //        { "UserOrgTitle", "G010" },//ERP-職稱
-            //        { "UserOrgWorkCom", "T" },//公司編號
-            //        { "UserComID", "T" },//公司編號
-            //        { "UserSalaryComID", "T" },//薪資公司編號
-            //        { "UserTeamID", "S999" },//ERP-組別
-            //        { "UserTitleID", "27" },//ERP-職稱
-            //        { "UserUnitID", "87" },//單位編號
-            //        { "UserWorkID", "14" }//ERP-工作
-            //    });
+            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                    { "UserID", "00ZZZZ" },
+                    { "UserNM", "TESTMAN" },
+                    { "IsLeft", "N" },
+                    { "JoinDate", "20181010" },
+                    { "UserOrgArea", "A001" },//區域
+                    { "UserOrgBIZTitle", "O030" },//業務職稱
+                    { "UserOrgDept", "D582" },//部門
+                    { "UserOrgGroup", "A" },//事業群
+                    { "UserOrgJobTitle", "T075" },//職稱
+                    { "UserOrgLevel", "020" },//職等
+                    { "UserOrgPlace", "B029" },//事業處
+                    { "UserOrgTeam", "S999" },//組別
+                    { "UserOrgTitle", "G010" },//ERP-職稱
+                    { "UserOrgWorkCom", "T" },//公司編號
+                    { "UserComID", "T" },//公司編號
+                    { "UserSalaryComID", "T" },//薪資公司編號
+                    { "UserTeamID", "S999" },//ERP-組別
+                    { "UserTitleID", "27" },//ERP-職稱
+                    { "UserUnitID", "87" },//單位編號
+                    { "UserWorkID", "14" }//ERP-工作
+                });
 
-            //var url = "http://127.0.0.1:6666/Authorization/ERPUserAccountCreateEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
-            ////var url = "http://127.0.0.1:6666/Authorization/ERPUserRoleResetEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
+            var url = "http://127.0.0.1:6666/Authorization/ERPUserAccountCreateEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
+            //var url = "http://127.0.0.1:6666/Authorization/ERPUserRoleResetEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
             #endregion
 
             #endregion
 
             #region - POST -
-            WebClient client = new WebClient { Encoding = Encoding.UTF8 };
-            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-            var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
-            var apiResult = Encoding.UTF8.GetString(responseWebClient);
+            //WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+            //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            //var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
+            //var apiResult = Encoding.UTF8.GetString(responseWebClient);
             #endregion
 
             #region - GET -
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
-            //request.Method = WebRequestMethods.Http.Get;
-            //request.KeepAlive = false;
-            //request.ContentType = "application/json";
-            //HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
-            //if (response != null)
-            //{
-            //    Stream responseStream = response.GetResponseStream();
-            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-            //    string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
-            //}
+            request.Method = WebRequestMethods.Http.Get;
+            request.KeepAlive = false;
+            request.ContentType = "application/json";
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            if (response != null)
+            {
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
+            }
             #endregion
 
             #endregion
