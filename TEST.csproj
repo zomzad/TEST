@@ -125,6 +125,7 @@
     <Content Include="SQLComm\動態欄位 異常資料捕捉.sql" />
     <Content Include="SQLComm\套用權限.sql" />
     <Content Include="SQLComm\常用SQL語法.sql" />
+    <Content Include="SQLComm\角色群組.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
