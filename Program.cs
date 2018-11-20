@@ -117,6 +117,21 @@ namespace TEST
         {
             //Exec run = new Exec();
             //run.ExecTestFun();
+            //string StartDateTime = "20180131102012545";
+            //string EndDateTime = "20180731102012545";
+            //TimeSpan ts = Common.GetDateTime(Common.FormatDateTimeString(EndDateTime)) - Common.GetDateTime(Common.FormatDateTimeString(StartDateTime));
+            //if (Math.Abs(ts.Days)/30 > 4)
+            //{
+                
+            //}
+
+            //var jjjj = Guid.NewGuid().ToString();
+            //var h = Common.GetDateTimeString(Common.GetDateTime(Common.FormatDateTimeString("20181102102012545")).AddYears(-1));
+            //var j = DateTime.Now.ToString();
+            //var hhu = Common.GetDateTimeString(DateTime.Now);
+            //var jj = Common.GetDateTime(Common.FormatDateTimeString("20181102102012545")).AddYears(-1);
+            //var a = Common.GetDateTime(Common.FormatDateTimeString("20181102102012545"));
+            //var b = DateTime.Now;
 
             #region - API測試 -
 
@@ -140,15 +155,10 @@ namespace TEST
             #endregion
 
             #region - B2C取得推播紀錄測試 -
-            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&LogPushMessagePara=";
-            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-            //    new Dictionary<string, object>()
-            //    {
-            //        { "AppID", "B2CAPP" },
-            //        { "UserID", "00D223" },
-            //        { "StartDateTime","20181003135200000"},
-            //        { "EndDateTime","20181003135522555"}
-            //    });
+            var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP" +
+                      "&UserID=00D223" +
+                      //"&StartDateTime=20160225021015000";
+                      "&EndDateTime=20171025021015999";
             #endregion
 
             #region - B2C登入測試 -
@@ -222,7 +232,7 @@ namespace TEST
             //        { "Topic", "B2CAPP_ALL" },
             //        { "Title", "測試主題推播" },
             //        { "Body", "主題的推播" },
-            //        { "PushDateTime", "" }, //Common.GetDateTimeString(DateTime.Now)
+            //        { "PushDateTime", "20181120152012412" }, //Common.GetDateTimeString(DateTime.Now)
             //        {
             //            "UserList", new List<string> { "00D223", "000101", "00zzzz" }
             //        },
@@ -233,6 +243,22 @@ namespace TEST
             //                { "data", "testdata" }
             //            })
             //        }
+            //    });
+            #endregion
+
+            #region - B2C取消TOPIC推播測試 -
+            //model.UserIDList = new List<string> { "00D223", "00D470" };
+
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/CancelPushTopicMessage?ClientUserID=00D223&ClientSysID=ERPAP&MessageID=176E5218-42AF-4B8E-BBE4-87E0364C60B6";
+
+            //var userIDList = new List<string> { "00D223" };
+
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "UserIDList", userIDList },
+            //        { "MessageID" , "176E5218-42AF-4B8E-BBE4-87E0364C60B6"},
+            //        { "ClientUserID","00D223"}
             //    });
             #endregion
 
@@ -333,32 +359,32 @@ namespace TEST
             #region - Authorization -
 
             #region - ERPUserAccount & ERPUserRoleReset -
-            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                    { "UserID", "00ZZZZ" },
-                    { "UserNM", "TESTMAN" },
-                    { "IsLeft", "N" },
-                    { "JoinDate", "20181010" },
-                    { "UserOrgArea", "A001" },//區域
-                    { "UserOrgBIZTitle", "O030" },//業務職稱
-                    { "UserOrgDept", "D582" },//部門
-                    { "UserOrgGroup", "A" },//事業群
-                    { "UserOrgJobTitle", "T075" },//職稱
-                    { "UserOrgLevel", "020" },//職等
-                    { "UserOrgPlace", "B029" },//事業處
-                    { "UserOrgTeam", "S999" },//組別
-                    { "UserOrgTitle", "G010" },//ERP-職稱
-                    { "UserOrgWorkCom", "T" },//公司編號
-                    { "UserComID", "T" },//公司編號
-                    { "UserSalaryComID", "T" },//薪資公司編號
-                    { "UserTeamID", "S999" },//ERP-組別
-                    { "UserTitleID", "27" },//ERP-職稱
-                    { "UserUnitID", "87" },//單位編號
-                    { "UserWorkID", "14" }//ERP-工作
-                });
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "UserID", "00ZZZZ" },
+            //        { "UserNM", "TESTMAN" },
+            //        { "IsLeft", "N" },
+            //        { "JoinDate", "20181010" },
+            //        { "UserOrgArea", "A001" },//區域
+            //        { "UserOrgBIZTitle", "O030" },//業務職稱
+            //        { "UserOrgDept", "D582" },//部門
+            //        { "UserOrgGroup", "A" },//事業群
+            //        { "UserOrgJobTitle", "T075" },//職稱
+            //        { "UserOrgLevel", "020" },//職等
+            //        { "UserOrgPlace", "B029" },//事業處
+            //        { "UserOrgTeam", "S999" },//組別
+            //        { "UserOrgTitle", "G010" },//ERP-職稱
+            //        { "UserOrgWorkCom", "T" },//公司編號
+            //        { "UserComID", "T" },//公司編號
+            //        { "UserSalaryComID", "T" },//薪資公司編號
+            //        { "UserTeamID", "S999" },//ERP-組別
+            //        { "UserTitleID", "27" },//ERP-職稱
+            //        { "UserUnitID", "87" },//單位編號
+            //        { "UserWorkID", "14" }//ERP-工作
+            //    });
 
-            var url = "http://127.0.0.1:6666/Authorization/ERPUserAccountCreateEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
+            //var url = "http://127.0.0.1:6666/Authorization/ERPUserAccountCreateEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
             //var url = "http://127.0.0.1:6666/Authorization/ERPUserRoleResetEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
             #endregion
 
