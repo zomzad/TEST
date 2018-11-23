@@ -117,21 +117,6 @@ namespace TEST
         {
             //Exec run = new Exec();
             //run.ExecTestFun();
-            //string StartDateTime = "20180131102012545";
-            //string EndDateTime = "20180731102012545";
-            //TimeSpan ts = Common.GetDateTime(Common.FormatDateTimeString(EndDateTime)) - Common.GetDateTime(Common.FormatDateTimeString(StartDateTime));
-            //if (Math.Abs(ts.Days)/30 > 4)
-            //{
-                
-            //}
-
-            //var jjjj = Guid.NewGuid().ToString();
-            //var h = Common.GetDateTimeString(Common.GetDateTime(Common.FormatDateTimeString("20181102102012545")).AddYears(-1));
-            //var j = DateTime.Now.ToString();
-            //var hhu = Common.GetDateTimeString(DateTime.Now);
-            //var jj = Common.GetDateTime(Common.FormatDateTimeString("20181102102012545")).AddYears(-1);
-            //var a = Common.GetDateTime(Common.FormatDateTimeString("20181102102012545"));
-            //var b = DateTime.Now;
 
             #region - API測試 -
 
@@ -143,10 +128,19 @@ namespace TEST
             //        { "MessageID", "0BC77DC0-A891-4109-8610-693419EFA583" },
             //        { "UserID", "00D223"}
             //    });
+
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/ReadMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "MessageID", "C8FDDB55-4B3A-46FA-851A-0C3141353038" },
+            //        { "UserID", "69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f"}
+            //    });
             #endregion
 
             #region - B2C登出測試 -
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/Logout?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/Logout?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
@@ -155,25 +149,45 @@ namespace TEST
             #endregion
 
             #region - B2C取得推播紀錄測試 -
-            var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP" +
-                      "&UserID=00D223" +
-                      //"&StartDateTime=20160225021015000";
-                      "&EndDateTime=20171025021015999";
+            ////20171025021015999, 20160225021015000
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP" +
+            //          "&UserID=69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" +
+            //          "&StartDateTime=20160215100000000";
+            //"&EndDateTime=20181120021015999";
+
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP" +
+            //          "&UserID=69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" +
+            //          //"&StartDateTime=20180215100000000" +
+            //          "&EndDateTime=20181101021015999";
             #endregion
 
             #region - B2C登入測試 -
+            //00D223裝置資料
+            /*
+                    { "UUID", "22495241-7342-4A33-905B-1A65E6498CD6" },
+                    { "AppID", "B2CAPP" },
+                    { "UserID", "69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" },
+                    { "DeviceToken", "ebMsFq3EYQo:APA91bGr6du3CVVj8-4JmnhfLzMzvsUUV48Z0Eo4SUB3Wb5CK8QVKz7IiUkbQW7FgVnsUSSa7i9YzpbifmBq9qd24TnFrV7rvH-EyC2NtH_i4n0lsBvRXeSW6kI9Sd6b0hQTi8kO94Om" },
+                    { "DeviceTokenType", "Firebase" },
+                    { "OS", "Android" },
+                    { "MobileType", "U Ultra" },
+                    { "IsOpenPush", "Y" }
+             */
+
+
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/Login?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/Login?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "UUID", "22495241-7342-4A33-905B-1A65E6498CD6" },
             //        //C2ECB70B-F50B-4D5D-A81A-0012B610D6DC
             //        //A4EBC9F4 -28BD-4AFF-A8DC-F01F53A440A3
             //        //7CE1BF60-808F-4EE3-AFF7-14E1F7FD3E5F
             //        //C2ECB70B-F50B-4D5D-A81A-0012B610D6DC
             //        //9B494ADB-7342-4A33-905B-1A65E6498CD6
+            //        { "UUID", "22495241-7342-4A33-905B-1A65E6498CD6" },
             //        { "AppID", "B2CAPP" },
-            //        { "UserID", "00D223" },
+            //        { "UserID", "69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" },
             //        { "DeviceToken", "ebMsFq3EYQo:APA91bGr6du3CVVj8-4JmnhfLzMzvsUUV48Z0Eo4SUB3Wb5CK8QVKz7IiUkbQW7FgVnsUSSa7i9YzpbifmBq9qd24TnFrV7rvH-EyC2NtH_i4n0lsBvRXeSW6kI9Sd6b0hQTi8kO94Om" },
             //        { "DeviceTokenType", "Firebase" },
             //        { "OS", "Android" },
@@ -185,12 +199,13 @@ namespace TEST
             #region - B2C開啟推播測試 -
             //開啟推播測試
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/OpenPush?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/OpenPush?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "UUID", "11495241-7342-4A33-905B-1A65E6498CD6" },
+            //        { "UUID", "22495241-7342-4A33-905B-1A65E6498CD6" },
             //        { "IsOpenPush", "Y" },
-            //        { "DeviceToken", "eli8of3rgu8:APA91bEUeenoEk4-Bb_i4TyygX--S3vKv4iUxKL0P8jVGnBJIasT8Jc_Ezzey8VynH2IJu9UZAUBRVJnmKfin3x_Wk2itstZQpofD6KRD3mao9zue1FTvkOfvBNGyB3dUN03gIbSiIGn" },
+            //        { "DeviceToken", "ebMsFq3EYQo:APA91bGr6du3CVVj8-4JmnhfLzMzvsUUV48Z0Eo4SUB3Wb5CK8QVKz7IiUkbQW7FgVnsUSSa7i9YzpbifmBq9qd24TnFrV7rvH-EyC2NtH_i4n0lsBvRXeSW6kI9Sd6b0hQTi8kO94Om" },
             //        //eePmFsFHTcs:APA91bHVyn6lL4uWK6hGKowZz55kc7UA-HhU_XuC2Ik3_3dMpORxMsJH0g3idWACBj2BAc-MLpzbFshcnS7jG4Z2167xM5wB9jLFPs3CXA8YibFRjuWLIuEJYknUzQPtLZG0gkH2KawH
             //        //dD5rSf4sjk4:APA91bEeOyyCx7bzkD_NzgOFi3cZJmU5-iVbLZnb4uVMPOl0hqvGs4LXLlz5vp2SRffAPm1Q1fnY0h6BXZilF4u2g8iA0fSc2yh2g5GVs8IenqXPm_knozaFj_aI1Rd__pBs9LW3oj7n
             //    });
@@ -198,33 +213,42 @@ namespace TEST
 
             #region - B2C推播訊息測試 -
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
-            //var data = new JavaScriptSerializer().Serialize(
-            //    new Dictionary<string, object>()
-            //    {
-            //        {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
-            //        { "SourceType","Metting"}
-            //    });
+            var data = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                            {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
+                            { "SourceType","Metting"}
+                });
 
-            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-            //    new Dictionary<string, object>()
-            //    {
-            //        { "Body", "測試推播" },
-            //        { "Title", "測試推播TEST" },
-            //        { "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
-            //        //{ "PushDateTime", "" },
-            //        {
-            //            "UserList", new List<string>()
-            //            {
-            //                "00D223","000101","00zzzz"
-            //            }
-            //        },
-            //        { "Data", data }
-            //    });
+            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                    { "Body", "測試推播內容" },
+                    { "Title", "測試推播標題" },
+                    { "DataType", "OrderPayment" },
+                    //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
+                    { "PushDateTime", "20181122112600123" },
+                    {
+                        "UserList", new List<string>()
+                        {
+                            "00D223", "000101", "00zzzz"
+                        }
+                    },
+                    {
+                        "Data",
+                        new JavaScriptSerializer().Serialize(new Dictionary<string, object>
+                        {
+                            { "data", "testdata" }
+                        })
+                    }
+                });
             #endregion
 
             #region - B2C推播主題訊息測試 -
-            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushTopicMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            //////var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushTopicMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/PushTopicMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
@@ -232,7 +256,7 @@ namespace TEST
             //        { "Topic", "B2CAPP_ALL" },
             //        { "Title", "測試主題推播" },
             //        { "Body", "主題的推播" },
-            //        { "PushDateTime", "20181120152012412" }, //Common.GetDateTimeString(DateTime.Now)
+            //        { "PushDateTime", "20181122115500123" }, //Common.GetDateTimeString(DateTime.Now)
             //        {
             //            "UserList", new List<string> { "00D223", "000101", "00zzzz" }
             //        },
@@ -247,9 +271,8 @@ namespace TEST
             #endregion
 
             #region - B2C取消TOPIC推播測試 -
-            //model.UserIDList = new List<string> { "00D223", "00D470" };
-
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/CancelPushTopicMessage?ClientUserID=00D223&ClientSysID=ERPAP&MessageID=176E5218-42AF-4B8E-BBE4-87E0364C60B6";
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/CancelPushTopicMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
             //var userIDList = new List<string> { "00D223" };
 
@@ -257,7 +280,7 @@ namespace TEST
             //    new Dictionary<string, object>()
             //    {
             //        { "UserIDList", userIDList },
-            //        { "MessageID" , "176E5218-42AF-4B8E-BBE4-87E0364C60B6"},
+            //        { "MessageID" , "81C86680-7D0C-4816-B151-1571E8BCD216"},
             //        { "ClientUserID","00D223"}
             //    });
             #endregion
@@ -266,14 +289,15 @@ namespace TEST
             //model.UserIDList = new List<string> { "00D223", "00D470" };
 
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/CancelPushMessage?ClientUserID=00D223&ClientSysID=ERPAP&MessageID=C59F7E6D-6200-4C57-8580-954BCAA270A9";
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/CancelPushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
-            //var userIDList = new List<string> {"00D223"};
+            //var userIDList = new List<string> { "00D223" };
 
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
             //        { "UserIDList", userIDList },
-            //        { "MessageID" , "C59F7E6D-6200-4C57-8580-954BCAA270A9"},
+            //        { "MessageID" , "C8FDDB55-4B3A-46FA-851A-0C3141353038"},
             //        { "ClientUserID","00D223"}
             //    });
             #endregion
@@ -391,25 +415,25 @@ namespace TEST
             #endregion
 
             #region - POST -
-            //WebClient client = new WebClient { Encoding = Encoding.UTF8 };
-            //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-            //var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
-            //var apiResult = Encoding.UTF8.GetString(responseWebClient);
+            WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
+            var apiResult = Encoding.UTF8.GetString(responseWebClient);
             #endregion
 
             #region - GET -
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
-            request.Method = WebRequestMethods.Http.Get;
-            request.KeepAlive = false;
-            request.ContentType = "application/json";
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
-            if (response != null)
-            {
-                Stream responseStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
-            }
+            //request.Method = WebRequestMethods.Http.Get;
+            //request.KeepAlive = false;
+            //request.ContentType = "application/json";
+            //HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            //if (response != null)
+            //{
+            //    Stream responseStream = response.GetResponseStream();
+            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+            //    string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
+            //}
             #endregion
 
             #endregion
