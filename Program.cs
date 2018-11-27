@@ -26,6 +26,7 @@ using LionTech.APIService.SMS;
 using LionTech.Utility;
 using LionTech.Utility.Sockets;
 using System.Web.Mvc;
+using LionTech.APIService.AppService.LionTravel;
 using Newtonsoft.Json;
 using SampleCode.Models;
 using SampleCode.Security;
@@ -117,6 +118,66 @@ namespace TEST
         {
             //Exec run = new Exec();
             //run.ExecTestFun();
+
+            #region - B2C推播測試 -
+
+            #region - 推播 -
+            B2CAppMessage message = new B2CAppMessage();
+            // 資料類型
+            /*
+              OrderPayment 訂單付款
+              TicketInvoicingSuccess 機票開票成功
+              BookingVoucherSuccess 住宿券開票成功
+              GroupNotification 成團通知
+              CustomerServiceReply 客服回覆
+            */
+            message.DataType = EnumDataType.BookingVoucherSuccess;
+            message.UserList = new List<string> // 推播發送對象
+            {
+                "69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" // 會員代碼
+            };
+
+            // 指定訊息推播時間2016/12/29 10:50 PM，若不指定推播時間，則無需此行程式。推播訊息會立即發送
+            message.AddPushDateTime(new DateTime(2018, 11, 26, 15, 03, 0));
+            message.Title = "機票開票成功";// 推播標題
+            message.Body = "2018/11/26 12:00 機票開票z成功";// 推播內容
+
+            B2CAppClient client = B2CAppClient.Create();
+            client.ClientSysID = "ERPAP";// 推播發送平台
+            client.ClientUserID = "008605";// 推播發送人員
+            var response = client.PushMessage(message);
+            #endregion
+
+            #region - 推播主題 -
+            //B2CAppTopicMessage message = new B2CAppTopicMessage();
+            //// 指定訊息推播時間2018/12/29 10:50 PM，若不指定推播時間，則無需此行程式。推播訊息會立即發送
+            //message.AddPushDateTime(new DateTime(2018, 11, 26, 14, 57, 0));
+            //message.Title = "澎湖福朋喜來登2日只要$1,999起";// 推播標題
+            //message.Body = "出發日期：即日起~2019/2/25止(台北/台中/高雄出發)";// 推播內容
+
+            //B2CAppClient client = B2CAppClient.Create();
+            //client.ClientSysID = "ERPAP";// 推播發送平台
+            //client.ClientUserID = "008605";// 推播發送人員
+            //PushTopicMessageResponse response = client.PushMessageByAll(message);
+            #endregion
+
+            #region - 取消推播 -
+            //Guid messageID = new Guid("73680267-e6bf-46d7-b3e4-6b165a958608"); // 推播訊息時，回傳messageID;
+            //B2CAppClient client = B2CAppClient.Create();
+            //client.ClientSysID = "ERPAP";// 取消推播平台;
+            //client.ClientUserID = "008605";// 取消推播人員;
+            //bool result = client.CancelPushMessage(messageID); // 取消推播
+            #endregion
+
+            #region - 取消主題推播 -
+            //Guid messageID = new Guid("C725DD04-BAD8-471B-9CBB-4619E32569D1"); // 推播訊息時，回傳messageID;
+            //B2CAppClient client = B2CAppClient.Create();
+            //client.ClientSysID = "ERPAP";// 取消推播平台
+            //client.ClientUserID = "008605";// 取消推播人員
+            //bool result = client.CancelPushTopicMessage(messageID); // 取消主題推播
+            #endregion
+
+            #endregion
 
             #region - API測試 -
 
@@ -415,10 +476,10 @@ namespace TEST
             #endregion
 
             #region - POST -
-            WebClient client = new WebClient { Encoding = Encoding.UTF8 };
-            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-            var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
-            var apiResult = Encoding.UTF8.GetString(responseWebClient);
+            //WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+            //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            //var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
+            //var apiResult = Encoding.UTF8.GetString(responseWebClient);
             #endregion
 
             #region - GET -
