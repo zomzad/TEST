@@ -87,6 +87,8 @@ namespace TEST
         #endregion
 
         #region - Property -
+        public delegate int MyDelegate(int a, int b);
+
         //存取子測試
         public static string testStr
         {
@@ -131,21 +133,21 @@ namespace TEST
               GroupNotification 成團通知
               CustomerServiceReply 客服回覆
             */
-            message.DataType = EnumDataType.BookingVoucherSuccess;
-            message.UserList = new List<string> // 推播發送對象
-            {
-                "69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" // 會員代碼
-            };
+            //message.DataType = EnumDataType.BookingVoucherSuccess;
+            //message.UserList = new List<string> // 推播發送對象
+            //{
+            //    "69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" // 會員代碼
+            //};
 
-            // 指定訊息推播時間2016/12/29 10:50 PM，若不指定推播時間，則無需此行程式。推播訊息會立即發送
-            message.AddPushDateTime(new DateTime(2018, 11, 26, 15, 03, 0));
-            message.Title = "機票開票成功";// 推播標題
-            message.Body = "2018/11/26 12:00 機票開票z成功";// 推播內容
+            //// 指定訊息推播時間2016/12/29 10:50 PM，若不指定推播時間，則無需此行程式。推播訊息會立即發送
+            //message.AddPushDateTime(new DateTime(2018, 11, 26, 15, 03, 0));
+            //message.Title = "機票開票成功";// 推播標題
+            //message.Body = "2018/11/26 12:00 機票開票z成功";// 推播內容
 
-            B2CAppClient client = B2CAppClient.Create();
-            client.ClientSysID = "ERPAP";// 推播發送平台
-            client.ClientUserID = "008605";// 推播發送人員
-            var response = client.PushMessage(message);
+            //B2CAppClient client = B2CAppClient.Create();
+            //client.ClientSysID = "ERPAP";// 推播發送平台
+            //client.ClientUserID = "008605";// 推播發送人員
+            //var response = client.PushMessage(message);
             #endregion
 
             #region - 推播主題 -
@@ -205,7 +207,7 @@ namespace TEST
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
             //    {
-            //        { "UUID", "22495241-7342-4A33-905B-1A65E6498CD6" }
+            //        { "UUID", "5956DED2-249B-4424-A48F-000B8834C8BA" }
             //    });
             #endregion
 
@@ -246,13 +248,13 @@ namespace TEST
             //        //7CE1BF60-808F-4EE3-AFF7-14E1F7FD3E5F
             //        //C2ECB70B-F50B-4D5D-A81A-0012B610D6DC
             //        //9B494ADB-7342-4A33-905B-1A65E6498CD6
-            //        { "UUID", "22495241-7342-4A33-905B-1A65E6498CD6" },
+            //        { "UUID", "6056DED2-249B-4424-A48F-000B8834C8BA" },
             //        { "AppID", "B2CAPP" },
-            //        { "UserID", "69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" },
-            //        { "DeviceToken", "ebMsFq3EYQo:APA91bGr6du3CVVj8-4JmnhfLzMzvsUUV48Z0Eo4SUB3Wb5CK8QVKz7IiUkbQW7FgVnsUSSa7i9YzpbifmBq9qd24TnFrV7rvH-EyC2NtH_i4n0lsBvRXeSW6kI9Sd6b0hQTi8kO94Om" },
-            //        { "DeviceTokenType", "Firebase" },
-            //        { "OS", "Android" },
-            //        { "MobileType", "U Ultra" },
+            //        { "UserID", "123457" },
+            //        { "DeviceToken", "35168" },
+            //        { "DeviceTokenType", "abc" },
+            //        { "OS", "windows" },
+            //        { "MobileType", "android" },
             //        { "IsOpenPush", "Y" }
             //    });
             #endregion
@@ -274,37 +276,37 @@ namespace TEST
 
             #region - B2C推播訊息測試 -
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
-            var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
-            var data = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                            {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
-                            { "SourceType","Metting"}
-                });
+            //var data = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //                {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
+            //                { "SourceType","Metting"}
+            //    });
 
-            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                    { "Body", "測試推播內容" },
-                    { "Title", "測試推播標題" },
-                    { "DataType", "OrderPayment" },
-                    //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
-                    { "PushDateTime", "20181122112600123" },
-                    {
-                        "UserList", new List<string>()
-                        {
-                            "00D223", "000101", "00zzzz"
-                        }
-                    },
-                    {
-                        "Data",
-                        new JavaScriptSerializer().Serialize(new Dictionary<string, object>
-                        {
-                            { "data", "testdata" }
-                        })
-                    }
-                });
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "Body", "測試推播內容" },
+            //        { "Title", "測試推播標題" },
+            //        { "DataType", "OrderPayment" },
+            //        //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
+            //        { "PushDateTime", "20181122112600123" },
+            //        {
+            //            "UserList", new List<string>()
+            //            {
+            //                "00D223", "000101", "00zzzz"
+            //            }
+            //        },
+            //        {
+            //            "Data",
+            //            new JavaScriptSerializer().Serialize(new Dictionary<string, object>
+            //            {
+            //                { "data", "testdata" }
+            //            })
+            //        }
+            //    });
             #endregion
 
             #region - B2C推播主題訊息測試 -
@@ -541,6 +543,15 @@ namespace TEST
             //}
             #endregion
 
+            #region - 委派 -
+            MyDelegate myDelegate = MethodA;
+            MyDelegate myDelegate2;
+            int a = myDelegate(2, 1); //MethodA已事先宣告
+
+            //或用匿名方法
+            myDelegate2 = (x, y) => x * y; //(x,y)表示傳入的兩個參數,=>後面是回傳值
+            #endregion
+
             #region - 各種換行 -
             //Model
             //errMsgList.AddRange(ModifyProgramInfoList
@@ -550,6 +561,31 @@ namespace TEST
             //    .Select(n => string.Format(PubSysRequiredFormModifyProgram.SystemMsg_TheItem, int.Parse(n.Order) + 1, $"{PubSysRequiredFormModifyProgram.SystemMsg_Hint_Required}<br/>{PubSysRequiredFormModifyProgram.SystemMsg_Desc_Required}")));
 
             //return string.Join("<br/>", errMsgList);
+            #endregion
+
+            #region - List相關處理 -
+            //移除符合條件的項目
+            //var userList = new List<UserInfo>
+            //{
+            //    new UserInfo
+            //    {
+            //        UserID = "A",
+            //        UserNM = "AName"
+            //    },
+            //    new UserInfo
+            //    {
+            //        UserID = "B",
+            //        UserNM = "BName"
+            //    },
+            //    new UserInfo
+            //    {
+            //        UserID = "C",
+            //        UserNM = "CName"
+            //    }
+            //};
+
+            //userList.RemoveAll(e => e.UserID.Equals("B"));
+            //var resultList = userList;
             #endregion
 
             #region - 匿名型別取值 -
@@ -1991,6 +2027,7 @@ namespace TEST
         //}
         #endregion
 
+        #region - 匿名型別取值 -
         public static List<string> GetValue(List<object> oList)
         {
             return (from s in oList
@@ -1999,5 +2036,18 @@ namespace TEST
                     where value != null
                     select value.ToString()).ToList();
         }
+        #endregion
+
+        #region - 委派測試用方法 -
+        public static int MethodA(int a, int b)
+        {
+            return a + b;
+        }
+
+        public static int MethodB(int a, int b)
+        {
+            return a - b;
+        }
+        #endregion
     }
 }

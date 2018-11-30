@@ -58,11 +58,10 @@
     </Reference>
     <Reference Include="LionTech.APIService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Project\Redistributable\LionTech\net461\LionTech.APIService.dll</HintPath>
+      <HintPath>..\..\LionTFS\Redistributable\LionTech\net461\LionTech.APIService.dll</HintPath>
     </Reference>
-    <Reference Include="LionTech.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Project\Redistributable\LionTech.Utility.dll</HintPath>
+    <Reference Include="LionTech.Utility">
+      <HintPath>..\..\LionTFS\Redistributable\LionTech\net461\LionTech.Utility.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
