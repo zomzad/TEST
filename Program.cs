@@ -215,13 +215,13 @@ namespace TEST
             ////20171025021015999, 20160225021015000
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP" +
             //          "&UserID=69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" +
-            //          "&StartDateTime=20160215100000000";
-            //"&EndDateTime=20181120021015999";
+            //          "&StartDateTime=20181203091111222" +
+            //"&EndDateTime=20181203091111222";
 
-            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP" +
+            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/LogPushMessage?ClientSysID=ERPAP" +
             //          "&UserID=69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" +
-            //          //"&StartDateTime=20180215100000000" +
-            //          "&EndDateTime=20181101021015999";
+            //          "& StartDateTime=20181203091111222" +
+            //          "& EndDateTime=20181203091111222";
             #endregion
 
             #region - B2C登入測試 -
@@ -550,6 +550,7 @@ namespace TEST
 
             //或用匿名方法
             myDelegate2 = (x, y) => x * y; //(x,y)表示傳入的兩個參數,=>後面是回傳值
+            var ass = myDelegate2(2, 5);
             #endregion
 
             #region - 各種換行 -
