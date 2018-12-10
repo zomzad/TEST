@@ -36,9 +36,18 @@ namespace TEST
     internal class Program
     {
         #region - Definition -
-        public class UserData
+        //Category的用途
+        [Description("The image associated with the control"), Category("Appearance")]
+        public string MyImage
         {
-            public string UserID { get; set; }
+            get
+            {
+                return string.Empty;
+            }
+            set
+            {
+                
+            }
         }
 
         public enum EnumDomainType
@@ -56,7 +65,39 @@ namespace TEST
             COMPUTER = 14
         }
 
+        private class Country
+        {
+            public string CountryName { get; set; }
+            public string CountryId { get; set; }
+        }
+
         #region - 繼承測試 -
+        public class classA : classB
+        {
+            public classA() : base(3)
+            {
+                Console.Write("A1");
+            }
+
+            public classA(int i) : base(5)
+            {
+                Console.Write("A2");
+            }
+        }
+
+        public class classB
+        {
+            public classB()
+            {
+                Console.Write("B1");
+            }
+
+            public classB(int i)
+            {
+                Console.Write("B2");
+            }
+        }
+
         private class ObjectA
         {
             protected ObjectA(string str)
@@ -84,6 +125,11 @@ namespace TEST
             public string UserID { get; set; }
             public string UserNM { get; set; }
         }
+
+        public class UserData
+        {
+            public string UserID { get; set; }
+        }
         #endregion
 
         #region - Property -
@@ -94,11 +140,11 @@ namespace TEST
         {
             get
             {
-                return name == "姓名:方道筌" ? name : "AAA";
+                return _name == "姓名:hseinjiun" ? _name : "AAA";
             }
             set
             {
-                name = $"姓名:{value}";
+                _name = $"姓名:{value}";
             }
         }
 
@@ -107,14 +153,8 @@ namespace TEST
 
         #region - Private -
         //存取子測試用
-        private static string name = string.Empty;
+        private static string _name = string.Empty;
         #endregion
-
-        private class Country
-        {
-            public string CountryName { get; set; }
-            public string CountryId { get; set; }
-        }
 
         private static void Main(string[] args)
         {
@@ -541,6 +581,25 @@ namespace TEST
 
             //    var searchResultCollection = searcher.FindAll();
             //}
+            #endregion
+
+            #region - 物件欄位或屬性操作 -
+           UserInfo userInfo = new UserInfo
+           {
+               UserID = "00D223",
+               UserNM = "HsienJiun"
+           };
+            var propertyInfos = userInfo.GetType().GetProperties(); //欄位{get;set;} 是取屬性
+            var propertyInfos2 = typeof(UserInfo).GetProperties(); //知道class的話也可以這樣寫
+            var propertyDesc = TypeDescriptor.GetProperties(userInfo); //也可以這樣取欄位
+            var fieldNM = propertyInfos[0].Name; //欄位名稱
+            var fieldVal = propertyInfos[0].GetValue(userInfo, null); //取值
+            var fieldVal2 = propertyDesc.Find("UserID",false).GetValue(userInfo)?.ToString();//直接指定欄位名稱取值
+            var fieldVal3 = userInfo.GetType().GetProperty("UserNM")?.GetValue(userInfo, null);//直接指定欄位名稱取值
+            propertyInfos[0].SetValue(userInfo, "New00D223");
+            propertyInfos[1].SetValue(userInfo, "NewHsienJiun");
+            userInfo.GetType().GetProperty("UserNM")?.SetValue(userInfo,"000000");
+            var objectFields = typeof(EnumUserJob).GetFields();
             #endregion
 
             #region - 委派 -
