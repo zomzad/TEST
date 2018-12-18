@@ -1,24 +1,25 @@
---//////////////////////////SERP////////////////////////////////////
---帳戶是否停用 SERP
+--SERP
+begin --帳戶是否停用 SERP
 SELECT IS_DISABLE,* FROM RAW_CM_USER
   LEFT OUTER JOIN SYS_USER_MAIN
   ON RAW_CM_USER.USER_ID = SYS_USER_MAIN.USER_ID
 WHERE IS_DISABLE IS NULL
+end
 
---清除卡死的EDI流程
+begin --清除卡死的EDI流程
 BEGIN TRAN
 UPDATE EDI_FLOW
    SET STATUS_ID = 'F'
-   WHERE SYS_ID = 'XFLAP'
-  AND STATUS_ID = 'W' 
-  AND EDI_FLOW_ID = 'UpdateProduct'
-AND EDI_DATE = '' --作業日期
-AND EDI_TIME = '' --作業時間
-AND DATA_DATE = '' --資料日期
+ WHERE SYS_ID = 'XFLAP'
+   AND STATUS_ID = 'W' 
+   AND EDI_FLOW_ID = 'UpdateProduct'
+ --AND EDI_DATE = '' --作業日期
+ --AND EDI_TIME = '' --作業時間
+ --AND DATA_DATE = '' --資料日期
 ROLLBACK
+end
 
---API權限驗證
---如果本機呼叫SERVER,IP加到ValidationServerIPAddressString
+begin --API權限驗證 (如果本機呼叫SERVER,IP加到ValidationServerIPAddressString)
 DECLARE @API_CN INT = 0; 
 DECLARE @CN_CLIENT_SYS_ID INT = 0; 
 DECLARE @CN_CLIENT_SYS_IP_ADDRESS INT = 0; 
@@ -47,10 +48,9 @@ SELECT 'Y'
       AND A.IS_DISABLE='N' AND M.IS_DISABLE='N' 
 END; 
 SELECT @API_CN; 
+end
 
---AP權限驗證
-
---先檢查IP有沒有在信任IP中
+begin --AP權限驗證 (先檢查IP有沒有在信任IP中)
 SELECT @TRUST_IP_CNT=COUNT(1) 
 FROM SYS_TRUST_IP 
 WHERE dbo.FN_GET_TRSUT_BYIP(IP_BEGIN, IP_END, '127.0.0.1')='Y'; 
@@ -106,8 +106,9 @@ BEGIN
     END; 
 END; 
 SELECT @FUN_CN; 
+end
 
---員工組織資料
+begin --員工組織資料
 SELECT O.USER_ID AS 員編
      , U.USER_WORK_ID AS ERP工作代碼
 	 , CMC.CODE_NM_ZH_TW AS ERP工作名稱
@@ -142,9 +143,62 @@ SELECT O.USER_ID AS 員編
      ON CMD.CODE_KIND = '0015'
 	AND CMD.CODE_ID = O.USER_AREA
  WHERE U.USER_ID = '00D223'
+ end
 
---//////////////////////////ERP////////////////////////////////////
--- 查詢帳號密碼 --
+begin --使用者擁有功能(角色和功能)
+SELECT * FROM SYS_SYSTEM_FUN_MENU --選單大項目(功能選單)
+WHERE SYS_ID = 'ERPAP'
+
+SELECT * FROM SYS_USER_FUN_MENU --使用者有的功能選單
+WHERE USER_ID = '00D223'
+AND SYS_ID = 'ERPAP'
+
+SELECT * FROM SYS_SYSTEM_MENU_FUN --有被設定到選單上的功能(menu有列出可點選的)
+WHERE SYS_ID = 'ERPAP'
+
+SELECT * FROM SYS_USER_FUN --選單細項(使用者有的選單功能 menu有列出可點選的)
+WHERE USER_ID = '00D223'
+  AND SYS_ID = 'ERPAP' AND FUN_CONTROLLER_ID = 'Sys'
+
+SELECT * FROM SYS_SYSTEM_FUN ssf --所有的功能(全部controller action)
+WHERE ssf.SYS_ID = 'ERPAP'
+
+SELECT * FROM SYS_USER_SYSTEM_ROLE susr --人有什麼角色
+WHERE susr.USER_ID = '00D223'
+AND susr.SYS_ID = 'LXSCNAP'
+
+SELECT * FROM SYS_SYSTEM_ROLE_FUN --角色有什麼功能
+WHERE SYS_ID = 'ERPAP'
+
+--人有什麼功能(全部controller action)
+SELECT MF.FUN_MENU
+     , FMM.FUN_MENU_NM_ZH_TW
+     , F.SYS_ID
+     , F.ROLE_ID
+	 , F.FUN_CONTROLLER_ID
+	 , F.FUN_ACTION_NAME
+	 , SF.FUN_NM_ZH_TW
+  FROM SYS_USER_SYSTEM_ROLE R --人有什麼角色
+  JOIN SYS_SYSTEM_ROLE_FUN F --角色有什麼功能
+    ON F.SYS_ID = R.SYS_ID
+   AND F.ROLE_ID = R.ROLE_ID
+  JOIN SYS_SYSTEM_FUN SF --所有功能 取功能名稱
+    ON F.SYS_ID = SF.SYS_ID
+   AND F.FUN_CONTROLLER_ID = SF.FUN_CONTROLLER_ID
+   AND F.FUN_ACTION_NAME = SF.FUN_ACTION_NAME
+  LEFT JOIN SYS_SYSTEM_MENU_FUN MF --功能在MENU的哪一大類
+    ON MF.SYS_ID = F.SYS_ID
+   AND MF.FUN_CONTROLLER_ID = F.FUN_CONTROLLER_ID
+   AND MF.FUN_ACTION_NAME = F.FUN_ACTION_NAME
+  LEFT JOIN SYS_SYSTEM_FUN_MENU FMM --取大分類的名字
+    ON FMM.FUN_MENU = MF.FUN_MENU
+   AND FMM.SYS_ID = MF.SYS_ID 
+ WHERE R.USER_ID = '00D223'
+   AND F.SYS_ID = 'ERPAP'
+end
+
+--ERP
+begin -- 查詢帳號密碼
 SELECT * FROM opagm20
 WHERE stfn_stfn IN ('00D290','008382','00D223','008877','00D470','002578')
-
+end
