@@ -198,7 +198,7 @@ SELECT MF.FUN_MENU
 end
 
 --ERP
-begin -- 查詢帳號密碼
+begin --查詢帳號密碼
 SELECT * FROM opagm20
 WHERE stfn_stfn IN ('00D290','008382','00D223','008877','00D470','002578')
 end
