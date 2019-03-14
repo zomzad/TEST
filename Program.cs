@@ -161,7 +161,7 @@ namespace TEST
             //Exec run = new Exec();
             //run.ExecTestFun();
 
-            #region - B2C推播測試 -
+            #region - B2C推播function測試 -
 
             #region - 推播 -
             B2CAppMessage message = new B2CAppMessage();
@@ -223,6 +223,166 @@ namespace TEST
 
             #region - API測試 -
 
+            #region - ZPAPI -
+            #region - ZPAPI 查詢使用者密碼 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/UserPWDQuery/A123456789?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "UserID", "00D223"}
+            //    });
+            #endregion
+
+            #region - ZPAPI 停用使用者帳號 -
+            var url = "http://u17joininapi.uplantravel.com/v1/Authorization/UserAccountDisable/LIONIT180240/true?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var url = "http://127.0.0.1:7666/v1/Authorization/UserAccountDisable/LIONIT180240/true?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "IsDisable", true },
+            //        { "UserID", "LIONTEST180240" }
+            //    });
+            #endregion
+
+            #region - ZPAPI 查詢使用者帳號 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/UserAccountQuery/LIONIT180240?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = "";
+            #endregion
+
+            #region - ZPAPI 新增編輯使用者帳號 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/UserAccountEdit?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "UserID", "LIONTEST180240" },
+            //        { "UserNM", "測試用的人" },
+            //        //{ "UserIDNO", "A123456789" },
+            //        //{ "UserPWD", "999999999" },
+            //        //{ "Title", "Program程式設計師@#" },
+            //        { "UserTel1", "0919310271" },
+            //        { "UserTel2", "0919310271" },
+            //        { "UserMail", "zomzad@gmail.com" },
+            //        { "UserGender", "M" },
+            //        { "Remark", "備註內容" },
+            //        { "IsGrantor", true },
+            //        { "IsDisable", false }
+            //    });
+            #endregion
+
+            #region - ZPAPI 功能清單查詢 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/QuerySystemFun?ClientUserID=00D223&ClientSysID=ZPAP";
+            #endregion
+
+            #region - ZPAPI 編輯功能清單 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/EditSystemFun?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "SubSysID", null },
+            //        { "PurviewID", null },
+            //        { "FunControllerID", "Pub" },
+            //        { "FunActionName", "Bulletin" },
+            //        { "FunNMZHTW", "公告頁面" },
+            //        { "FunNMZHCN", "公告页面" },
+            //        { "FunNMENUS", "Bulletin" },
+            //        { "FunNMJAJP","Bulletin"},
+            //        { "FunNMTHTH","Bulletin"},
+            //        { "FunType","NU"},
+            //        { "IsOutside",true},
+            //        { "IsDisable",false},
+            //        { "SortOrder","010100"},
+            //        { "RoleList",null}
+            //    });
+            #endregion
+
+            #region - ZPAPI 查詢功能選單對應清單 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/QuerySystemFunMenu/Sys/UserSetting?ClientUserID=00d223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = string.Empty;
+            #endregion
+
+            #region - ZPAPI 刪除功能選單對應清單 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/DeleteSystemFunMenu/Sys/TESTActionTest?ClientUserID=00d223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = string.Empty;
+            #endregion
+
+            #region - ZPAPI 編輯功能清單對應選單 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/EditSystemFunMenu?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "SysID", "ZPAP" },
+            //        { "FunControllerID", "Sys" },
+            //        { "FunActionName", "TESTActionTest" },
+            //        { "MenuInfoList", new List<object>
+            //        {
+            //            new
+            //            {
+            //                FunMenuSysID = "ZPAP",
+            //                FunMenu = "Sys",
+            //                FunMenuXAxis = "3",
+            //                FunMenuYAxis = "1"
+            //            },
+            //            new
+            //            {
+            //                FunMenuSysID = "ZPAP",
+            //                FunMenu = "ZP",
+            //                FunMenuXAxis = "1",
+            //                FunMenuYAxis = "11"
+            //            }
+            //        } }
+            //    });
+            #endregion
+
+            #region - ZPAPI 查詢功能群組 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/QuerySystemFunGroup?ClientUserID=00D223&ClientSysID=ZPAP";
+            #endregion
+
+            #region - ZPAPI 編輯功能群組 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/EditSystemFunGroup?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "FunControllerID", "Home" },
+            //        { "FunGroupZHTW", "系統首頁" },
+            //        { "FunGroupZHCN", "系统首页" },
+            //        { "FunGroupENUS", "Home" },
+            //        { "FunGroupTHTH", "Home" },
+            //        { "FunGroupJAJP", "Home" },
+            //        { "SortOrder", "000000" }
+            //    });
+            #endregion
+
+            #region - ZPAPI 刪除功能群組 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/DeleteSystemFunGroup/Sys?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = string.Empty;
+            #endregion
+
+            #region - ZPAPI 系統角色 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/QuerySystemRole?ClientUserID=00D223&ClientSysID=CommonAP&RoleID="; //查詢
+
+            //var url = "http://127.0.0.1:7666/v1/Authorization/EditSystemRole?ClientUserID=00D223&ClientSysID=ZPAP"; //編輯
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "RoleID", "USER22551166889955625" },
+            //        { "RoleNMzhTW", "使用者" },
+            //        { "RoleNMenUS", "USER" },
+            //        { "RoleNMjaJP", "USER" },
+            //        { "RoleNMthTH", "USER" },
+            //        { "RoleNMzhCN", "使用者" }
+            //    });
+
+            //var url = "http://127.0.0.1:7666/v1/Authorization/DeleteSystemRole?ClientUserID=00D223&ClientSysID=ZPAP&roleID=USER"; //刪除
+            //var apiParaJsonStr = "";
+            #endregion
+
+            #region - 使用者權限 -
+            //var url = "http://127.0.0.1:7666/v1/Authorization/UserSystemRoles/LIONTEST180240?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var apiParaJsonStr = "";
+            #endregion
+            #endregion
+
+            #region - PUSHAPI -
             #region - B2C推播訊息已讀測試 -
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/ReadMessage?ClientUserID=00D223&ClientSysID=ERPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
@@ -255,12 +415,12 @@ namespace TEST
             ////20171025021015999, 20160225021015000
             //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/LogPushMessage?ClientUserID=00D223&ClientSysID=ERPAP" +
             //          "&UserID=69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" +
-            //          "&StartDateTime=20181203091111222" +
+            //          "&StartDateTime=20180901091111222" +
             //"&EndDateTime=20181203091111222";
 
             //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/LogPushMessage?ClientSysID=ERPAP" +
             //          "&UserID=69d40c4f-25c8-4a1e-94a7-38c23b1b2d6f" +
-            //          "& StartDateTime=20181203091111222" +
+            //          "& StartDateTime=20180901091111222" +
             //          "& EndDateTime=20181203091111222";
             #endregion
 
@@ -404,8 +564,9 @@ namespace TEST
             //        { "ClientUserID","00D223"}
             //    });
             #endregion
+            #endregion
 
-            #region - 事件訂閱API -
+            #region - ERPAPI 事件訂閱 -
 
             #region - ERPAPIscpm00 -
             //SELECT TOP 5 * FROM RAW_CM_ORG_COM
@@ -483,7 +644,7 @@ namespace TEST
 
             #endregion
 
-            #region - Authorization -
+            #region - ERPAPI Authorization -
 
             #region - ERPUserAccount & ERPUserRoleReset -
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
@@ -525,18 +686,18 @@ namespace TEST
             #endregion
 
             #region - GET -
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
-            //request.Method = WebRequestMethods.Http.Get;
-            //request.KeepAlive = false;
-            //request.ContentType = "application/json";
-            //HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
-            //if (response != null)
-            //{
-            //    Stream responseStream = response.GetResponseStream();
-            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-            //    string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
-            //}
+            request.Method = WebRequestMethods.Http.Get;
+            request.KeepAlive = false;
+            request.ContentType = "application/json";
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            if (response != null)
+            {
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
+            }
             #endregion
 
             #endregion
@@ -584,11 +745,11 @@ namespace TEST
             #endregion
 
             #region - 物件欄位或屬性操作 -
-           UserInfo userInfo = new UserInfo
-           {
-               UserID = "00D223",
-               UserNM = "HsienJiun"
-           };
+            UserInfo userInfo = new UserInfo
+            {
+                UserID = "00D223",
+                UserNM = "HsienJiun"
+            };
             var propertyInfos = userInfo.GetType().GetProperties(); //欄位{get;set;} 是取屬性
             var propertyInfos2 = typeof(UserInfo).GetProperties(); //知道class的話也可以這樣寫
             var propertyDesc = TypeDescriptor.GetProperties(userInfo); //也可以這樣取欄位
@@ -739,9 +900,21 @@ namespace TEST
             //string input = "123ABCDE456FGHIJKL789MNOPQ012";
             //var arrSize = Convert.ToInt32(Math.Ceiling(input.Length / (double)5));
 
-            //for (int i = 0; i < input.Length; i = i + 5)
+            //for (int index = 0; index < arrSize; index++)
             //{
-            //    var result = input.Substring(i, 5);
+            //        @foreach(var raw in row.Value.Skip(index * 5).Take(5))
+            //    {
+
+            //        < td style = "border: none" >
+            //                     @Html.InputCheckBox(
+            //                         "HasRole",
+            //                         string.Format("{0} ({1})", raw.RoleID.GetValue(), raw.RoleNM.GetValue()),
+            //                         raw.SysID.GetValue() + "|" + raw.SysNM.GetValue() + "|" + raw.RoleID.GetValue() + "|" + raw.RoleNM.GetValue(),
+            //                         (raw.HasRole.GetValue() == EnumYN.Y.ToString()))
+            //                     </ td >
+ 
+            //            < td style = "border: none" style = "width: 20px;" ></ td >
+            //    }
             //}
             #endregion
 
@@ -1355,6 +1528,16 @@ namespace TEST
             //FileStream fs = new FileStream(pdfFilePath, FileMode.Create, FileAccess.Write);
             //fs.Write(pdfBytes, 0, size);
             //fs.Close();
+            #endregion
+
+            #region - 刪除資料夾內的檔案 -
+            //DirectoryInfo directory = new DirectoryInfo(dir);
+            //foreach (FileInfo file in directory.GetFiles())
+            //{
+            //    file.Delete();
+            //}
+
+            ////Directory.Delete(dir,true);
             #endregion
 
             #endregion
