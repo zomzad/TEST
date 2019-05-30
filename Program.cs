@@ -26,6 +26,7 @@ using LionTech.APIService.SMS;
 using LionTech.Utility;
 using LionTech.Utility.Sockets;
 using System.Web.Mvc;
+using System.Windows.Forms;
 using LionTech.APIService.AppService.LionTravel;
 using Newtonsoft.Json;
 using SampleCode.Models;
@@ -158,8 +159,37 @@ namespace TEST
 
         private static void Main(string[] args)
         {
+            var pwd = LionTech.Utility.Validator.GetEncodeString("4626331A67F524CAADBA7B5148E8D0ED");
+            var awwwaa = Security.Decrypt("54B9D35E98447D825106AD6C1793B289");
+            string aaa = @"LionTech.EDIService.";
+            var result = new Regex("^LionTech.EDIService.[a-zA-Z]+$").IsMatch(aaa);
+
+            string size = SystemInformation.PrimaryMonitorSize.ToString();
+            string width = SystemInformation.PrimaryMonitorSize.Width.ToString();
+            string height = SystemInformation.PrimaryMonitorSize.Height.ToString();
+
+            Bitmap myImage = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            Graphics g = Graphics.FromImage(myImage);
+            g.CopyFromScreen(new Point(0, 0), new Point(0, 0), new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
+            IntPtr dc1 = g.GetHdc();
+            g.ReleaseHdc(dc1);
+            myImage.Save(@"c:\screen.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
             //Exec run = new Exec();
             //run.ExecTestFun();
+
+            #region - 抓取檔案目錄 -
+            DirectoryInfo fileInfo = new DirectoryInfo(@"E:/");
+            var dir = Directory.GetDirectories(@"E:/");
+            var dirAttr = fileInfo.GetDirectories()[0].Attributes;
+            var dir2 = fileInfo.GetDirectories()
+                             .Where(n => n.Attributes.Equals(FileAttributes.Directory))
+                             .Select(dirInfo => new
+                             {
+                                 dirInfo.Name,
+                                 dirInfo.FullName
+                             }).ToList();
+            #endregion
 
             #region - B2C推播function測試 -
 
@@ -180,9 +210,9 @@ namespace TEST
             //};
 
             //// 指定訊息推播時間2016/12/29 10:50 PM，若不指定推播時間，則無需此行程式。推播訊息會立即發送
-            //message.AddPushDateTime(new DateTime(2018, 11, 26, 15, 03, 0));
+            //message.AddPushDateTime(new DateTime(2019, 03, 29, 16, 25, 0));
             //message.Title = "機票開票成功";// 推播標題
-            //message.Body = "2018/11/26 12:00 機票開票z成功";// 推播內容
+            //message.Body = "2018/11/26 12:00 機票開票z成功2018/11/26 12:00 機票開票z成功2018/11/26 12:00 機票開票z成功2018/11/26 12:00 機票開票z成功";// 推播內容
 
             //B2CAppClient client = B2CAppClient.Create();
             //client.ClientSysID = "ERPAP";// 推播發送平台
@@ -234,7 +264,7 @@ namespace TEST
             #endregion
 
             #region - ZPAPI 停用使用者帳號 -
-            var url = "http://u17joininapi.uplantravel.com/v1/Authorization/UserAccountDisable/LIONIT180240/true?ClientUserID=00D223&ClientSysID=ZPAP";
+            //var url = "http://u17joininapi.uplantravel.com/v1/Authorization/UserAccountDisable/LIONIT180240/true?ClientUserID=00D223&ClientSysID=ZPAP";
             //var url = "http://127.0.0.1:7666/v1/Authorization/UserAccountDisable/LIONIT180240/true?ClientUserID=00D223&ClientSysID=ZPAP";
             //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
             //    new Dictionary<string, object>()
@@ -475,38 +505,39 @@ namespace TEST
             #endregion
 
             #region - B2C推播訊息測試 -
-            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
             //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
-            //var data = new JavaScriptSerializer().Serialize(
-            //    new Dictionary<string, object>()
-            //    {
-            //                {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
-            //                { "SourceType","Metting"}
-            //    });
+            var data = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                            {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
+                            { "SourceType","Metting"}
+                });
 
-            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-            //    new Dictionary<string, object>()
-            //    {
-            //        { "Body", "測試推播內容" },
-            //        { "Title", "測試推播標題" },
-            //        { "DataType", "OrderPayment" },
-            //        //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
-            //        { "PushDateTime", "20181122112600123" },
-            //        {
-            //            "UserList", new List<string>()
-            //            {
-            //                "00D223", "000101", "00zzzz"
-            //            }
-            //        },
-            //        {
-            //            "Data",
-            //            new JavaScriptSerializer().Serialize(new Dictionary<string, object>
-            //            {
-            //                { "data", "testdata" }
-            //            })
-            //        }
-            //    });
+            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                    //{ "Body", "測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內" },
+                    { "Body", "測測測測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推試試試試試試"},
+                    { "Title", "123測試推播標題" },
+                    { "DataType", "OrderPayment" },
+                    //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
+                    { "PushDateTime", "" },
+                    {
+                        "UserList", new List<string>()
+                        {
+                            "fbe28d20-465a-4587-bbef-c2bb3b0aa748", "000101", "00zzzz"
+                        }
+                    },
+                    {
+                        "Data",
+                        new JavaScriptSerializer().Serialize(new Dictionary<string, object>
+                        {
+                            { "data", "testdata" }
+                        })
+                    }
+                });
             #endregion
 
             #region - B2C推播主題訊息測試 -
@@ -679,25 +710,25 @@ namespace TEST
             #endregion
 
             #region - POST -
-            //WebClient client = new WebClient { Encoding = Encoding.UTF8 };
-            //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-            //var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
-            //var apiResult = Encoding.UTF8.GetString(responseWebClient);
+            WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
+            var apiResult = Encoding.UTF8.GetString(responseWebClient);
             #endregion
 
             #region - GET -
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
-            request.Method = WebRequestMethods.Http.Get;
-            request.KeepAlive = false;
-            request.ContentType = "application/json";
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
-            if (response != null)
-            {
-                Stream responseStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
-            }
+            //request.Method = WebRequestMethods.Http.Get;
+            //request.KeepAlive = false;
+            //request.ContentType = "application/json";
+            //HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            //if (response != null)
+            //{
+            //    Stream responseStream = response.GetResponseStream();
+            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+            //    string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
+            //}
             #endregion
 
             #endregion
@@ -745,32 +776,32 @@ namespace TEST
             #endregion
 
             #region - 物件欄位或屬性操作 -
-            UserInfo userInfo = new UserInfo
-            {
-                UserID = "00D223",
-                UserNM = "HsienJiun"
-            };
-            var propertyInfos = userInfo.GetType().GetProperties(); //欄位{get;set;} 是取屬性
-            var propertyInfos2 = typeof(UserInfo).GetProperties(); //知道class的話也可以這樣寫
-            var propertyDesc = TypeDescriptor.GetProperties(userInfo); //也可以這樣取欄位
-            var fieldNM = propertyInfos[0].Name; //欄位名稱
-            var fieldVal = propertyInfos[0].GetValue(userInfo, null); //取值
-            var fieldVal2 = propertyDesc.Find("UserID",false).GetValue(userInfo)?.ToString();//直接指定欄位名稱取值
-            var fieldVal3 = userInfo.GetType().GetProperty("UserNM")?.GetValue(userInfo, null);//直接指定欄位名稱取值
-            propertyInfos[0].SetValue(userInfo, "New00D223");
-            propertyInfos[1].SetValue(userInfo, "NewHsienJiun");
-            userInfo.GetType().GetProperty("UserNM")?.SetValue(userInfo,"000000");
-            var objectFields = typeof(EnumUserJob).GetFields();
+            //UserInfo userInfo = new UserInfo
+            //{
+            //    UserID = "00D223",
+            //    UserNM = "HsienJiun"
+            //};
+            //var propertyInfos = userInfo.GetType().GetProperties(); //欄位{get;set;} 是取屬性
+            //var propertyInfos2 = typeof(UserInfo).GetProperties(); //知道class的話也可以這樣寫
+            //var propertyDesc = TypeDescriptor.GetProperties(userInfo); //也可以這樣取欄位
+            //var fieldNM = propertyInfos[0].Name; //欄位名稱
+            //var fieldVal = propertyInfos[0].GetValue(userInfo, null); //取值
+            //var fieldVal2 = propertyDesc.Find("UserID",false).GetValue(userInfo)?.ToString();//直接指定欄位名稱取值
+            //var fieldVal3 = userInfo.GetType().GetProperty("UserNM")?.GetValue(userInfo, null);//直接指定欄位名稱取值
+            //propertyInfos[0].SetValue(userInfo, "New00D223");
+            //propertyInfos[1].SetValue(userInfo, "NewHsienJiun");
+            //userInfo.GetType().GetProperty("UserNM")?.SetValue(userInfo,"000000");
+            //var objectFields = typeof(EnumUserJob).GetFields();
             #endregion
 
             #region - 委派 -
-            MyDelegate myDelegate = MethodA;
-            MyDelegate myDelegate2;
-            int a = myDelegate(2, 1); //MethodA已事先宣告
+            //MyDelegate myDelegate = MethodA;
+            //MyDelegate myDelegate2;
+            //int a = myDelegate(2, 1); //MethodA已事先宣告
 
-            //或用匿名方法
-            myDelegate2 = (x, y) => x * y; //(x,y)表示傳入的兩個參數,=>後面是回傳值
-            var ass = myDelegate2(2, 5);
+            ////或用匿名方法
+            //myDelegate2 = (x, y) => x * y; //(x,y)表示傳入的兩個參數,=>後面是回傳值
+            //var ass = myDelegate2(2, 5);
             #endregion
 
             #region - 各種換行 -
@@ -912,7 +943,7 @@ namespace TEST
             //                         raw.SysID.GetValue() + "|" + raw.SysNM.GetValue() + "|" + raw.RoleID.GetValue() + "|" + raw.RoleNM.GetValue(),
             //                         (raw.HasRole.GetValue() == EnumYN.Y.ToString()))
             //                     </ td >
- 
+
             //            < td style = "border: none" style = "width: 20px;" ></ td >
             //    }
             //}
@@ -1084,23 +1115,23 @@ namespace TEST
             #region - 檔案讀寫 -
 
             #region - URI抓取檔案並上傳 -
-            //string fileNM = "/17/17120018_1.04-wallpaper-contest3.jpg".Split(new[] { "/17/" }, StringSplitOptions.RemoveEmptyEntries).Last();
-            //string filePath = $"{@"http://uerp.liontravel.com.tw/html2/form"}{@"/17/17120018_1.04-wallpaper-contest3.jpg"}";
-            //string docEncodeNM = filePath.Split(new[] { "\\" }, StringSplitOptions.RemoveEmptyEntries).Last();
+            string fileNM = "/17/17120018_1.04-wallpaper-contest3.jpg".Split(new[] { "/17/" }, StringSplitOptions.RemoveEmptyEntries).Last();
+            string filePath = $"{@"http://uerp.liontravel.com.tw/html2/form"}{@"/17/17120018_1.04-wallpaper-contest3.jpg"}";
+            string docEncodeNM = filePath.Split(new[] { "\\" }, StringSplitOptions.RemoveEmptyEntries).Last();
 
-            //byte[] file = new WebClient().DownloadData(filePath);
-            //string serverDir = @"\\localhost\APData\WFAP\WorkFlow\Document\";
+            byte[] file = new WebClient().DownloadData(filePath);
+            string serverDir = @"\\localhost\APData\WFAP\WorkFlow\Document\";
 
-            //if (Directory.Exists(serverDir) == false)
-            //{
-            //    Directory.CreateDirectory(serverDir);
-            //}
+            if (Directory.Exists(serverDir) == false)
+            {
+                Directory.CreateDirectory(serverDir);
+            }
 
-            //string encodeName = $"{Guid.NewGuid().ToString("N")}{Guid.NewGuid().ToString("N").Substring(0, 16)}";
-            //string pdfFilePath = $@"{serverDir}\{"20170000000003"}.{encodeName}";
-            //FileStream fs = new FileStream(pdfFilePath, FileMode.Create, FileAccess.Write);
-            //fs.Write(file, 0, file.Length);
-            //fs.Close();
+            string encodeName = $"{Guid.NewGuid().ToString("N")}{Guid.NewGuid().ToString("N").Substring(0, 16)}";
+            string pdfFilePath = $@"{serverDir}\{"20170000000003"}.{encodeName}";
+            FileStream fs = new FileStream(pdfFilePath, FileMode.Create, FileAccess.Write);
+            fs.Write(file, 0, file.Length);
+            fs.Close();
             #endregion
 
             #region - FileStream & StreamWriter寫入檔案-
@@ -2292,5 +2323,45 @@ namespace TEST
             return a - b;
         }
         #endregion
+
+        private object[,] _TransDataListToDataTable<T>(IEnumerable<T> dataList)
+        {
+            var dt = new DataTable();
+
+            var fieldInfos = ((TypeInfo)(typeof(T))).DeclaredFields.ToList();
+            dt.Columns.AddRange(fieldInfos.Select(p => new DataColumn(p.Name, p.FieldType)).ToArray());
+
+            var enumerable = dataList.ToList();
+            object[,] aaa = new object[enumerable.Count, fieldInfos.Count];
+
+            for (int i = 0; i < enumerable.Count(); i++)
+            {
+                for (int j = 0; j < fieldInfos.Count; j++)
+                {
+                    var fieldValue = (enumerable[i].GetType().GetField(fieldInfos[j].Name).GetValue(enumerable[i]));
+                    if (fieldValue != null)
+                    {
+                        aaa[i, j] = fieldValue;
+                    }
+                }
+            }
+
+            //foreach (var row in enumerable.ToList())
+            //{
+            //    DataRow datarow = dt.NewRow();
+            //    foreach (var field in fieldInfos)
+            //    {
+            //        var fieldValue = (row.GetType().GetField(field.Name).GetValue(row));
+            //        if (fieldValue != null)
+            //        {
+            //            datarow[field.Name] = fieldValue;
+            //        }
+            //    }
+
+            //    dt.Rows.Add(datarow);
+            //}
+
+            return aaa;
+        }
     }
 }
