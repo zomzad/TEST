@@ -159,8 +159,21 @@ namespace TEST
 
         private static void Main(string[] args)
         {
-            var pwd = LionTech.Utility.Validator.GetEncodeString("4626331A67F524CAADBA7B5148E8D0ED");
-            var awwwaa = Security.Decrypt("54B9D35E98447D825106AD6C1793B289");
+            var hSDDh = string.Compare("5", "5") >= 0;
+            int j = Convert.ToInt32("5");
+            bool ji = Convert.ToBoolean("False");
+            string userNM = "駿駿駿駿嗨嗨";
+            var length = userNM.Length >= 2 ? 2 : 1;
+            var hh = userNM.Substring(userNM.Length - length, length);
+
+
+
+            var length2 = userNM.Length - 1;
+            var dd = userNM.Substring(length2 - 1, length2);
+
+            //var hu = int.Parse(null);
+            //var pwd = LionTech.Utility.Validator.GetEncodeString("4626331A67F524CAADBA7B5148E8D0ED");
+            //var awwwaa = Security.Decrypt("54B9D35E98447D825106AD6C1793B289");
             string aaa = @"LionTech.EDIService.";
             var result = new Regex("^LionTech.EDIService.[a-zA-Z]+$").IsMatch(aaa);
 
@@ -505,39 +518,39 @@ namespace TEST
             #endregion
 
             #region - B2C推播訊息測試 -
-            var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
-            //var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            //var url = "http://127.0.0.1:6734/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
+            ////var url = "http://upush.inapi.liontravel.com.tw/v1/LionTravelB2CApp/PushMessage?ClientUserID=00D223&ClientSysID=ERPAP";
 
-            var data = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                            {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
-                            { "SourceType","Metting"}
-                });
+            //var data = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //                {"SourceID","ee47afe8-f81b-4cfb-8988-b670a2710727"},
+            //                { "SourceType","Metting"}
+            //    });
 
-            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                    //{ "Body", "測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內" },
-                    { "Body", "測測測測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推試試試試試試"},
-                    { "Title", "123測試推播標題" },
-                    { "DataType", "OrderPayment" },
-                    //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
-                    { "PushDateTime", "" },
-                    {
-                        "UserList", new List<string>()
-                        {
-                            "fbe28d20-465a-4587-bbef-c2bb3b0aa748", "000101", "00zzzz"
-                        }
-                    },
-                    {
-                        "Data",
-                        new JavaScriptSerializer().Serialize(new Dictionary<string, object>
-                        {
-                            { "data", "testdata" }
-                        })
-                    }
-                });
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        //{ "Body", "測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內" },
+            //        { "Body", "測測測測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推試試試試試試"},
+            //        { "Title", "123測試推播標題" },
+            //        { "DataType", "OrderPayment" },
+            //        //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
+            //        { "PushDateTime", "" },
+            //        {
+            //            "UserList", new List<string>()
+            //            {
+            //                "fbe28d20-465a-4587-bbef-c2bb3b0aa748", "000101", "00zzzz"
+            //            }
+            //        },
+            //        {
+            //            "Data",
+            //            new JavaScriptSerializer().Serialize(new Dictionary<string, object>
+            //            {
+            //                { "data", "testdata" }
+            //            })
+            //        }
+            //    });
             #endregion
 
             #region - B2C推播主題訊息測試 -
@@ -707,28 +720,39 @@ namespace TEST
             //var url = "http://127.0.0.1:6666/Authorization/ERPUserRoleResetEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
             #endregion
 
+            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                    { "UserID", "00D223" },
+                    { "SysID", "PUBAP" },
+                    { "ErpWFNo", "99999999" },
+                    { "Memo", "" },
+                    { "RoleIDList", new List<string>{ "ITPMAIN" } },
+                });
+
+            var url = @"http://uinapi.liontravel.com.tw/Authorization/ERPUserRoleEditEvent?ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
             #endregion
 
             #region - POST -
-            WebClient client = new WebClient { Encoding = Encoding.UTF8 };
-            client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
-            var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
-            var apiResult = Encoding.UTF8.GetString(responseWebClient);
+            //WebClient client = new WebClient { Encoding = Encoding.UTF8 };
+            //client.Headers.Add(HttpRequestHeader.ContentType, "application/json");
+            //var responseWebClient = client.UploadData(url, "POST", Encoding.UTF8.GetBytes(apiParaJsonStr));
+            //var apiResult = Encoding.UTF8.GetString(responseWebClient);
             #endregion
 
             #region - GET -
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
-            //request.Method = WebRequestMethods.Http.Get;
-            //request.KeepAlive = false;
-            //request.ContentType = "application/json";
-            //HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
-            //if (response != null)
-            //{
-            //    Stream responseStream = response.GetResponseStream();
-            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-            //    string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
-            //}
+            request.Method = WebRequestMethods.Http.Get;
+            request.KeepAlive = false;
+            request.ContentType = "application/json";
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            if (response != null)
+            {
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
+            }
             #endregion
 
             #endregion
@@ -1201,7 +1225,7 @@ namespace TEST
             //foreach (var istbm in testList.Select((value, index) => new { Value = value, Index = index }))
             //{
             //    int h = istbm.Index; //index起始值為0
-            //}
+            //}S
             #endregion
 
             #region - 存取資料庫使用SqlDataReader 或 SqlDataAdapter -

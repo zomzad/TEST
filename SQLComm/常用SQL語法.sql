@@ -6,6 +6,27 @@ SELECT IS_DISABLE,* FROM RAW_CM_USER
 WHERE IS_DISABLE IS NULL
 end
 
+begin--電子簽核單自動指派後 還原成未指派狀態
+UPDATE recm93
+   SET rec93_fsts = '2'
+     , rec93_fsts1 = '4'
+     , rec93_pstfn = ''
+ WHERE rec93_form IN ('19100001','19100017', '19100019', '19100020', '19100021', '19100022')
+
+UPDATE recm94
+   SET rec94_bsts = NULL
+ WHERE rec94_form IN ('19100001','19100017', '19100019', '19100020', '19100021', '19100022') AND rec94_stfn = '002578'
+
+UPDATE message
+   SET msg_sts = '0'
+   FROM ( select '%19100001%' as c1 union select '%19100017%' as c1 union select '%19100019%' as c1 union select '%19100020%' as c1 union select '%19100021%' as c1 union select '%19100022%' as c1) AS M
+ WHERE msg_stfn = '002578' 
+   AND msg_message LIKE M.c1 --'%19100020%'
+end
+
+DELETE recm94
+WHERE rec94_form IN ('19100001','19100017', '19100019', '19100020', '19100021', '19100022') AND rec94_fsts > '4'
+
 begin --清除卡死的EDI流程
 BEGIN TRAN
 UPDATE EDI_FLOW
