@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Resources;
+using System.Text;
+using System.Web.Script.Serialization;
 using LionTech.Utility;
 
 namespace TEST
@@ -13,45 +15,27 @@ namespace TEST
     {
         public void ExecTestFun()
         {
-            //string filePath = $@"//iis-utour/UTOUR/WebApp/TKTAP/App_GlobalResources/Booking/BookingBooking.resx";
-            IPHostEntry hostinfo = Dns.GetHostEntry("google.com.tw");
-            string ipAddress = hostinfo.AddressList[0].ToString();
+            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+                new Dictionary<string, object>()
+                {
+                    { "EDINo", "20191017007296" },
+                    { "EDIFlowID", "RWLINKM" }
+                });
 
-            string filePath = $@"192.168.1.233/App_GlobalResources/Booking/BookingBooking.resx";
-            ResXResourceReader resxReader = new ResXResourceReader(filePath);
-            Directory.GetDirectories(@"//iis-utour");
-            var resourceDic = File.Exists(filePath) ?
-                resxReader
-                    .Cast<DictionaryEntry>()
-                    .ToDictionary(dic => dic.Key.ToString(), dic => dic.Value.ToString()) :
-                new Dictionary<string, string>();
+            var url = @"http://127.0.0.1:6666/EDIService/FlowManagerSelectEvent?ClientSysID=RWAP&UserID=181037&=&FlowPara=" + apiParaJsonStr;
 
-            var resourceInfoList = (from s in resourceDic
-                                join o in resourceDic on s.Key equals o.Key into resource
-                                from o in resource.DefaultIfEmpty()
-                                select new
-                                {
-                                    ResourceNM = s.Key,
-                                    ValueZHTW = s.Value,
-                                    o.Value
-                                }).ToList();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
-
-
-
-
-            string uploadPath = @"C:\TEST";
-            byte[] file = new WebClient().DownloadData(filePath);
-
-            if (Directory.Exists(uploadPath) == false)
+            request.Method = WebRequestMethods.Http.Get;
+            request.KeepAlive = false;
+            request.ContentType = "application/json";
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            if (response != null)
             {
-                Directory.CreateDirectory(uploadPath);
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
             }
-
-            string pdfFilePath = $@"{uploadPath}\{DateTime.Now.ToString("yyyymmmmddhhmmss")}.jpg";
-            FileStream fs = new FileStream(pdfFilePath, FileMode.Create, FileAccess.Write);
-            fs.Write(file, 0, file.Length);
-            fs.Close();
         }
     }
 }

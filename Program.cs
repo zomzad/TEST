@@ -28,9 +28,11 @@ using LionTech.Utility.Sockets;
 using System.Web.Mvc;
 using System.Windows.Forms;
 using LionTech.APIService.AppService.LionTravel;
+using mshtml;
 using Newtonsoft.Json;
 using SampleCode.Models;
 using SampleCode.Security;
+using SHDocVw;
 
 namespace TEST
 {
@@ -155,53 +157,89 @@ namespace TEST
         #region - Private -
         //存取子測試用
         private static string _name = string.Empty;
+        private static bool ie_Read = false;
         #endregion
+
+        private static void ie_DocumentComplete(object pDisp, ref object URL)
+        {
+            ie_Read = true;
+        }
+
+        public static void jsRun(InternetExplorer browser, string str)
+        {
+            if (browser.Document is HTMLDocument doc)
+            {
+                HTMLScriptElement script = (HTMLScriptElement)doc.createElement("script");
+                script.text = str;
+
+                HTMLBody body = doc.body as HTMLBody;
+                body?.appendChild((IHTMLDOMNode)script);
+            }
+        }
 
         private static void Main(string[] args)
         {
-            var hSDDh = string.Compare("5", "5") >= 0;
-            int j = Convert.ToInt32("5");
-            bool ji = Convert.ToBoolean("False");
-            string userNM = "駿駿駿駿嗨嗨";
-            var length = userNM.Length >= 2 ? 2 : 1;
-            var hh = userNM.Substring(userNM.Length - length, length);
+            Exec run = new Exec();
+            run.ExecTestFun();
+
+            //Process.Start("https://www.google.com.tw/");//用預設瀏覽器開
+
+            InternetExplorer ie = new InternetExplorer(); //IE物件
+            ie.DocumentComplete += ie_DocumentComplete;
+            ie.Navigate("https://www.weibo.com/chinataiwan?refer_flag=0000015010_&from=feed&loc=nickname");
+            ie.Visible = true;
+            System.Threading.Thread.Sleep(1000);
+            HTMLDocument doc = ie.Document;
+            HTMLBody body = (HTMLBody)doc.body;
+
+            jsRun(ie, "alert(889966);");
+
+
+            var likeList = doc.getElementsByTagName("div");
+            foreach (HtmlElement link in likeList)
+            {
+                if (link.GetAttribute("className") == "WB_from S_txt2")
+                {
+                    //do something
+                }
+            }
+
+            doc.getElementById("q").innerText = "AAAA";
+            doc.getElementById("btnK").click();
+            Console.Read();
 
 
 
-            var length2 = userNM.Length - 1;
-            var dd = userNM.Substring(length2 - 1, length2);
+            //...要點選裡面的某個按鈕
+            //mshtml.IHTMLDocument2 doc2 = (mshtml.IHTMLDocument2)ie.Document;
+            //mshtml.IHTMLElementCollection inputs;
+            //inputs = (mshtml.IHTMLElementCollection)doc2.all.tags("INPUT");
+            //mshtml.IHTMLElement element = (mshtml.IHTMLElement)inputs.item("SubmitBut", 0);
+            //element.click();
 
-            //var hu = int.Parse(null);
-            //var pwd = LionTech.Utility.Validator.GetEncodeString("4626331A67F524CAADBA7B5148E8D0ED");
-            //var awwwaa = Security.Decrypt("54B9D35E98447D825106AD6C1793B289");
-            string aaa = @"LionTech.EDIService.";
-            var result = new Regex("^LionTech.EDIService.[a-zA-Z]+$").IsMatch(aaa);
 
-            string size = SystemInformation.PrimaryMonitorSize.ToString();
-            string width = SystemInformation.PrimaryMonitorSize.Width.ToString();
-            string height = SystemInformation.PrimaryMonitorSize.Height.ToString();
 
-            Bitmap myImage = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            Graphics g = Graphics.FromImage(myImage);
-            g.CopyFromScreen(new Point(0, 0), new Point(0, 0), new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height));
-            IntPtr dc1 = g.GetHdc();
-            g.ReleaseHdc(dc1);
-            myImage.Save(@"c:\screen.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+            //mshtml.IHTMLWindow2 win = (mshtml.IHTMLWindow2)doc2.parentWindow;
+            //win.execScript("changeRegImg()", "javascript");//使用JS
 
-            //Exec run = new Exec();
-            //run.ExecTestFun();
+            #region - API參數檢查 -
+            //string json = "{\"UserID\":\"121212\",\"UserNm\":\"5555555\"}";
+            //var apiJsonDic = new JavaScriptSerializer().Deserialize<Dictionary<string, object>>(json);
+            //var fieldInfos = typeof(UserInfo).GetProperties().ToList();
+            //var aa = fieldInfos.All(n => apiJsonDic.ContainsKey(n.Name));
+            #endregion
 
             #region - 抓取檔案目錄 -
-            DirectoryInfo fileInfo = new DirectoryInfo(@"E:/");
-            var dir = Directory.GetDirectories(@"E:/");
-            var dirAttr = fileInfo.GetDirectories()[0].Attributes;
-            var dir2 = fileInfo.GetDirectories()
-                             .Where(n => n.Attributes.Equals(FileAttributes.Directory))
-                             .Select(dirInfo => new
-                             {
-                                 dirInfo.Name,
-                                 dirInfo.FullName
-                             }).ToList();
+            //DirectoryInfo fileInfo = new DirectoryInfo(@"E:/");
+            //var dir = Directory.GetDirectories(@"E:/");
+            //var dirAttr = fileInfo.GetDirectories()[0].Attributes;
+            //var dir2 = fileInfo.GetDirectories()
+            //                 .Where(n => n.Attributes.Equals(FileAttributes.Directory))
+            //                 .Select(dirInfo => new
+            //                 {
+            //                     dirInfo.Name,
+            //                     dirInfo.FullName
+            //                 }).ToList();
             #endregion
 
             #region - B2C推播function測試 -
@@ -819,13 +857,13 @@ namespace TEST
             #endregion
 
             #region - 委派 -
-            //MyDelegate myDelegate = MethodA;
-            //MyDelegate myDelegate2;
-            //int a = myDelegate(2, 1); //MethodA已事先宣告
+            MyDelegate myDelegate = MethodA; //MethodA已事先宣告
+            MyDelegate myDelegate2;
+            int a = myDelegate(2, 1);
 
-            ////或用匿名方法
-            //myDelegate2 = (x, y) => x * y; //(x,y)表示傳入的兩個參數,=>後面是回傳值
-            //var ass = myDelegate2(2, 5);
+            //或用匿名方法
+            myDelegate2 = (x, y) => x * y; //(x,y)表示傳入的兩個參數,=>後面是回傳值
+            var ass = myDelegate2(2, 5);
             #endregion
 
             #region - 各種換行 -
