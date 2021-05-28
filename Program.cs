@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.DirectoryServices;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -21,15 +22,8 @@ using System.Web;
 using System.Web.Caching;
 using System.Web.Script.Serialization;
 using ConsoleApplication1;
-using LionTech.APIService.Message;
-using LionTech.APIService.SMS;
-using LionTech.Utility;
-using LionTech.Utility.Sockets;
-using System.Web.Mvc;
 using System.Windows.Forms;
-using LionTech.APIService.AppService.LionTravel;
 using mshtml;
-using Newtonsoft.Json;
 using SampleCode.Models;
 using SampleCode.Security;
 using SHDocVw;
@@ -39,6 +33,108 @@ namespace TEST
     internal class Program
     {
         #region - Definition -
+        public class OrderData
+        {
+            /// <summary>
+            /// 比較條件商品代碼
+            /// </summary>
+            public string ProductCondition { get; set; }
+            /// <summary>
+            /// 比較條件商品月份
+            /// </summary>
+            public string MonthCondition { get; set; }
+            /// <summary>
+            /// 比較條件價格
+            /// </summary>
+            public string PriceCondition { get; set; }
+            /// <summary>
+            /// 比較條件大於小於
+            /// </summary>
+            public string BigSmall { get; set; }
+            /// <summary>
+            /// 期貨訊息_期貨名稱
+            /// </summary>
+            public string FutureNM { get; set; }
+            /// <summary>
+            /// 期貨訊息_期貨代號
+            /// </summary>
+            public string FutureNO { get; set; }
+            /// <summary>
+            /// 期貨商品月份
+            /// </summary>
+            public string Month { get; set; }
+            /// <summary>
+            /// 下單內容_該單有效起始日(就是條件的開始日)
+            /// </summary>
+            public string OrderSDate { get; set; }
+            /// <summary>
+            /// 下單內容_該單有效結束日(就是條件的結束日)
+            /// </summary>
+            public string OrderEDate { get; set; }
+            /// <summary>
+            /// 下單內容_基準價
+            /// </summary>
+            public string Price { get; set; }
+            /// <summary>
+            /// 下單內容_買賣別
+            /// </summary>
+            public string TradeType { get; set; }
+            /// <summary>
+            /// 下單內容_口數
+            /// </summary>
+            public string LotAmount { get; set; }
+            /// <summary>
+            /// 下單內容_條件單委託選項
+            /// -自指定下單日起，持續買進至預定張數/金額 value="F"
+            /// -有成交記錄次日起不在委託 value="P"
+            /// -不下單，請用Online及eMail通知我 value="M"
+            /// </summary>
+            public string OrderStopSign { get; set; }
+            /// <summary>
+            /// 下單內容_密碼
+            /// </summary>
+            public string Pwd { get; set; }
+            /// <summary>
+            /// 下單內容_下單日
+            /// </summary>
+            public string OrderDT { get; set; }
+            /// <summary>
+            /// 下單內容_功能名稱
+            /// </summary>
+            public string FunNM { get; set; }
+            /// <summary>
+            /// 委託條件 (" ":ROD "1":FOK "2":IOC)
+            /// </summary>
+            public string OrderCond { get; set; }
+            /// <summary>
+            /// 觸發條件 拉回檔數
+            /// </summary>
+            public string MonitorTriggerTick { get; set; }
+            /// <summary>
+            /// 委託條件 追加檔數
+            /// </summary>
+            public string MonitorCommissionTick { get; set; }
+            /// <summary>
+            /// 委託條件 價格類型
+            /// </summary>
+            public string PriceMark { get; set; }
+            /// <summary>
+            /// 委託條件 子單價格類型
+            /// </summary>
+            public string PriceMarkC { get; set; }
+            /// <summary>
+            /// 委託方式-自動處理:" " 新倉:"0" 平倉:"1"
+            /// </summary>
+            public string CommissionType { get; set; }
+        }
+
+        static Dictionary<string, string> OrderInfoDic = new Dictionary<string, string>
+        {
+            { "ProductCondition", "AA" },
+            { "FunNM", "BB" },
+            { "Price", "1089.36" }
+        };
+
         //Category的用途
         [Description("The image associated with the control"), Category("Appearance")]
         public string MyImage
@@ -111,17 +207,22 @@ namespace TEST
 
         private class ObjectB : ObjectA
         {
-            public ObjectB() : this("One")
+            public ObjectB() : this("One")//this會呼叫自己的私有建構子
             {
                 Console.WriteLine("B無參數建構子");
             }
 
-            private ObjectB(string aa) : base("gg")
+            private ObjectB(string aa) : base("gg")//base呼叫父類的建構子
             {
                 Console.WriteLine("B 建構子" + aa);
             }
         }
         #endregion
+
+        public static Dictionary<string,string> _WaytoDictionary = new Dictionary<string, string>
+        {
+            {" ", "ROD" }
+        };
 
         public class UserInfo
         {
@@ -136,7 +237,8 @@ namespace TEST
         #endregion
 
         #region - Property -
-        public delegate int MyDelegate(int a, int b);
+        public delegate int MyDelegate(int a, int b);//委派
+        public static UserData User = new UserData();
 
         //存取子測試
         public static string testStr
@@ -167,8 +269,9 @@ namespace TEST
 
         public static void jsRun(InternetExplorer browser, string str)
         {
-            if (browser.Document is HTMLDocument doc)
+            if (browser.Document is HTMLDocument)
             {
+                var doc = (HTMLDocument)browser.Document;
                 HTMLScriptElement script = (HTMLScriptElement)doc.createElement("script");
                 script.text = str;
 
@@ -177,50 +280,169 @@ namespace TEST
             }
         }
 
-        private static void Main(string[] args)
+        private static string StrMask(string value, int startLen = 4, int endLen = 4, char specialChar = '*')
         {
-            Exec run = new Exec();
-            run.ExecTestFun();
-
-            //Process.Start("https://www.google.com.tw/");//用預設瀏覽器開
-
-            InternetExplorer ie = new InternetExplorer(); //IE物件
-            ie.DocumentComplete += ie_DocumentComplete;
-            ie.Navigate("https://www.weibo.com/chinataiwan?refer_flag=0000015010_&from=feed&loc=nickname");
-            ie.Visible = true;
-            System.Threading.Thread.Sleep(1000);
-            HTMLDocument doc = ie.Document;
-            HTMLBody body = (HTMLBody)doc.body;
-
-            jsRun(ie, "alert(889966);");
-
-
-            var likeList = doc.getElementsByTagName("div");
-            foreach (HtmlElement link in likeList)
+            try
             {
-                if (link.GetAttribute("className") == "WB_from S_txt2")
+                if (value.Length >= 4)
                 {
-                    //do something
+                    int lenth = endLen - startLen + 1;
+                    string replaceStr = value.Substring(startLen, lenth);
+                    string specialStr = string.Empty;
+
+                    for (int i = 0; i < replaceStr.Length; i++)
+                    {
+                        specialStr += specialChar;
+                    }
+
+                    value = value.Replace(replaceStr, specialStr);
+                }
+                else
+                {
+                    return value;
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return value;
+        }
+
+        public List<DateTime> GetTargetDate(DateTime startDate, DateTime endDate, int weekInterval, DayOfWeek dayOfWeek)
+        {
+            List<DateTime> result = new List<DateTime>();
+
+            CultureInfo info = CultureInfo.CurrentCulture;
+
+            DateTime firstDate = DateTime.MinValue;
+            DateTime firstDateInMonth = DateTime.MinValue;
+            DateTime targetDate = DateTime.MinValue;
+
+            int startMonth = 0;
+            int endMonth = 0;
+
+            int firstWeekNumber = 0;
+            int targetWeekNumber = 0;
+
+            for (int x = startDate.Year; x <= endDate.Year; x++)
+            {
+                startMonth = (x > startDate.Year) ? 1 : startDate.Month;
+                endMonth = (x < endDate.Year) ? 12 : endDate.Month;
+
+                for (int i = startMonth; i <= endMonth; i++)
+                {
+                    firstDateInMonth = new DateTime(x, i, 1);
+                    firstDate = new DateTime(firstDateInMonth.Year, 1, 1);
+
+                    firstWeekNumber = info.Calendar.GetWeekOfYear(firstDateInMonth, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+                    targetWeekNumber = firstWeekNumber + (weekInterval - 1);
+
+                    targetDate = firstDate.AddDays((targetWeekNumber - 1) * 7);
+
+                    while (targetDate.DayOfWeek != dayOfWeek)
+                    {
+                        targetDate = targetDate.AddDays(-1);
+                    }
+                    if (targetDate >= startDate)
+                    {
+                        result.Add(targetDate);
+                    }
                 }
             }
 
-            doc.getElementById("q").innerText = "AAAA";
-            doc.getElementById("btnK").click();
-            Console.Read();
+            return result;
+        }
+
+        private static void Main(string[] args)
+        {
+            Type jjw = User.GetType();
+            var k = StrMask("m01690169",1, "m01690169".Length-2);
+            WebClient client = new WebClient();
+            var jj = client.DownloadString("http://localhost:51892/GetStockFromRamDisk.ashx");
+            var jyui = "56reywge6g5e 56re86gr tg e596 tey5 626568egewyfese";
+            var dedede = "3454646".Remove(0,1);
+            bool jfrewdi = double.TryParse("01", out double e);
+            //Exec run = new Exec();
+            //run.ExecTestFun();
+            object de = "3905540A";
+            //string jj = decimal.Parse(de.ToString()).ToString();
+            string month = "202006W4";
+            var jijiq = month.Substring(month.Length - 1, 1);
+            var jjjj = month.Split('W');
+            OrderData orderInfo = new OrderData();
+            //var result = new EntityOrderContactInfo.OrderContactInfo();
+            var keyList = OrderInfoDic.Keys.ToList();
+            var fieldName = ((TypeInfo)(orderInfo.GetType())).GetProperties().Where(m => keyList.Contains(m.Name)).ToList();
+            keyList.ForEach(key => orderInfo.GetType().GetProperty(key)?.SetValue(orderInfo, OrderInfoDic[key]));
+            foreach (var item in keyList)
+            {
+                orderInfo.GetType().GetProperty(item)?.SetValue(orderInfo, OrderInfoDic[item]);
+            }
+
+            //var modelPropertyList = GetType().GetProperties().Where(m => fieldName.Contains(m.Name)).ToList();
+
+            //foreach (var item in modelPropertyList)
+            //{
+            //    result.GetType().GetField(item.Name).SetValue(result, new DBVarChar(item.GetValue(this, null).ToString()));
+            //}
+
+
+            //model.WorkFlowAction = new WorkFlowAction();
+            //NameValueCollection para = Request.QueryString;
+            //var wfParaDic = para.AllKeys.Where(k => k != null).ToDictionary(k => k, v => para[v]);
+
+            //foreach (var item in wfParaDic)
+            //{
+            //    var propertyInfo = model.WorkFlowAction.GetType().GetProperty(item.Key);
+            //    if (propertyInfo != null)
+            //    {
+            //        var type = propertyInfo.PropertyType;
+            //        if (type == typeof(bool))
+            //        {
+            //            propertyInfo.SetValue(model.WorkFlowAction, Convert.ToBoolean(item.Value));
+            //            ;
+            //        }
+            //        else if (type == typeof(WorkFlowAction.EnumExecActionType))
+            //        {
+            //            propertyInfo.SetValue(model.WorkFlowAction, (WorkFlowAction.EnumExecActionType)Enum.Parse(typeof(WorkFlowAction.EnumExecActionType), item.Value));
+            //        }
+            //        else
+            //        {
+            //            propertyInfo.SetValue(model.WorkFlowAction, item.Value);
+            //        }
+            //    }
+            //}
 
 
 
-            //...要點選裡面的某個按鈕
-            //mshtml.IHTMLDocument2 doc2 = (mshtml.IHTMLDocument2)ie.Document;
-            //mshtml.IHTMLElementCollection inputs;
-            //inputs = (mshtml.IHTMLElementCollection)doc2.all.tags("INPUT");
-            //mshtml.IHTMLElement element = (mshtml.IHTMLElement)inputs.item("SubmitBut", 0);
-            //element.click();
 
 
 
-            //mshtml.IHTMLWindow2 win = (mshtml.IHTMLWindow2)doc2.parentWindow;
-            //win.execScript("changeRegImg()", "javascript");//使用JS
+
+
+
+
+
+
+
+
+
+
+
+            var ji = HttpUtility.UrlEncode("廖先駿", System.Text.Encoding.GetEncoding("BIG5"));
+            var dd = HttpUtility.UrlEncode(ji);
+            var hu = HttpUtility.UrlDecode(ji, Encoding.GetEncoding("Big5"));
+            
+            string asas = "01,001,9822296,�����@;03,097,9849902;02,000,9839150,�����@;05,000,9839150,�����@;06,001,0001173;01,001,1284117;06,001,0000840;01,001,9815216;01,001,9816299;02,A01,9825122;02,A01,9821621;01,001,9899915;03,097,1565459";
+            
+
+            #region - 繼承關係測試 -
+            ObjectB ob = new ObjectB();
+            classA ca = new classA();
+            #endregion
 
             #region - API參數檢查 -
             //string json = "{\"UserID\":\"121212\",\"UserNm\":\"5555555\"}";
@@ -245,7 +467,7 @@ namespace TEST
             #region - B2C推播function測試 -
 
             #region - 推播 -
-            B2CAppMessage message = new B2CAppMessage();
+            //B2CAppMessage message = new B2CAppMessage();
             // 資料類型
             /*
               OrderPayment 訂單付款
@@ -570,7 +792,13 @@ namespace TEST
             //    new Dictionary<string, object>()
             //    {
             //        //{ "Body", "測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內" },
-            //        { "Body", "測測測測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推試試試試試試"},
+            //        { "Body", "測測測測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播內容測試推播
+            //
+            //
+            //
+            //
+            //
+            // 測試推試試試試試試"},
             //        { "Title", "123測試推播標題" },
             //        { "DataType", "OrderPayment" },
             //        //{ "PushDateTime", Common.GetDateTimeString(DateTime.Now) },
@@ -758,17 +986,17 @@ namespace TEST
             //var url = "http://127.0.0.1:6666/Authorization/ERPUserRoleResetEvent?ClientUserID=00D223&ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
             #endregion
 
-            var apiParaJsonStr = new JavaScriptSerializer().Serialize(
-                new Dictionary<string, object>()
-                {
-                    { "UserID", "00D223" },
-                    { "SysID", "PUBAP" },
-                    { "ErpWFNo", "99999999" },
-                    { "Memo", "" },
-                    { "RoleIDList", new List<string>{ "ITPMAIN" } },
-                });
+            //var apiParaJsonStr = new JavaScriptSerializer().Serialize(
+            //    new Dictionary<string, object>()
+            //    {
+            //        { "UserID", "00D223" },
+            //        { "SysID", "PUBAP" },
+            //        { "ErpWFNo", "99999999" },
+            //        { "Memo", "" },
+            //        { "RoleIDList", new List<string>{ "ITPMAIN" } },
+            //    });
 
-            var url = @"http://uinapi.liontravel.com.tw/Authorization/ERPUserRoleEditEvent?ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
+            //var url = @"http://uinapi.liontravel.com.tw/Authorization/ERPUserRoleEditEvent?ClientSysID=ERPAP&APIPara=" + apiParaJsonStr;
             #endregion
 
             #region - POST -
@@ -779,18 +1007,18 @@ namespace TEST
             #endregion
 
             #region - GET -
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
 
-            request.Method = WebRequestMethods.Http.Get;
-            request.KeepAlive = false;
-            request.ContentType = "application/json";
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
-            if (response != null)
-            {
-                Stream responseStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
-                string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
-            }
+            //request.Method = WebRequestMethods.Http.Get;
+            //request.KeepAlive = false;
+            //request.ContentType = "application/json";
+            //HttpWebResponse response = request.GetResponse() as HttpWebResponse; //取得API回傳結果
+            //if (response != null)
+            //{
+            //    Stream responseStream = response.GetResponseStream();
+            //    StreamReader reader = new StreamReader(responseStream, Encoding.UTF8);
+            //    string srcString = reader.ReadToEnd(); //如果是網頁 可以抓到網頁原始碼
+            //}
             #endregion
 
             #endregion
@@ -837,7 +1065,7 @@ namespace TEST
             //}
             #endregion
 
-            #region - 物件欄位或屬性操作 -
+            #region - 物件欄位或屬性操作 GetType propertyInfos GetProperties-
             //UserInfo userInfo = new UserInfo
             //{
             //    UserID = "00D223",
@@ -976,17 +1204,17 @@ namespace TEST
             //List<string> resutList = GetValue(anonymousListB);//匿名List取值
 
             ////class取值
-            //var setting = new
-            //{
-            //    people = 1,
-            //    date = DateTime.Now
-            //};
+            var setting = new
+            {
+                people = 1,
+                date = DateTime.Now
+            };
 
-            //var propertyInfo = setting.GetType().GetProperty("people");
-            //if (propertyInfo != null)
-            //{
-            //    var peopleVal = (int)(propertyInfo.GetValue(setting, null));
-            //}
+            var propertyInfo = setting.GetType().GetProperty("people");
+            if (propertyInfo != null)
+            {
+                var peopleVal = (int)(propertyInfo.GetValue(setting, null));
+            }
             #endregion
 
             #region - 分頁 -
@@ -1071,7 +1299,12 @@ namespace TEST
             //}
             #endregion
 
-            #region - 字串 或 int相關 -
+            #region - 字串 或 int 或各種格式 相關 -
+            //var money = $"{int.Parse("1234567"):N0}";//增加千分位逗號
+            //var jj = "1234567890".PadLeft("1234567890".Length, '*');
+            //var hh = Enumerable.Range(1, 8);
+            //var ji = CultureInfo.CurrentCulture.DateTimeFormat.GetDayName(DateTime.Now.DayOfWeek);
+            //var dt = DateTime.Now.DayOfWeek.ToString();
 
             #region - 字串移除指定位置某段文字 -
             //string testStr = "aaaa|bbbb|ccc";
@@ -1307,6 +1540,7 @@ namespace TEST
             //}
             #endregion
 
+            #region - SqlDataAdapter -
             //public DataSet GetERPLogList(ERPLogPara para)
             //{
             //    DataSet dataSet = new DataSet();
@@ -1355,7 +1589,6 @@ namespace TEST
             //    return dataSet;
             //}
 
-            #region - SqlDataAdapter -
             //swDataAdapter.Start();//計算運行時間
             //using (SqlConnection con = new SqlConnection(connStr))
             //{
@@ -1432,7 +1665,6 @@ namespace TEST
             //                                   {
             //                                       tabl_type = dr.Field<string>("tabl_type")
             //                                   }).ToList();
-
             //List<ZD223_istbm00> istbm00List = tableAdapter.ToList<ZD223_istbm00>().ToList();
             #endregion
 
@@ -2176,46 +2408,46 @@ namespace TEST
         /// <param name="queryBusStr"></param>
         /// queryBusStr = bus/645
         /// <returns></returns>
-        public string GetBusInfo(string queryBusStr)
-        {
-            string busMinResult = string.Empty;
-            string apiResult = string.Empty;
+        //public string GetBusInfo(string queryBusStr)
+        //{
+        //    string busMinResult = string.Empty;
+        //    string apiResult = string.Empty;
 
-            try
-            {
-                string APPID = "429abe57aad34cc1bc5ba3cc261ada0f";
-                string APPKey = "0qs0e0LeozfeFVNR0qRXtqP75Es";
-                string[] busInfo = queryBusStr.Split('/');
-                List<BusStation> data = new List<BusStation>();
+        //    try
+        //    {
+        //        //string APPID = "429abe57aad34cc1bc5ba3cc261ada0f";
+        //        //string APPKey = "0qs0e0LeozfeFVNR0qRXtqP75Es";
+        //        //string[] busInfo = queryBusStr.Split('/');
+        //        //List<BusStation> data = new List<BusStation>();
 
-                string xdate = DateTime.Now.ToUniversalTime().ToString("r");
-                string signDate = "x-date: " + xdate;
-                string signature = HMAC_SHA1.Signature(signDate, APPKey);
-                string sAuth = "hmac username=\"" + APPID + "\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\"" + signature + "\"";
-                var apiUrl = $"http://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/Taipei/{busInfo[1]}?$filter=StopName%2FZh_tw%20eq%20'%E5%85%A7%E6%B9%96%E8%A1%8C%E6%94%BF%E5%A4%A7%E6%A8%93'&$top=30&$format=JSON";
+        //        //string xdate = DateTime.Now.ToUniversalTime().ToString("r");
+        //        //string signDate = "x-date: " + xdate;
+        //        //string signature = HMAC_SHA1.Signature(signDate, APPKey);
+        //        //string sAuth = "hmac username=\"" + APPID + "\", algorithm=\"hmac-sha1\", headers=\"x-date\", signature=\"" + signature + "\"";
+        //        //var apiUrl = $"http://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/Taipei/{busInfo[1]}?$filter=StopName%2FZh_tw%20eq%20'%E5%85%A7%E6%B9%96%E8%A1%8C%E6%94%BF%E5%A4%A7%E6%A8%93'&$top=30&$format=JSON";
 
-                using (HttpClient Client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip }))
-                {
-                    Client.DefaultRequestHeaders.Add("Authorization", sAuth);
-                    Client.DefaultRequestHeaders.Add("x-date", xdate);
-                    apiResult = Client.GetStringAsync(apiUrl).Result;
-                }
+        //        //using (HttpClient Client = new HttpClient(new HttpClientHandler { AutomaticDecompression = DecompressionMethods.GZip }))
+        //        //{
+        //        //    Client.DefaultRequestHeaders.Add("Authorization", sAuth);
+        //        //    Client.DefaultRequestHeaders.Add("x-date", xdate);
+        //        //    apiResult = Client.GetStringAsync(apiUrl).Result;
+        //        //}
 
-                if (string.IsNullOrWhiteSpace(apiResult) == false)
-                {
-                    data = JsonConvert.DeserializeObject<List<BusStation>>(apiResult);
-                    var ooo = data.Where(b => b.Direction == "0").ToList();
+        //        //if (string.IsNullOrWhiteSpace(apiResult) == false)
+        //        //{
+        //        //    data = JsonConvert.DeserializeObject<List<BusStation>>(apiResult);
+        //        //    var ooo = data.Where(b => b.Direction == "0").ToList();
 
-                    busMinResult = ooo.Select((val, idx) => new { Index = idx, Value = val }).Aggregate(busMinResult, (current, row) => current + string.Join(Environment.NewLine, $"第{row.Index + 1}班公車{busInfo[1]}到內湖行政大樓還有{row.Value.EstimateTime / 60}分鐘"));
-                }
+        //        //    busMinResult = ooo.Select((val, idx) => new { Index = idx, Value = val }).Aggregate(busMinResult, (current, row) => current + string.Join(Environment.NewLine, $"第{row.Index + 1}班公車{busInfo[1]}到內湖行政大樓還有{row.Value.EstimateTime / 60}分鐘"));
+        //        //}
 
-                return busMinResult;
-            }
-            catch (Exception)
-            {
-                throw new InvalidOperationException("取得公車訊息失敗");
-            }
-        }
+        //        //return busMinResult;
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new InvalidOperationException("取得公車訊息失敗");
+        //    }
+        //}
         #endregion
 
         #region - 取得員工編號新舊碼清單 TypeCode用法 -
